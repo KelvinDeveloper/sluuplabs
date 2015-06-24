@@ -1,0 +1,16 @@
+# Habilitar o PHP 5.3
+AddType application/x-httpd-php53 .php
+
+<IfModule mod_rewrite.c>
+AddType application/x-httpd-php .phtml 
+#AddType application/x-httpd-php .css
+
+RewriteEngine on
+RewriteRule ^([a-z]+)\.html$ $1.php [L]
+
+RewriteRule !\.(mp3|ogg|gif|jpg|JPG|jpeg|JPEG|png|css|js|ico|xml|xls|xlsx|psd|txt|pdf|docx|doc|odt|woff|eot|svg|ttf)$ Application/Controller.php
+
+RewriteRule ^/?images/(.*)/(.*)$ /Public/Images/$1/$2 [L,R=301]
+
+#RewriteRule ^/?user/(.*)/(.*)/(.*)$ /Application/Domains/$1/User/$2/$3 [L,R=301]
+#RewriteRule ^/?post/(.*)/(.*)/(.*)/(.*)$ /Application/Domains/$1/User/$2/Post/$3/$4/$5 [L,R=301]
