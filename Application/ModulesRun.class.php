@@ -4,7 +4,7 @@
 */
 class Modules{
 
-	function Run( $Module ){
+	function Run( $Module, $View ){
 		
 		global	$ManagerModule, $Function, $Services, $Modules, $Url, $Title,
 				/* Menu */
@@ -48,13 +48,13 @@ class Modules{
 			exit;
 		}
 		/* Verifica se existe a view */
-		if(	file_exists( ROOT . '/Modules/' . $Module . '/View.phtml' ) ){
+		if(	file_exists( ROOT . '/Modules/' . $Module . '/' . $View . '.phtml' ) ){
 			/* Carregar HEAD HTML */
 			if( !$Function->isAjax() ){
 				include ROOT . '/Public/Theme/Default/Head.phtml';
 			}
 			/* Include da view */
-			include ROOT . '/Modules/' . $Module . '/View.phtml';
+			include ROOT . '/Modules/' . $Module . '/' . $View . '.phtml';
 			/* Carregar FOOTER HTML */
 			if( !$Function->isAjax() ){
 				include ROOT . '/Public/Theme/Default/Footer.phtml';

@@ -1,5 +1,6 @@
 <?php
-$Router['sluuplabs.dev'] = array(
-	''				=>	'Modules/Desktop',
-	'Login'			=>	'Modules/Login'
+$Router['sluup'] = array(
+	''				=>	'Modules/Desktop/View',
+	'Desktop'		=>	'Modules/Desktop/View',
+	'Login'			=>	'Modules/Login/View'
 );

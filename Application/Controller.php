@@ -25,26 +25,19 @@ if( $Url[1] == 'Cron' ){ // Arquivos de Cron
 }
 else if( $Url[1] == 'Websocket' && $Url[2] == 'Run' ){ // Inicia conexão com websocket
 	include ROOT . '/Application/Websocket.php';
+} 
+else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
+	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
 } else {
 	// Verifica o arquivo Urls (Responsável pelo roteamento do link)
 	include ROOT . '/Application/System/Urls.php';
-	$ThisRouter = ( isset( $Router[ implode( '.', $Domain ) ][ $Url[1] ] ) ? $Router[ implode( '.', $Domain ) ][ $Url[1] ] : false );
-
+	$ThisRouter = ( isset( $Router[ $Domain[0] ][ $Url[1] ] ) ? $Router[ $Domain[0] ][ $Url[1] ] : false );
 	if( !empty( $ThisRouter ) ){
-
 		$ThisRouter = explode( '/', $ThisRouter );
-
 		if( $ThisRouter[0] == 'Modules' ){
-			$Modules->Run( $ThisRouter[1] );
+			$Conf['ModelInfo'] = parse_ini_file( ROOT . '/Modules/' . $ThisRouter[1] . '/Info.ini' );
+			$Modules->Run( $ThisRouter[1], $ThisRouter[2] );
 		}
 	}
 }
-// else if( $Client->Type == 2 && ( !in_array( $thisModule['Name'], $ClientModules ) || ( empty( $thisModule['Name'] ) || empty( $Url[1] ) ) ) ){ /* Carrega página (Caso for Website) */
-// 	$Services->Run('Pages');
-// 	$Pages->View();
-// } else { /* Carrega o modulo de acordo com a URL (Caso for Sistema) */
-// 	$Modules->Run( ( empty( $Url[1] ) ? $Conf['Router']['Initial'] : $Url[1] ) );
-// }
 ob_end_flush();
-
-echo 'Ends';

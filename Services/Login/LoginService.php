@@ -50,6 +50,7 @@ class Login{
 		if( $_SESSION['user'] ){
 
 			$Return['status'] = true;
+			$Return['user']   = $_SESSION['user'];
 			return json_encode( $Return );
 
 		} else {

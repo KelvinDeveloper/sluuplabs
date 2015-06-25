@@ -6,4 +6,7 @@
 @import "modules/buttons.css";
 @import "modules/form.css";
 @import "modules/navigation.css";
+@import "modules/jquery.mCustomScrollbar.css";
 @import "modules/grid.css";
+@import "modules/font-awesome/css/font-awesome.css";
+@import "modules/font-awesome/css/font-awesome-ie7.css";

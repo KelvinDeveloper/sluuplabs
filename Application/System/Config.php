@@ -42,4 +42,4 @@ $Conf["Date"] = array(
 );
 
 /* Include Domain Config */
-require ROOT . '/Application/Domains/' . implode( '.', $Domain ) . '/Config.php';
+require ROOT . '/Application/Domains/' . $Domain[0] . '/Config.php';

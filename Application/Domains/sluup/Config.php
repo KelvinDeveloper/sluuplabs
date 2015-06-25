@@ -9,4 +9,8 @@ $Conf['Database'] = array(
 	'Decode'    => 'utf8'
 );
 
-define( 'BD', 'mefw' );
+define( 'BD', 'labs' );
+define( 'Title', 'Sluup Labs' );
+
+$Conf['Login']['Table'] = 'users';
+$Conf['InitUrl'] = '/Desktop';
