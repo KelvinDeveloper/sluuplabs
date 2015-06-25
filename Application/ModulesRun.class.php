@@ -39,53 +39,32 @@ class Modules{
 				$Lang,
 				$Translate;
 		/* Grava as configurações do módulo na variavel $thisModule */
-		$thisModule = $ManagerModule[ $Module ];
-
-		/* Define variaveis */
-		$thisModule['Protect'] = isset( $thisModule['Protect'] ) ? $thisModule['Protect'] : false;
 
 		/* Se for protegido, manda para Login */
-		if( $thisModule['Protect'] === true ){
-			$Services->Run('Login');
-			if( !$Login->Verific() ){
-				$_SESSION['HeaderURL'] = implode( '/', $Url );
-				header( 'Location: /Login' );
-				exit;
-			}
+		$Services->Run('Login');
+		if( !$Login->Verific() && $Url[1] != 'Login' ){
+			$_SESSION['HeaderURL'] = implode( '/', $Url );
+			header( 'Location: /Login' );
+			exit;
 		}
-		
-		/* Redireciona para outro módulo */
-		if( !empty( $thisModule['Redirect'] ) ){
-			$thisModule = $ManagerModule[ $thisModule['Redirect'] ];
-		}
-
-		/* Prepara variavel para usar na tag <title> */
-		$Title = ( !empty( $thisModule['Title'] ) ? $thisModule['Title'] : Title );
-		/* Verifica se o arquivo controller existe */
-		if(	file_exists( ROOT . '/Modules/' . $thisModule['Controller'] . 'Controller.php' ) &&
-			in_array( $thisModule['Name'], $ClientModules )
-		 ){	
+		/* Verifica se existe a view */
+		if(	file_exists( ROOT . '/Modules/' . $Module . '/View.phtml' ) ){
 			/* Carregar HEAD HTML */
-			if( ( $thisModule['Type'] === 'HTML' && empty( $Url[2] ) ||
-				$thisModule['SubModule'][ $Url[2] ]['Type'] === 'HTML' || 
-				$thisModule['SubModule']['Type'] === 'HTML' ||
-				is_numeric( $Url[2] ) ) && 
-				!$Function->isAjax() ){
-				include ROOT . '/Public/Theme/' . $Conf['Global']['Theme'] . '/Head.phtml';
+			if( !$Function->isAjax() ){
+				include ROOT . '/Public/Theme/Default/Head.phtml';
 			}
-			/* Include do controller */
-			include ROOT . '/Modules/' . $thisModule['Controller'] . 'Controller.php';
+			/* Include da view */
+			include ROOT . '/Modules/' . $Module . '/View.phtml';
 			/* Carregar FOOTER HTML */
-			if( ( $thisModule['Type'] === 'HTML' && empty( $Url[2] ) ||
-				$thisModule['SubModule'][ $Url[2] ]['Type'] === 'HTML' ||
-				$thisModule['SubModule']['Type'] === 'HTML' ||
-				is_numeric( $Url[2] ) ) && 
-				!$Function->isAjax() ){
-				include ROOT . '/Public/Theme/' . $Conf['Global']['Theme'] . '/Footer.phtml';
+			if( !$Function->isAjax() ){
+				include ROOT . '/Public/Theme/Default/Footer.phtml';
 			}
+
+			return true;
 
 		} else {
 			echo '<h1>Error loading module</h1>';
+			return false;
 		}
 	}
 }

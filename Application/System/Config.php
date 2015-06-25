@@ -31,7 +31,6 @@ if( in_array( $Url[1], $PrefixLang ) ){
 }
 
 $Domain = explode( '.', str_replace( 'www.', '', $_SERVER['SERVER_NAME'] ) );
-define( 'ROOT', $_SERVER['DOCUMENT_ROOT'] );
 
 $Conf['Queue']	= array(
 	'Process'	=> 10,
@@ -43,4 +42,4 @@ $Conf["Date"] = array(
 );
 
 /* Include Domain Config */
-require ROOT . '/Application/Domains/' . $Domain[0] . '/Conf.php';
+require ROOT . '/Application/Domains/' . implode( '.', $Domain ) . '/Config.php';
