@@ -1,8 +1,31 @@
 <link href="/Modules/Login/Public/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="/Modules/Login/Public/js/scripts.js"></script>
 
-<div class="boxLogin">
-	<input type="text" name="email">
-	<input type="password" name="pass">
-	<button type="submit">Vai</button>
+<div id="boxLogin">
+
+	<div class="lateral">
+		
+	</div>
+
+	<div class="content">
+
+		<img src="/Modules/Login/Public/img/lab-icon.png" class="logo"> <br><br>
+
+		<span class="input input--minoru">
+			<input type="text" name="email" class="input__field input__field--yoko" id="fldEmail">
+			<label class="input__label input__label--yoko" for="fldEmail">
+				<span class="input__label-content input__label-content--yoko"><?php echo __('Seu email') ?></span>
+			</label>
+		</span> <br><br>
+
+		<span class="input input--minoru">
+			<input type="password" name="pass" class="input__field input__field--yoko" id="fldPass">
+			<label class="input__label input__label--yoko" for="fldPass">
+				<span class="input__label-content input__label-content--yoko"><?php echo __('Sua senha') ?></span>
+			</label>
+		</span> <br><br>
+
+		<button type="submit" class="button btn btn-primary"><i class="material-icons fL">lock_outline</i> <?php echo __('Entrar') ?></button>
+	</div>
+
 </div>

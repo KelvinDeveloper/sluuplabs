@@ -1,4 +1,37 @@
-.boxLogin{
-	background-color: #3f51b5;
-	color: #fff;
+#boxLogin .lateral{
+	background-color: #4285f4;
+	box-shadow: 0 0 15px #999;
+	float: left;
+}
+
+#boxLogin .content{
+	position: absolute;
+}
+
+#boxLogin .input__label--yoko::after{
+	background: #4285f4 none repeat scroll 0 0;
+}
+#boxLogin .input__label--yoko::before{
+	background: #4285f4 none repeat scroll 0 0;
+}
+#boxLogin .input__label--yoko{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: #4285f4;
+	font-size: 16px;
+}
+#boxLogin .input__field.input__field--yoko{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+#boxLogin .logo{
+	width: 150px;
+	margin-left: 100px;
+}
+#boxLogin button[type="submit"]{
+	margin-left: 270px;
+}
+#boxLogin button[type="submit"] i{
+    margin-left: -4px;
+    margin-right: 4px;
 }
