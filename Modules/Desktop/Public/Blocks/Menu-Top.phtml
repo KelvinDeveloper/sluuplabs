@@ -1,0 +1,15 @@
+<nav class="top">
+	<div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Folder'] . '/' . $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div>
+
+	<ul>
+		<li>
+			<i class="material-icons">account_circle</i>
+			<span class="fR"><?php echo _('Minha conta') ?></span>
+		</li>
+
+		<li id="lagout">
+			<i class="material-icons fL">power_settings_new</i>
+			<span class="fR"><?php echo _('Sair') ?></span>
+		</li>
+	</ul>
+</nav>

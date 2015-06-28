@@ -10,3 +10,8 @@
 	background: #4285f4;
 	color: #FFF;
 }
+
+.btn.btn-white{
+	background: #fff;
+	color: #333;
+}

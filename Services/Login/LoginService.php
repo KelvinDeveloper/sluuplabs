@@ -18,24 +18,24 @@ class Login{
 		$Return['status'] = false;
 
 		if( empty( $Email ) ){
-			$Return['message'] = 'ERROR_EMAIL';
+			$Return['message'] = _('Email ou senha inválido');
 			return json_encode( $Return );
 		}
 
 		else if( empty( $Password ) ){
-			$Return['message'] = 'ERROR_PASSWORD';
+			$Return['message'] = _('Email ou senha inválido');
 			return json_encode( $Return );
 		}
 
 		$User = $Database->Search( $Conf['Login']['Table'], false, " Email = '" . $Email . "'" );
 
 		if( !$User ){
-			$Return['message'] = 'ERROR_USER_EMAIL';
+			$Return['message'] = _('Email ou senha inválido');
 			return json_encode( $Return );
 		}
 
 		if( $User->Password != md5( $Password ) ){
-			$Return['message'] = 'ERROR_USER_PASSWORD';
+			$Return['message'] = _('Email ou senha inválido');
 			return json_encode( $Return );
 		}
 
@@ -43,19 +43,26 @@ class Login{
 			'id_user' 		=> $User->id_user,
 			'Nome'			=> $User->Nome,
 			'Email'			=> $User->Email,
+			'Image'			=> $User->ImagePerfil,
+			'Folder'		=> '/Application/Users/' . $User->id_user
 		);
 
-		setcookie( 'Email', $User->Email, $Conf['Cookie']['Expire'] );
+	    foreach ( $_SESSION['user']  as $k => $v ) {
+	    	setcookie( 'HistoryUsers[' . $User->id_user . '][' . $k . ']', $v, $Conf['Cookie']['Expire'], '/' );
+	    }
+
+	    setcookie( 'ActiveUserLogin', $User->id_user, $Conf['Cookie']['Expire'], '/' );
 
 		if( $_SESSION['user'] ){
 
 			$Return['status'] = true;
 			$Return['user']   = $_SESSION['user'];
+			$Return['greeting'] = _('Olá');
 			return json_encode( $Return );
 
 		} else {
 
-			$Return['status'] = 'ERROR_LOGAR';
+			$Return['status'] = _('Erro interno, tente novamente mais tarde');
 			return json_encode( $Return );
 		}
 
