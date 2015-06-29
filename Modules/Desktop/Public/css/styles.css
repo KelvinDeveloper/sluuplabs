@@ -1,0 +1,165 @@
+#desktop nav.top .account-user{
+	width: 58px;
+	height: 58px;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+	display: none;
+	cursor: pointer;
+}
+#desktop nav.top ul{
+	display: none;
+	position: absolute;
+	list-style: none;
+	background-color: #fff;
+	margin-top: 20px;
+	padding: 0;
+	right: 0;
+	width: 250px;
+	border-radius: 2px;
+}
+#desktop nav.top ul:before{
+    border-bottom: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-top: -18px;
+    position: absolute;
+    right: 34px;
+    top: 9px;
+    vertical-align: middle;
+    width: 0;
+}
+#desktop nav.top ul li{
+	margin: 0;
+	padding: 10px;
+	height: 20px;
+	cursor: pointer;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+#desktop nav.top ul li:hover{
+	background-color: #f5f5f5;
+}
+#desktop #start{
+	position: absolute;
+	background-color: #fff;
+	border-radius: 50%;
+	padding: 10px;
+	border: none;
+	bottom: 15px;
+	left: 15px;
+	cursor: pointer;
+}
+#desktop #openStart{
+	background-color: #fff;
+	width: 350px;
+	border-radius: 2px;
+	display: none;
+	position: absolute;
+}
+#desktop #openStart:before{
+    border-top: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-top: -18px;
+    position: absolute;
+    left: 29px;
+    bottom: -10px;
+    vertical-align: middle;
+    width: 0;
+}
+#desktop #openStart .itens{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 55%;
+	float: left;
+	overflow: hidden;
+}
+#desktop #openStart .itens li{
+	padding: 5px;
+	width: 100%;
+	display: inline-block;
+	cursor: pointer;
+	border-radius: 2px;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+#desktop #openStart .itens li.user{
+	height: 62px;
+	line-height: 62px;
+	font-size: 22px;
+	font-weight: 200;
+}
+#desktop #openStart .itens li:hover{
+	background-color: #f5f5f5;
+}
+#desktop #openStart .favorite{
+	float: left;
+	width: 55%;
+	margin: 0;
+}
+#desktop #openStart .listModules{
+	float: right;
+	width: 44%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#desktop #openStart .listModules li{
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 2px;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+#desktop #openStart .listModules li:hover{
+	background-color: #f5f5f5;
+}
+#desktop #openStart .itens li.user:hover{
+	background-color: #fff;
+}
+#desktop #openStart .itens li .account-user{
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	float: left;
+	margin-right: 10px;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#desktop .window{
+	width: 50px;
+	height: 50px;
+	border-radius: 10%;
+	background-color: #fff;
+	margin: auto;
+	margin-top: -999px;
+	opacity: 0;
+
+	-webkit-transition: all .6s;
+	transition: all .6s;
+}
+#desktop .window .header{
+	display: none;
+	height: 22px;
+}
+#desktop .window .header i.close{	
+	color: #c0392b;
+	cursor: pointer;
+	font-size: 32px;
+	float: right;
+}

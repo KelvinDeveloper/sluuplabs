@@ -36,7 +36,8 @@ $Conf['Queue']	= array(
 	'Process'	=> 10,
 	'Try'		=> 3,
 );
-$Conf['Cookie'] = time()+60*60*24*30;
+
+$Conf['Cookie']['Expire'] = time()+60*60*24*30;
 $Conf["Date"] = array(
 	'TimeZone' => 'America/Sao_Paulo'
 );

@@ -4,9 +4,16 @@
 	font-size: 16px;
 	line-height: 32px;
 	outline: none;
+	text-decoration: none;
+	display: inline-block;
 }
 
 .btn.btn-primary{
 	background: #4285f4;
 	color: #FFF;
+}
+
+.btn.btn-white{
+	background: #fff;
+	color: #333;
 }

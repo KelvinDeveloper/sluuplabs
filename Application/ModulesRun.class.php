@@ -37,7 +37,9 @@ class Modules{
 				$Robo,
 				/* Lang */
 				$Lang,
-				$Translate;
+				$Translate,
+				/* autoSystem */
+				$autoSystem;
 		/* Grava as configurações do módulo na variavel $thisModule */
 
 		/* Se for protegido, manda para Login */

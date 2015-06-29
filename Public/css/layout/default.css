@@ -1,9 +1,47 @@
 body{
 	margin: 0;
+	background-color: #4285f4;
 }
 .fL{
 	float: left;
 }
 .fR{
 	float: right;
+}
+button:focus, button{ 
+    outline: none; 
+}
+#infoStatus{
+	width: 500px;
+	height: 30px;
+	line-height: 30px;
+	left: 470px;
+	top: -70px;
+	position: fixed;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	padding: 10px;
+	cursor: pointer;
+	opacity: .9;
+	z-index: 999;
+	font-family: 'Open Sans', sans-serif;
+
+	-webkit-transition: all 2s;
+	transition: all .2s;
+}
+#infoStatus:hover{
+	opacity: 1;
+}
+#infoStatus.true{
+	background-color: #8DC538;
+}
+#infoStatus.false{
+	background-color: #c0392b;
+}
+#infoStatus i{
+	float: left;
+}
+img.account-user{
+	border-radius: 50%;
 }
