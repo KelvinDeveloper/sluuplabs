@@ -59,7 +59,7 @@ $(document).ready(function(){
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
 	    	$.each( Return, function( Module, Info ){
-	    		$('#openStart .listModules').append('<li data-name="' + Module + '">' + Module + '</li>');
+	    		$('#openStart .listModules').append('<li data-name="' + Module + '">' + Module.replace( '_', ' ' ) + '</li>');
 	    	});
 	   	}
 	});
