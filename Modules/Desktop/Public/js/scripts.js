@@ -2,6 +2,10 @@ var cssOpenStart = function(){
 	$('#desktop #openStart').css({
 		height: $(window).height() / 2
 	});
+	$('body').css({
+		maxWidth: $(window).width(),
+		maxHeight: $(window).height()
+	});
 }
 
 $(document).ready(function(){
@@ -75,12 +79,25 @@ $(document).ready(function(){
 			$('#Modules #Module' + Module ).show();
 		} else {
 			$('#Modules')
-				.append('<div class="window" id="Module'  + Module + '">' +
+				.append('<div draggable="true" class="window" id="Module'  + Module + '">' +
 							'<div class="header">' +
 								'<i class="material-icons close">clear</i>' +
 							'</div>'  +
 							'<div class="content"></div>' +
 						'</div>');
+
+				 	
+				 	
+					    $( ".window" ).draggable({
+					    containment: 'body',
+						    drag: function(event) {
+						        var top = $(this).position().top;
+						        var left = $(this).position().left;
+
+						        ICZoom.panImage(top, left);
+						    }
+					    });
+
 
 			$.ajax({ 
 			    type: "POST",

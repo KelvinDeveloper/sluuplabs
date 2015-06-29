@@ -1,3 +1,6 @@
+body {
+	overflow: hidden;
+}
 #desktop nav.top .account-user{
 	width: 58px;
 	height: 58px;
@@ -59,24 +62,43 @@
 }
 #desktop #openStart{
 	background-color: #fff;
-	width: 350px;
+	width: 400px;
 	border-radius: 2px;
+
 	display: none;
 	position: absolute;
+	left: 80px;
+	box-shadow: 2px -2px 2px 0px rgba(0, 0, 0, 0.3);
+
 }
 #desktop #openStart:before{
-    border-top: 10px solid #fff;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+/*    border-top: 50px solid #fff;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+
     content: "";
     display: inline-block;
     height: 0;
     margin-top: -18px;
     position: absolute;
-    left: 29px;
-    bottom: -10px;
+    left: -20px;
+    bottom: -20px;
     vertical-align: middle;
-    width: 0;
+    width: 0;*/
+    background-image: url('/Modules/Desktop/Public/img/triangle.png');
+    width: 53px;
+    height: 56px;
+    content: "";
+    bottom: -20px;
+    position: absolute;
+    display: inline-block;
+    left: -20px;
+    
+
+
+    -ms-transform: rotate(225deg); /* IE 9 */
+    -webkit-transform: rotate(225deg); /* Chrome, Safari, Opera */
+    transform: rotate(225deg);
 }
 #desktop #openStart .itens{
 	padding: 0;
@@ -149,9 +171,10 @@
 	margin: auto;
 	margin-top: -999px;
 	opacity: 0;
+	padding: 15px;
+	
 
-	-webkit-transition: all .6s;
-	transition: all .6s;
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
 }
 #desktop .window .header{
 	display: none;
