@@ -36,3 +36,35 @@ $(document).on('click', '#infoStatus', function(){
     $('#infoStatus').fadeOut( 100 );
 });
 /* Ends Alert */
+
+/* Grid */
+$(document).on('click', '.openThisWindow', function(){
+    
+    var This = $(this);
+
+    $.ajax({ 
+        type: "POST",
+        dataType: "html",
+        cache: false,
+        url: $(this).attr('href'),
+        success: function(Page){
+            var Url = This.attr('href').split('/');
+            var DeleteI = false;
+            
+            if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
+                DeleteI = true;
+            } else {
+                This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
+            }
+
+            This.parents('.window').find('.content').html( Page );
+
+            if( DeleteI === true ){
+                This.parents('.window').find('.header i.openThisWindow').remove();
+            }
+        }
+    });
+    
+    return false;
+});
+/* Ends Grid */

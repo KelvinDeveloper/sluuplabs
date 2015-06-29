@@ -66,4 +66,8 @@ $ManagerService = array(
 		'Dir'		=> 'Translate/Translate',
 	),
 
+	'autoSystem'	=> array(
+		'Dir'		=> 'autoSystem/autoSystem'
+	),
+
 ); // Ends

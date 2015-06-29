@@ -31,7 +31,9 @@ class Services {
 				$Robo,
 				/* Lang */
 				$Lang,
-				$Translate
+				$Translate,
+				/* autoSystem */
+				$autoSystem
 				;
 
 		$thisService = $ManagerService[ $Service ];

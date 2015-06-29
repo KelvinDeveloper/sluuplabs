@@ -4,6 +4,8 @@
 	font-size: 16px;
 	line-height: 32px;
 	outline: none;
+	text-decoration: none;
+	display: inline-block;
 }
 
 .btn.btn-primary{

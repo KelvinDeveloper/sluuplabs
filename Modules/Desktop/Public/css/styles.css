@@ -155,6 +155,7 @@
 }
 #desktop .window .header{
 	display: none;
+	height: 22px;
 }
 #desktop .window .header i.close{	
 	color: #c0392b;
