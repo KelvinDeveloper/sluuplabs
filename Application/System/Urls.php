@@ -4,4 +4,5 @@ $Router['sluup'] = array(
 	'Desktop'		=>	'Modules/Desktop/View',
 	'Login'			=>	'Modules/Login/View',
 	'Demo'			=>	'Modules/Demo/View',
+	'Stupid_Ball'	=>	'Modules/Stupid_Ball/View'
 );
