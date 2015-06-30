@@ -1,7 +1,7 @@
 <?php
 class autoSystem{
 	function create( $Array ){
-		global $Database, $PDO, $Conf, $Domain, $Url;
+		global $Database, $PDO, $Conf, $Domain, $Url, $Router;
 
 		// Autobd
 		$this->autobd( $Array );
@@ -13,6 +13,22 @@ class autoSystem{
 		// Form
 		else if( is_numeric( $Url[2] ) || $Url[2] == 'Novo' ){
 			return $this->form( $Array );
+		}
+		else if(  $Url[2] == 'Salvar' ){
+			
+			$Module = $Router[ $Domain[0] ][ $Url[1] ];
+			$Module = explode( '/', $Module );
+
+			@include ROOT . '/Modules/' . $Module[1] . '/Valid.php';
+			@onStart( $Array );
+			
+			if( $this->post( $Array ) ){
+				if( @onEnd( $Array ) ){
+					return true;
+				} else {
+					return false;
+				}
+			}
 		}
 	}
 
@@ -243,6 +259,48 @@ class autoSystem{
 		$HTML .= '<button class="' . ( $new ? 'insert' : 'update' ) . '">' . _('Salvar') . '</button>';
 
 		return $HTML;
+	}
+
+	function post( $Array ){
+		global $Database, $PDO, $Conf, $Domain, $Url;
+
+		$new = true;
+		$Query = '';
+
+		if( is_numeric( $Url[3] ) ){
+			$new = false;
+		}
+
+		if( $new ){
+			// Insert
+			$Query .= " INSERT INTO " . BD . "." . $Array['bd'] . "( ";
+
+			foreach( $Array['Fields'] as $Field => $Data ){
+				
+				$Query .= $Field . ",";
+			}
+
+			$Query = substr( $Query, 0, -1 ) . ' VALUES ( ';
+
+			foreach( $Array['Fields'] as $Field => $Data ){
+				
+				$Query .= "'" . $_POST[ $Field ] . "',";
+			}
+
+			$Query = substr( $Query, 0, -1 ) . ' ) ';
+		} else {
+			// Update
+			$Query .= " UPDATE " . BD . "." . $Array['bd'] . " SET ";
+			
+			foreach( $Array['Fields'] as $Field => $Data ){
+				
+				$Query .= $Field . " = '" . $_POST[ $Field ] . "', ";
+			}
+
+			$Query = substr( $Query, 0, -2 ) . ' WHERE ' . $Array['auto_increment'] . " = " . $Url['3'];
+		}
+
+		$PDO->exec( $Query );
 	}
 }
 
