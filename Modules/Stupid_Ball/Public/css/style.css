@@ -1,0 +1,29 @@
+
+table tr td {
+		border-radius: 50%;
+		border: 1px solid #1976d2;
+		background-color: #1e88e5;
+		margin: 1px;
+		font-size: 0;
+		width: 18px;
+		height: 18px;
+		display: inline-block;
+		cursor: pointer;
+	}
+	table tr td:hover{
+		background: #efefef;
+	}
+	.ae {
+		background-color: #2196f3;
+	}
+	.placar {
+		font-size: 25px;
+		font-family: Tahoma;
+		color: #4285F4;
+	}
+
+	.txtLabels {
+		font-size: 25px;
+		font-family: Tahoma;
+		color: #4285F4;
+	}

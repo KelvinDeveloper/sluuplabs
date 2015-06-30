@@ -88,16 +88,7 @@ $(document).ready(function(){
 
 				 	
 				 	
-					    $( ".window" ).draggable({
-					    containment: 'body',
-						    drag: function(event) {
-						        var top = $(this).position().top;
-						        var left = $(this).position().left;
-
-						        ICZoom.panImage(top, left);
-						    }
-					    });
-
+					   
 
 			$.ajax({ 
 			    type: "POST",
