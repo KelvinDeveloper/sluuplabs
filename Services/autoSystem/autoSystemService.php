@@ -15,19 +15,28 @@ class autoSystem{
 			return $this->form( $Array );
 		}
 		else if(  $Url[2] == 'Salvar' ){
-			
+
 			$Module = $Router[ $Domain[0] ][ $Url[1] ];
 			$Module = explode( '/', $Module );
 
 			@include ROOT . '/Modules/' . $Module[1] . '/Valid.php';
-			@onStart( $Array );
+			
+			if( function_exists('onStart') ){
+				onStart( $Array );
+			}
 			
 			if( $this->post( $Array ) ){
-				if( @onEnd( $Array ) ){
-					return true;
+				if( function_exists('onEnd') ){
+					if( onEnd( $Array ) ){
+						return true;
+					} else {
+						return false;
+					}
 				} else {
-					return false;
+					return true;
 				}
+			} else {
+				return false;
 			}
 		}
 	}
@@ -141,11 +150,11 @@ class autoSystem{
 
 		$new = false;
 
-		$HTML = '';
-
 		if( is_numeric( $Url[2] ) ){
 			$new = true;
 		}
+
+		$HTML = '<form action="/' . $Url[1] . '/Salvar/' . ( $new ? 'New' : $Url[2] ) . '" method="post" target="defaultForm">';
 
 		foreach ( $Array['Fields'] as $Field => $Data ){
 
@@ -256,7 +265,9 @@ class autoSystem{
 			$HTML .= '<br>';
 		}
 
-		$HTML .= '<button class="' . ( $new ? 'insert' : 'update' ) . '">' . _('Salvar') . '</button>';
+		$HTML .= '<button type="submit">' . _('Salvar') . '</button>';
+
+		$HTML .= '</form>';
 
 		return $HTML;
 	}
@@ -280,7 +291,7 @@ class autoSystem{
 				$Query .= $Field . ",";
 			}
 
-			$Query = substr( $Query, 0, -1 ) . ' VALUES ( ';
+			$Query = substr( $Query, 0, -1 ) . ' ) VALUES ( ';
 
 			foreach( $Array['Fields'] as $Field => $Data ){
 				
@@ -299,7 +310,7 @@ class autoSystem{
 
 			$Query = substr( $Query, 0, -2 ) . ' WHERE ' . $Array['auto_increment'] . " = " . $Url['3'];
 		}
-
+		
 		$PDO->exec( $Query );
 	}
 }

@@ -67,4 +67,23 @@ $(document).on('click', '.openThisWindow', function(){
     
     return false;
 });
+
+$(document).on('click', '.tableDefault tr', function(){
+    $(this).parents('.content').load( $(this).attr('href') );
+});
 /* Ends Grid */
+/* Post Form */
+$(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
+    $.ajax({ 
+        type: "POST",
+        dataType: "html",
+        cache: false,
+        data: $(this).parents('form').serialize(),
+        url: $(this).parents('form').attr('action'),
+        success: function(Page){
+
+        }
+    });
+    return false;
+});
+/* Ends Post Form */
