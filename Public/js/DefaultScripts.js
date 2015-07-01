@@ -48,8 +48,8 @@ $(document).on('click', '.openThisWindow', function(){
         cache: false,
         url: $(this).attr('href'),
         success: function(Page){
-            var Url = This.attr('href').split('/');
-            var DeleteI = false;
+            var Url = This.attr('href').split('/'),
+                DeleteI = false;
             
             if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
                 DeleteI = true;
@@ -68,15 +68,40 @@ $(document).on('click', '.openThisWindow', function(){
     return false;
 });
 
-$(document).on('click', '.tableDefault tr', function(){
-    $(this).parents('.content').load( $(this).attr('href') );
+$(document).on('click', '.tableDefault tbody tr', function(){
+
+    var This = $(this);
+
+    $.ajax({ 
+        type: "POST",
+        dataType: "html",
+        cache: false,
+        url: This.attr('href'),
+        success: function(Page){
+            var Url = This.attr('href').split('/'),
+                DeleteI = false;
+            
+            if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
+                DeleteI = true;
+            } else {
+                This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
+            }
+
+            This.parents('.window').find('.content').html( Page );
+
+            if( DeleteI === true ){
+                This.parents('.window').find('.header i.openThisWindow').remove();
+            }
+        }
+    });
+    // $(this).parents('.content').load( $(this).attr('href') );
 });
 /* Ends Grid */
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
     $.ajax({ 
         type: "POST",
-        dataType: "html",
+        dataType: "json",
         cache: false,
         data: $(this).parents('form').serialize(),
         url: $(this).parents('form').attr('action'),

@@ -20,23 +20,17 @@ class autoSystem{
 			$Module = explode( '/', $Module );
 
 			@include ROOT . '/Modules/' . $Module[1] . '/Valid.php';
+
+			$Json = '';
 			
 			if( function_exists('onStart') ){
 				onStart( $Array );
 			}
-			
-			if( $this->post( $Array ) ){
-				if( function_exists('onEnd') ){
-					if( onEnd( $Array ) ){
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return true;
-				}
-			} else {
-				return false;
+
+			echo json_encode( $this->post( $Array ) );
+
+			if( function_exists('onEnd') ){
+				onEnd( $Array );
 			}
 		}
 	}
@@ -149,9 +143,13 @@ class autoSystem{
 		global $Database, $PDO, $Conf, $Domain, $Url;
 
 		$new = false;
+		$Value = '';
 
-		if( is_numeric( $Url[2] ) ){
+		if( !is_numeric( $Url[2] ) ){
 			$new = true;
+		} else {
+			// Traz os dados do modulo
+			$Value = $Database->Search( $Array['bd'], false, $Array['auto_increment'] . "='" . $Url[2] . "'" );
 		}
 
 		$HTML = '<form action="/' . $Url[1] . '/Salvar/' . ( $new ? 'New' : $Url[2] ) . '" method="post" target="defaultForm">';
@@ -161,75 +159,75 @@ class autoSystem{
 			switch ( $Data['Type'] ) {
 				
 				case 'text':
-					$HTML .= '<input type="text" Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Data['Value'] . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					break;
 
 			case 'hidden':
-					$HTML .= '<input type="hidden" Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Data['Value'] . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					break;
 
 			case 'rand':
-					$HTML .= '<input type="hidden" Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . ( empty( $Data['Value'] ) ? rand() : $Data['Value'] ) . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . ( empty( $Value->$Field ) ? rand() : $Value->$Field ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					break;
 
 				case 'password':
 					if( $Data['Security'] === true && $Url[2] != 'Criar-Usuario' ){
-						$HTML .= '<input type="password" Length="' . $Data['Length'] . '" placeholder="Senha Atual" name="Atual' . $Field . '" class="' . $Data['Class'] .'" id="fldAtual' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '"><br>';
+						$HTML .= '<input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="Senha Atual" name="Atual' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fldAtual' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"><br>';
 					}
-					$HTML .= '<input type="password" Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Data['Value'] . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					if( $Data['Security'] === true ){
-						$HTML .= '<br><input type="password" Length="' . $Data['Length'] . '" placeholder="Repetir ' . ( $Url[2] != 'Criar-Usuario' ? 'Nova Senha' : 'Senha' ) . '" name="ReNova' . $Field . '" class="' . $Data['Class'] .'" id="fldReNova' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '"><br>';
+						$HTML .= '<br><input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="Repetir ' . ( $Url[2] != 'Criar-Usuario' ? 'Nova Senha' : 'Senha' ) . '" name="ReNova' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fldReNova' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"><br>';
 					}
 					break;
 
 				case 'textarea':
-					$HTML .= '<textarea Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">' . $Data['Value'] . '</textarea>';
+					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
 					break;
 
 				case 'HTML':
-					$HTML .= '<textarea Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="content" class="' . $Data['Class'] .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">' . $Data['Value'] . '</textarea>';
+					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="content" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
 					$EditorHTML = true;
 					break;
 
 				case 'select':
-					$HTML .= '<select name="' . $Field . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 
 					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
 					
-						$HTML .= '<option value="' . $Value . '" ' . ( $Value == $Data['Value'] ? 'selected="selected"' : false ) . '>' . $Content . '</option>';
+						$HTML .= '<option value="' . $Value . '" ' . ( $Value == $Value->$Field ? 'selected="selected"' : false ) . '>' . $Content . '</option>';
 
 					}
 
 					if( $thisForm['Fields'][ $Field ]['Stats'] === 'BR' ){
 						$HTML .= '
 								<option value="">Selecionar Estado</option>
-								<option value="ac" ' . ( 'ac' == $Data['Value'] ? 'selected="selected"' : false ) . '>Acre</option> 
-								<option value="al" ' . ( 'al' == $Data['Value'] ? 'selected="selected"' : false ) . '>Alagoas</option> 
-								<option value="am" ' . ( 'am' == $Data['Value'] ? 'selected="selected"' : false ) . '>Amazonas</option> 
-								<option value="ap" ' . ( 'ap' == $Data['Value'] ? 'selected="selected"' : false ) . '>Amapá</option> 
-								<option value="ba" ' . ( 'ba' == $Data['Value'] ? 'selected="selected"' : false ) . '>Bahia</option> 
-								<option value="ce" ' . ( 'ce' == $Data['Value'] ? 'selected="selected"' : false ) . '>Ceará</option> 
-								<option value="df" ' . ( 'df' == $Data['Value'] ? 'selected="selected"' : false ) . '>Distrito Federal</option> 
-								<option value="es" ' . ( 'es' == $Data['Value'] ? 'selected="selected"' : false ) . '>Espírito Santo</option> 
-								<option value="go" ' . ( 'go' == $Data['Value'] ? 'selected="selected"' : false ) . '>Goiás</option> 
-								<option value="ma" ' . ( 'ma' == $Data['Value'] ? 'selected="selected"' : false ) . '>Maranhão</option> 
-								<option value="mt" ' . ( 'mt' == $Data['Value'] ? 'selected="selected"' : false ) . '>Mato Grosso</option> 
-								<option value="ms" ' . ( 'ms' == $Data['Value'] ? 'selected="selected"' : false ) . '>Mato Grosso do Sul</option> 
-								<option value="mg" ' . ( 'mg' == $Data['Value'] ? 'selected="selected"' : false ) . '>Minas Gerais</option> 
-								<option value="pa" ' . ( 'pa' == $Data['Value'] ? 'selected="selected"' : false ) . '>Pará</option> 
-								<option value="pb" ' . ( 'pb' == $Data['Value'] ? 'selected="selected"' : false ) . '>Paraíba</option> 
-								<option value="pr" ' . ( 'pr' == $Data['Value'] ? 'selected="selected"' : false ) . '>Paraná</option> 
-								<option value="pe" ' . ( 'pe' == $Data['Value'] ? 'selected="selected"' : false ) . '>Pernambuco</option> 
-								<option value="pi" ' . ( 'pi' == $Data['Value'] ? 'selected="selected"' : false ) . '>Piauí</option> 
-								<option value="rj" ' . ( 'rj' == $Data['Value'] ? 'selected="selected"' : false ) . '>Rio de Janeiro</option> 
-								<option value="rn" ' . ( 'rn' == $Data['Value'] ? 'selected="selected"' : false ) . '>Rio Grande do Norte</option> 
-								<option value="ro" ' . ( 'ro' == $Data['Value'] ? 'selected="selected"' : false ) . '>Rondônia</option> 
-								<option value="rs" ' . ( 'rs' == $Data['Value'] ? 'selected="selected"' : false ) . '>Rio Grande do Sul</option> 
-								<option value="rr" ' . ( 'rr' == $Data['Value'] ? 'selected="selected"' : false ) . '>Roraima</option> 
-								<option value="sc" ' . ( 'sc' == $Data['Value'] ? 'selected="selected"' : false ) . '>Santa Catarina</option> 
-								<option value="se" ' . ( 'se' == $Data['Value'] ? 'selected="selected"' : false ) . '>Sergipe</option> 
-								<option value="sp" ' . ( 'sp' == $Data['Value'] ? 'selected="selected"' : false ) . '>São Paulo</option> 
-								<option value="to" ' . ( 'to' == $Data['Value'] ? 'selected="selected"' : false ) . '>Tocantins</option>';
+								<option value="ac" ' . ( 'ac' == $Value->$Field ? 'selected="selected"' : false ) . '>Acre</option> 
+								<option value="al" ' . ( 'al' == $Value->$Field ? 'selected="selected"' : false ) . '>Alagoas</option> 
+								<option value="am" ' . ( 'am' == $Value->$Field ? 'selected="selected"' : false ) . '>Amazonas</option> 
+								<option value="ap" ' . ( 'ap' == $Value->$Field ? 'selected="selected"' : false ) . '>Amapá</option> 
+								<option value="ba" ' . ( 'ba' == $Value->$Field ? 'selected="selected"' : false ) . '>Bahia</option> 
+								<option value="ce" ' . ( 'ce' == $Value->$Field ? 'selected="selected"' : false ) . '>Ceará</option> 
+								<option value="df" ' . ( 'df' == $Value->$Field ? 'selected="selected"' : false ) . '>Distrito Federal</option> 
+								<option value="es" ' . ( 'es' == $Value->$Field ? 'selected="selected"' : false ) . '>Espírito Santo</option> 
+								<option value="go" ' . ( 'go' == $Value->$Field ? 'selected="selected"' : false ) . '>Goiás</option> 
+								<option value="ma" ' . ( 'ma' == $Value->$Field ? 'selected="selected"' : false ) . '>Maranhão</option> 
+								<option value="mt" ' . ( 'mt' == $Value->$Field ? 'selected="selected"' : false ) . '>Mato Grosso</option> 
+								<option value="ms" ' . ( 'ms' == $Value->$Field ? 'selected="selected"' : false ) . '>Mato Grosso do Sul</option> 
+								<option value="mg" ' . ( 'mg' == $Value->$Field ? 'selected="selected"' : false ) . '>Minas Gerais</option> 
+								<option value="pa" ' . ( 'pa' == $Value->$Field ? 'selected="selected"' : false ) . '>Pará</option> 
+								<option value="pb" ' . ( 'pb' == $Value->$Field ? 'selected="selected"' : false ) . '>Paraíba</option> 
+								<option value="pr" ' . ( 'pr' == $Value->$Field ? 'selected="selected"' : false ) . '>Paraná</option> 
+								<option value="pe" ' . ( 'pe' == $Value->$Field ? 'selected="selected"' : false ) . '>Pernambuco</option> 
+								<option value="pi" ' . ( 'pi' == $Value->$Field ? 'selected="selected"' : false ) . '>Piauí</option> 
+								<option value="rj" ' . ( 'rj' == $Value->$Field ? 'selected="selected"' : false ) . '>Rio de Janeiro</option> 
+								<option value="rn" ' . ( 'rn' == $Value->$Field ? 'selected="selected"' : false ) . '>Rio Grande do Norte</option> 
+								<option value="ro" ' . ( 'ro' == $Value->$Field ? 'selected="selected"' : false ) . '>Rondônia</option> 
+								<option value="rs" ' . ( 'rs' == $Value->$Field ? 'selected="selected"' : false ) . '>Rio Grande do Sul</option> 
+								<option value="rr" ' . ( 'rr' == $Value->$Field ? 'selected="selected"' : false ) . '>Roraima</option> 
+								<option value="sc" ' . ( 'sc' == $Value->$Field ? 'selected="selected"' : false ) . '>Santa Catarina</option> 
+								<option value="se" ' . ( 'se' == $Value->$Field ? 'selected="selected"' : false ) . '>Sergipe</option> 
+								<option value="sp" ' . ( 'sp' == $Value->$Field ? 'selected="selected"' : false ) . '>São Paulo</option> 
+								<option value="to" ' . ( 'to' == $Value->$Field ? 'selected="selected"' : false ) . '>Tocantins</option>';
 					}
 
 					$HTML .= '</select>';
@@ -240,7 +238,7 @@ class autoSystem{
 
 					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
 					
-						$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Data['Value'] ? 'checked="checked"' : false ) . ' tabindex="' . $Data['Tabindex'] . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
+						$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . ' tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
 						$HTML .= '<br>';
 
 					}
@@ -250,7 +248,7 @@ class autoSystem{
 
 					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
 					
-						$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Data['Value'] ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . $Data['Tabindex'] . '">' . $Content . '</label>';
+						$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Content . '</label>';
 						$HTML .= '<br>';
 
 					}
@@ -258,14 +256,14 @@ class autoSystem{
 
 				default:
 				
-					$HTML .= '<input type="text" Length="' . $Data['Length'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Data['Value'] . '" class="' . $Data['Class'] .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . $Data['Tabindex'] . '">';
+					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					break;
 			}
 
 			$HTML .= '<br>';
 		}
 
-		$HTML .= '<button type="submit">' . _('Salvar') . '</button>';
+		$HTML .= '<button type="submit" class="' . ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false ) . '">' . ( isset( $Array['Form']['Buttons']['Save']['Name'] ) ? $Array['Form']['Buttons']['Save']['Name'] : _('Salvar') ) . '</button>';
 
 		$HTML .= '</form>';
 
@@ -274,6 +272,8 @@ class autoSystem{
 
 	function post( $Array ){
 		global $Database, $PDO, $Conf, $Domain, $Url;
+
+		$Return = '';
 
 		$new = true;
 		$Query = '';
@@ -310,8 +310,12 @@ class autoSystem{
 
 			$Query = substr( $Query, 0, -2 ) . ' WHERE ' . $Array['auto_increment'] . " = " . $Url['3'];
 		}
-		
+
 		$PDO->exec( $Query );
+		$Return['new']      = $new;
+		$Return['message']  = $PDO->errorInfo();
+
+		return $Return;
 	}
 }
 

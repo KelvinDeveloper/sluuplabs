@@ -39,7 +39,15 @@ $demo = $autoSystem->create(
 				),
 			),
 		'Grid'	=> array(
-			'Width'	=> '100%'
-		)
+			'Width'		=> '100%',
+		),
+		'Form'	=> array(
+			'Buttons'	=> array(
+				'Save'	=> array(
+					'Name'	=> _('Salvar demo'),
+					'Class'	=>	'btn btn-primary'
+				),
+			),
+		),
 	)
 );
