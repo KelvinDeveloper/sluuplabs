@@ -103,3 +103,23 @@ ul#listHistoryUsers li:hover{
     position: absolute;
     display: none;
 }
+
+#boxLogin .btn{
+	padding: 5px 10px;
+	border: none;
+	font-size: 16px;
+	line-height: 32px;
+	outline: none;
+	text-decoration: none;
+	display: inline-block;
+}
+
+#boxLogin .btn.btn-primary{
+	background: #4285f4;
+	color: #FFF;
+}
+
+#boxLogin .btn.btn-white{
+	background: #fff;
+	color: #333;
+}

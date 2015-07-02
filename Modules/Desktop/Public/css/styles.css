@@ -178,11 +178,18 @@ body {
 }
 #desktop .window .header{
 	display: none;
-	height: 22px;
+	height: 35px;
+	margin: -15px;
+	margin-bottom: -16px;
+	padding: 10px;
 }
 #desktop .window .header i.close{	
 	color: #c0392b;
 	cursor: pointer;
 	font-size: 32px;
 	float: right;
+}
+
+#desktop .window .header i.openThisWindow {
+	cursor: pointer;
 }

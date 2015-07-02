@@ -111,4 +111,25 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
     });
     return false;
 });
+
+
+
+// per css-tricks restarting css animations
+// http://css-tricks.com/restart-css-animation/
+$(document).on('click', '.checkbox label', function() {
+  
+  // find the first span which is our circle/bubble
+  var el = $(this).children('span:first-child');
+  
+  // clone it
+  var newone = el.clone(true);  
+  
+  // add the cloned version before our original
+  el.before(newone);  
+  
+  // remove the original so that it is ready to run on next click
+  $(this).find("." + el.attr("class") + ":last").remove();
+}); 
+
+$(document).on('ready')
 /* Ends Post Form */
