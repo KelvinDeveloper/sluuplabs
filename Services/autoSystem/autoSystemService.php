@@ -263,7 +263,7 @@ class autoSystem{
 			$HTML .= '<br>';
 		}
 
-		$HTML .= '<button type="submit" class="' . ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false ) . '">' . ( isset( $Array['Form']['Buttons']['Save']['Name'] ) ? $Array['Form']['Buttons']['Save']['Name'] : _('Salvar') ) . '</button>';
+		$HTML .= '<br><button type="submit" class="' . ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false ) . '">' . ( isset( $Array['Form']['Buttons']['Save']['Name'] ) ? $Array['Form']['Buttons']['Save']['Name'] : _('Salvar') ) . '</button>';
 
 		$HTML .= '</form>';
 
