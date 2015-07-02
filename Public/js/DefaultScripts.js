@@ -68,34 +68,44 @@ $(document).on('click', '.openThisWindow', function(){
     return false;
 });
 
-$(document).on('click', '.tableDefault tbody tr', function(){
+$(document).on('mousedown', '.tableDefault tbody tr', function(e){
+
 
     var This = $(this);
 
-    $.ajax({ 
-        type: "POST",
-        dataType: "html",
-        cache: false,
-        url: This.attr('href'),
-        success: function(Page){
-            var Url = This.attr('href').split('/'),
-                DeleteI = false;
-            
-            if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
-                DeleteI = true;
-            } else {
-                This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
-            }
+    if( e.button == 1 ){
+        $.ajax({ 
+            type: "POST",
+            dataType: "html",
+            cache: false,
+            url: This.attr('href'),
+            success: function(Page){
+                var Url = This.attr('href').split('/'),
+                    DeleteI = false;
+                
+                if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
+                    DeleteI = true;
+                } else {
+                    This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
+                }
 
-            This.parents('.window').find('.content').html( Page );
+                This.parents('.window').find('.content').html( Page );
 
-            if( DeleteI === true ){
-                This.parents('.window').find('.header i.openThisWindow').remove();
+                if( DeleteI === true ){
+                    This.parents('.window').find('.header i.openThisWindow').remove();
+                }
             }
-        }
-    });
-    // $(this).parents('.content').load( $(this).attr('href') );
+        });
+    } else {
+        console.log('direito');
+        e.preventDefault();
+        return false;
+    }   
 });
+
+$(document).on("contextmenu", '.tableDefault tbody tr', function(e){
+   return false;
+}); 
 /* Ends Grid */
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
