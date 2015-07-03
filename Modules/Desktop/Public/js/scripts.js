@@ -81,6 +81,15 @@ $(document).ready(function(){
 			$('nav.top').css({
 				right: -999		
 			});
+
+			$('#desktop .account-user').css({
+				right: 160
+			});
+
+			$('#desktop .infoUser').css({
+				right: 11
+			});
+
 	});
 
 	$(document).on('click', '.listWallpapers img', function(){
