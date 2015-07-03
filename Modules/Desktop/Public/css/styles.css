@@ -193,3 +193,54 @@ body {
 #desktop .window .header i.openThisWindow {
 	cursor: pointer;
 }
+#desktop .menuRigthClick{
+	position: absolute;
+	display: none;
+	top: 0;
+}
+#desktop .menuRigthClick ul {
+	list-style: none;
+	background-color: #fff;
+	border-radius: 2px;
+	margin: 0;
+	padding: 0;
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+}
+#desktop .menuRigthClick ul li {
+	margin: 0px;
+	padding: 5px;
+	color: #333;
+	height: 25px;
+	line-height: 25px;
+	cursor: default;
+	width: 150px;
+	font-size: 13px;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+#desktop .menuRigthClick ul li:hover {
+	background-color: #ecf0f1;
+}
+#desktop .menuRigthClick ul li i {
+	float: left;
+}
+#desktop #menu-desk-bottom{
+	position: absolute;
+	width: 100%;
+	height: 250px;
+	bottom: 76px;
+	background-color: rgba(0, 0, 0, 0.12);
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+#desktop #menu-desk-bottom .listWallpapers li{
+	float: left;
+	margin: 10px;
+	list-style: none;
+}
+#desktop #menu-desk-bottom .listWallpapers li img{
+	width: 320px;
+	border-radius: 2px;
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+}

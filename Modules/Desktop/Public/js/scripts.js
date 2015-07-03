@@ -2,10 +2,11 @@ var cssOpenStart = function(){
 	$('#desktop #openStart').css({
 		height: $(window).height() / 2
 	});
-	$('body').css({
-		maxWidth: $(window).width(),
-		maxHeight: $(window).height()
+	$('body, .mainDesk').css({
+		width: $(window).width(),
+		height: $(window).height()
 	});
+	$('#menu-desk-bottom').width( $(window).width() );
 }
 
 $(document).ready(function(){
@@ -27,7 +28,22 @@ $(document).ready(function(){
 		e.stopPropagation();
 	});
 
-	$('html').click(function(){
+	$('.mainDesk').mousedown(function(e){
+		if( e.button == 2 ){
+
+			var x = e.pageX,
+				y = e.pageY;
+
+			$('#desktop .menuRigthClick').fadeIn(100).css({
+				top:  y,
+				left:  x
+			});
+		} else {
+			$('#desktop .menuRigthClick').fadeOut(100);
+		}
+	});
+
+	$('.mainDesk').click(function(){
 		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
 		$('#openStart').fadeOut(100);
 	});
@@ -86,10 +102,6 @@ $(document).ready(function(){
 							'<div class="content"></div>' +
 						'</div>');
 
-				 	
-				 	
-					   
-
 			$.ajax({ 
 			    type: "POST",
 			    dataType: "html",
@@ -129,6 +141,22 @@ $(document).ready(function(){
     		This.parents('.window').remove();
     	}, 500);
 	});
+
+	$('.menuRigthClick .wallpaper').click(function(){
+		$.ajax({ 
+		    type: "POST",
+		    dataType: "json",
+		    cache: false,
+		    url: '/Desktop/Ajax/Wallpapers', 
+		    success: function(Return){ 
+		    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
+		    	$.each( Return, function( id, BG ){
+		    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
+		    	});
+		   	}
+		});
+	});
+
 });
 
 $(window).resize(function(){
