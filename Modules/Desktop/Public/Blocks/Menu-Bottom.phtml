@@ -1,20 +1,17 @@
+
 <button id="start" class="button"><i class="material-icons">apps</i></button>
 
+
 <nav id="openStart">
+
+<div class="buscarApps">
+	<input type="text" placeholder="<?php echo _('Pesquise aqui...') ?>" />
+</div>
 
 	<ul class="listModules">
 		
 	</ul>
 
-	<ul class="itens">
-		<li class="user">
-			<div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Folder'] . '/' . $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div>
-			<span><?=$_SESSION['user']['Nome']?></span>
-		</li>
-		<li><?php echo _('Selecionar Desktop') ?> <i class="material-icons fR">keyboard_arrow_right</i></li>
-		<li><?php echo _('Aplicativos') ?> <i class="material-icons fR">keyboard_arrow_right</i></li>
-	</ul>
-	<ul class="favorite">
-		
-	</ul>
+
+	
 </nav>
