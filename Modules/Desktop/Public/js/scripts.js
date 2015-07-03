@@ -1,7 +1,5 @@
 var cssOpenStart = function(){
-	$('#desktop #openStart').css({
-		height: $(window).height() / 2
-	});
+	$('#desktop #openStart, #desktop nav.top').width( $(window).width() / 5 ).height( $(window).height() );
 	$('body').css({
 		maxWidth: $(window).width(),
 		maxHeight: $(window).height()
@@ -11,27 +9,53 @@ var cssOpenStart = function(){
 $(document).ready(function(){
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
-		$('#desktop nav.top .account-user').fadeIn(300);
+		$('#desktop .account-user').fadeIn(300);
 	}, 100);
 
 	cssOpenStart();
 
-	$('#desktop nav.top .account-user').click(function(e){
+	$('#desktop .account-user').click(function(e){
 		e.stopPropagation();
-		$(this).parent().find('ul:first').css({
-			top: $(this).offset().top + ( $(this).height() / 2 ) + 20
-		}).fadeToggle();
+
+		$(this).toggleClass('active');
+		if( $(this).hasClass('active') == true )
+		{
+
+			$('nav.top').css({
+				right: 0		
+			});
+
+			$(this).css({
+				right: $(window).width() / 6.3
+			});
+
+			$('#desktop .infoUser').css({
+				right: 149
+			});
+
+		} else {
+			$('nav.top').css({
+				right: -999		
+			});
+
+			$(this).css({
+				right: 160
+			});
+
+			$('#desktop .infoUser').css({
+				right: 11
+			});
+		}
+
 	});
 
-	$('#desktop nav.top .account-user ul').click(function(e){
-		e.stopPropagation();
-	});
+
 
 	$('html').click(function(){
-		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
-		$('#openStart').fadeOut(100);
+		
+		
 	});
-	$('#lagout').click(function(){
+	$('#logout').click(function(){
 		$('#desktop').fadeOut();
 		$.ajax({ 
 		    type: "POST",
@@ -65,13 +89,30 @@ $(document).ready(function(){
 	});
 	$('#start').click(function(e){
 		e.stopPropagation();
-		$('#openStart').css({
-			bottom: $(this).height() * 2 + 20
-		}).fadeToggle();
+
+		$(this).toggleClass('active');
+		if( $(this).hasClass('active') == true )
+		{
+			$('#openStart').css({
+				left: 0		
+			});
+
+			$('#desktop .buscarApps input').focus();
+
+		} else {
+			$('#openStart').css({
+				left: -999		
+			});
+		}
+
 	});
 
 	$(document).on('click', '.listModules li', function(e){
 		e.stopPropagation();
+
+		$('#openStart').css({
+			left: -999		
+		});
 
 		var Module = $(this).data('name');
 

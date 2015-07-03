@@ -44,7 +44,8 @@
     margin-right: 4px;
 }
 #boxLogin .input__field--yoko{
-	color: #333;
+	color: #606060;
+	font-size: 22px;
 }
 #boxLogin #Logar{
 	margin-right: 40px;
