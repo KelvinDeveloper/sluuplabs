@@ -184,7 +184,10 @@ $(document).ready(function(){
 
 			    	setTimeout(function(){
 			    		$('#Module' + Module + ' .content').html( Page );
-			    		$('#Module' + Module + ' .header').fadeIn();
+			    		$('#Module' + Module + ' .header').fadeIn(100);
+			    		setTimeout(function(){
+			    			componentHandler.upgradeDom();
+			    		}, 200);
 			    	}, 600);
 			   	}
 			});

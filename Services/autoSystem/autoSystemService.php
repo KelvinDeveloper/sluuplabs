@@ -101,17 +101,26 @@ class autoSystem{
 
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
-				echo '<a href="/' . $Url[1] . '/Novo" class="openThisWindow btn btn-white">' . ( isset( $Array['Grid']['Buttons']['Label']['New'] ) ? $Array['Grid']['Buttons']['Label']['New'] : _('Novo registro') ) . ' <i class="material-icons fR">add</i></a>';
+				echo '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">' . ( isset( $Array['Grid']['Buttons']['Label']['New'] ) ? $Array['Grid']['Buttons']['Label']['New'] : _('Novo registro') ) . ' <i class="material-icons fR">add</i></a> <br><br>';
 			}
 		}
 
-		$HTML .= '<table ' . ( isset( $Array['Grid']['Width'] ) ? 'width="' . $Array['Grid']['Width'] . '"' : false ) . ' class="tableDefault">';
+		$HTML .= '<table ' . ( isset( $Array['Grid']['Width'] ) ? 'width="' . $Array['Grid']['Width'] . '"' : false ) . ' class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">';
 
 			$HTML .= '<thead>';
 
 				$HTML .= '<tr>';
 
 				$SQLFields = $Database->Desc( $Array['bd'] );
+
+				$HTML .= '<td> 
+							<label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" />
+							  <span class="mdl-checkbox__label">Enable AutoSave</span>
+							</label>
+
+						</td>';
+
 				while ( $F = $SQLFields->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<td>' . $F->Field . '</td>';
 					$Fields[ $F->Field ] = $F;
@@ -125,7 +134,16 @@ class autoSystem{
 				$Result = $Database->Fetch( $Array['bd'] );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '">';
+						
+						$HTML .= '<td> 
+									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+									  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" />
+									  <span class="mdl-checkbox__label">Checkbox</span>
+									</label>
+								</td>';
+
 					foreach ( $Fields as $Field => $Info ){
+
 						$HTML .= '<td>' . $Value->$Field . '</td>';
 					}
 					$HTML .= '</tr>';
