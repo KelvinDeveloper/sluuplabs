@@ -32,6 +32,21 @@ function Alert( thisClass, dataContent, thisWidth ){
         }, 3000);
 }
 
+/* save reg */
+function reg( Module, Key, Value ){
+    $.ajax({ 
+        type: "POST",
+        dataType: "html",
+        data: {
+            Module: Module,
+            Key: Key,
+            Value: Value
+        },
+        cache: false,
+        url: '/Action/save_reg',
+    });
+}
+
 $(document).on('click', '#infoStatus', function(){
     $('#infoStatus').fadeOut( 100 );
 });

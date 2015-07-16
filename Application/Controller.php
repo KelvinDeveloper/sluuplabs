@@ -26,6 +26,9 @@ if( $Url[1] == 'Cron' ){ // Arquivos de Cron
 else if( $Url[1] == 'Websocket' && $Url[2] == 'Run' ){ // Inicia conexão com websocket
 	include ROOT . '/Application/Websocket.php';
 } 
+else if( $Url[1] === 'Action' && $Function->isAjax() ){
+	include ROOT . '/Application/Action/' . $Url[2] . '.php';
+}
 else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
 	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
 } else {

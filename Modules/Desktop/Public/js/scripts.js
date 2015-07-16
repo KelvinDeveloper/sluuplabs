@@ -102,6 +102,7 @@ $(document).ready(function(){
 
 	$(document).on('click', '.listWallpapers li', function(){
 		$('body').css("background", "url('" + $(this).find('img').attr('src') + "')");
+		reg( 'User', 'Wallpaper', $(this).find('img').attr('src') );
 	});
 	
 	$('#logout').click(function(){
