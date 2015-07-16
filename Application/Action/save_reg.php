@@ -24,6 +24,7 @@ $New .= $k . '=' . $v . '
 			$Init = fopen( ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/reg.ini', 'a+' );
 			$Edit = fwrite( $Init, $New );
 			fclose( $Init );
+			chmod( ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/reg.ini', 0777 );
 		}
 	}
 }
