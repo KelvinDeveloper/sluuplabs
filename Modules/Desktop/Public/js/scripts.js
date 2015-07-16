@@ -218,18 +218,27 @@ $(document).ready(function(){
 	});
 
 	$('.menuRigthClick .wallpaper').click(function(){
-		$.ajax({ 
-		    type: "POST",
-		    dataType: "json",
-		    cache: false,
-		    url: '/Desktop/Ajax/Wallpapers', 
-		    success: function(Return){ 
-		    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>').css( 'bottom', 75 );
-		    	$.each( Return, function( id, BG ){
-		    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
-		    	});
-		   	}
-		});
+
+		if( $('.listWallpapers li').length > 0 ){
+			$('#menu-desk-bottom').css( 'bottom', 75 );
+		} else {
+			$.ajax({ 
+			    type: "POST",
+			    dataType: "json",
+			    cache: false,
+			    url: '/Desktop/Ajax/Wallpapers', 
+			    success: function(Return){ 
+			    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
+			    	$.each( Return, function( id, BG ){
+			    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
+			    	});
+
+			    	$('#menu-desk-bottom').css( 'bottom', 75 );
+			   	}
+			});
+		}
+
+
 	});
 
 	$('.menuRigthClick li').click(function(){

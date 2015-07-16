@@ -39,8 +39,8 @@ class Modules{
 				$Lang,
 				$Translate,
 				/* autoSystem */
-				$autoSystem;
-		/* Grava as configurações do módulo na variavel $thisModule */
+				$autoSystem,
+				$reg;
 
 		/* Se for protegido, manda para Login */
 		$Services->Run('Login');
@@ -51,6 +51,12 @@ class Modules{
 		}
 		/* Verifica se existe a view */
 		if(	file_exists( ROOT . '/Modules/' . $Module . '/' . $View . '.phtml' ) ){
+
+			/* lê registros do modulo */
+			if( file_exists( ROOT . '/Modules/' . $Module . '/reg.ini' ) ){
+				$reg_module = parse_ini_file( ROOT . '/Modules/' . $Modules . '/reg.ini' );
+			}
+
 			/* Carregar HEAD HTML */
 			if( !$Function->isAjax() ){
 				include ROOT . '/Public/Theme/Default/Head.phtml';

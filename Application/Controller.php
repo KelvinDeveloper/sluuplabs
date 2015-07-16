@@ -29,6 +29,13 @@ else if( $Url[1] == 'Websocket' && $Url[2] == 'Run' ){ // Inicia conexão com we
 else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
 	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
 } else {
+	// Verifica se usuario está logado para ler os registros
+	$Services->Run('Login');
+	if( $Login->Verific() ){
+		if( file_exists( ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/reg.ini' ) ){
+			$reg = parse_ini_file( ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/reg.ini' );
+		}
+	}
 	// Verifica o arquivo Urls (Responsável pelo roteamento do link)
 	include ROOT . '/Application/System/Urls.php';
 	$ThisRouter = ( isset( $Router[ $Domain[0] ][ $Url[1] ] ) ? $Router[ $Domain[0] ][ $Url[1] ] : false );
