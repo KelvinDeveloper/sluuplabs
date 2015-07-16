@@ -116,7 +116,6 @@ class autoSystem{
 				$HTML .= '<td> 
 							<label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
 							  <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" />
-							  <span class="mdl-checkbox__label">Enable AutoSave</span>
 							</label>
 
 						</td>';
@@ -138,7 +137,6 @@ class autoSystem{
 						$HTML .= '<td> 
 									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
 									  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" />
-									  <span class="mdl-checkbox__label">Checkbox</span>
 									</label>
 								</td>';
 

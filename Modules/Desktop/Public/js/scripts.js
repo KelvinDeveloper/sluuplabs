@@ -11,6 +11,13 @@ var cssOpenStart = function(){
 	$('#menu-desk-bottom').width( $(window).width() );
 }
 
+function upgradeMDL() {
+  componentHandler.upgradeDom();
+  //componentHandler.upgradeDom();
+  //componentHandler.upgradeAllRegistered();
+}
+
+
 $(document).ready(function(){
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
@@ -71,6 +78,7 @@ $(document).ready(function(){
 
 	$('.mainDesk').click(function(){
 		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
+		$('#menu-desk-bottom').css('bottom', -999);
 			
 			$('.account-user, #start').removeClass('active');
 
@@ -92,8 +100,8 @@ $(document).ready(function(){
 
 	});
 
-	$(document).on('click', '.listWallpapers img', function(){
-		$('body').css( 'background-image', 'url ("' + $(this).attr('src') + '")' );
+	$(document).on('click', '.listWallpapers li', function(){
+		$('body').css("background", "url('" + $(this).find('img').attr('src') + "')");
 	});
 	
 	$('#logout').click(function(){
@@ -185,9 +193,7 @@ $(document).ready(function(){
 			    	setTimeout(function(){
 			    		$('#Module' + Module + ' .content').html( Page );
 			    		$('#Module' + Module + ' .header').fadeIn(100);
-			    		setTimeout(function(){
-			    			componentHandler.upgradeDom();
-			    		}, 200);
+						setInterval("upgradeMDL();", 100);
 			    	}, 600);
 			   	}
 			});
@@ -218,12 +224,16 @@ $(document).ready(function(){
 		    cache: false,
 		    url: '/Desktop/Ajax/Wallpapers', 
 		    success: function(Return){ 
-		    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
+		    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>').css( 'bottom', 75 );
 		    	$.each( Return, function( id, BG ){
 		    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
 		    	});
 		   	}
 		});
+	});
+
+	$('.menuRigthClick li').click(function(){
+		$(this).parents('.menuRigthClick').fadeOut(100);
 	});
 
 });

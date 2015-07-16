@@ -1,5 +1,7 @@
 body {
 	overflow: hidden;
+	background-color: rgba(25, 118, 210, 0.94);
+	background-size: cover;
 }
 
 
@@ -10,7 +12,6 @@ body {
     right: -9999px;
     margin: 0px;
     padding: 0px;
-    background-color: rgba(25, 118, 210, 0.94);
     color: #FFF;
     overflow-y: auto;
     overflow-x: hidden;
@@ -164,10 +165,13 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 250px;
-	bottom: 76px;
+	bottom: -999px;
 	background-color: rgba(0, 0, 0, 0.12);
 	overflow-x: auto;
 	overflow-y: hidden;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
 }
 #desktop #menu-desk-bottom .listWallpapers li{
 	float: left;
@@ -178,4 +182,7 @@ body {
 	width: 320px;
 	border-radius: 2px;
 	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+}
+.listWallpapers{
+	display: flex;
 }
