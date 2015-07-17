@@ -76,7 +76,7 @@ body {
 }
 
 #desktop #openStart{
-	width: 500px;
+	width: 20%;
     position: absolute;
     top: 0px;
     left: -9999px;
@@ -91,12 +91,17 @@ body {
 
 #desktop .buscarApps {
 	
-	left: 70px; 
-	bottom: 17px;
+	left: 72px;
+	bottom: 0px;
 	position: absolute;
+
 }
 #desktop .buscarApps input {
-	width: 250px;
+	width: 100%;
+}
+
+#desktop .buscarApps .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable.textfield-demo {
+	width: 100%;
 }
 
 #desktop .window{

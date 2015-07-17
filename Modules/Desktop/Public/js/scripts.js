@@ -3,7 +3,7 @@ var cssOpenStart = function(){
 		width: $(window).width(),
 		height: $(window).height()
 	});
-	$('#desktop #openStart, #desktop nav.top').width( $(window).width() / 5 ).height( $(window).height() );
+	$('#desktop #openStart, #desktop nav.top').height( $(window).height() );
 	$('body').css({
 		maxWidth: $(window).width(),
 		maxHeight: $(window).height()
@@ -97,6 +97,8 @@ $(document).ready(function(){
 			$('#desktop .infoUser').css({
 				right: 11
 			});
+
+			$('#desktop .buscarApps #searchApps').val('');
 
 	});
 

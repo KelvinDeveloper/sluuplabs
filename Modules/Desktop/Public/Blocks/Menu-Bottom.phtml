@@ -5,8 +5,21 @@
 <nav id="openStart">
 
 <div class="buscarApps">
-	<input type="text" placeholder="<?php echo _('Pesquise aqui...') ?>" />
-</div>
+	<!-- Expandable Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable textfield-demo">
+    <label class="mdl-button mdl-js-button mdl-button--icon" for="searchApps">
+      <i class="material-icons" >search</i>
+    </label>
+    <div class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input" type="text" id="searchApps" />
+      <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+    </div>
+  </div>
+</form>
+</div> 
+
+
 
 	<ul class="listModules">
 		
