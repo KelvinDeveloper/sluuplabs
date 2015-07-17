@@ -14,10 +14,12 @@ $(document).ready(function(){
 	});
 	};
 
+	var root = '/: ';
+
 	$('#ModuleTerminal input').keyup(function(e){
 
   		if( $(this).val() == '' || $(this).val().length < 3 ){
-  			$(this).val('/: ').putCursorAtEnd();
+  			$(this).val( root ).putCursorAtEnd();
   		}
 
 	  	if( e.keyCode == 13 && $(this).val() != '/: ' ){
@@ -27,22 +29,27 @@ $(document).ready(function(){
 
 	  		if( action == '/: clear' ){
 	  			$('#ModuleTerminal pre').html('');
-	  			$("#ModuleTerminal input").val('/: ');
+	  			$("#ModuleTerminal input").val( root );
 	  			return false;
 	  		}
 
 	         $.ajax({ 
-	              type: "POST",
+			    type: "POST",
+			    dataType: "json",
 	              data: { 
 	              	action: action
 	              },
-	              dataType: "html",
 	              cache: false,
 	              url: '/SendTerminal', 
-	              success: function(msg) {  
+	              success: function(R) {  
 	              	var scroll = document.getElementById("ModuleTerminal").scrollHeight;
-	              	$("#ModuleTerminal input").val('/: ');
-	              	$("#ModuleTerminal pre").append( msg );
+
+	              	if( R.Location != '' ){
+	              		root = R.Location;
+	              	}
+
+	              	$("#ModuleTerminal input").val( root );
+	              	$("#ModuleTerminal pre").append( R.Message );
 	              	$("#ModuleTerminal").scrollTop( scroll );
 	              }
 	          });
@@ -53,5 +60,5 @@ $(document).ready(function(){
   	$("#ModuleTerminal input").putCursorAtEnd();
   });
 
-  $('#ModuleTerminal input').val('/: ').putCursorAtEnd();
+  $('#ModuleTerminal input').val( root ).putCursorAtEnd();
 });
