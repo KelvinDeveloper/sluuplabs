@@ -29,6 +29,10 @@ else if( $Url[1] == 'Websocket' && $Url[2] == 'Run' ){ // Inicia conexão com we
 else if( $Url[1] === 'Action' && $Function->isAjax() ){
 	include ROOT . '/Application/Action/' . $Url[2] . '.php';
 }
+else if( $Url[1] === 'SendTerminal' && $Function->isAjax() ){
+	$Services->Run('Terminal');
+	$Terminal->Init();
+}
 else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
 	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
 } else {

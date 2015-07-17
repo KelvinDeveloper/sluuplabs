@@ -33,7 +33,9 @@ class Services {
 				$Lang,
 				$Translate,
 				/* autoSystem */
-				$autoSystem
+				$autoSystem,
+				/* Terminal */
+				$Terminal
 				;
 
 		$thisService = $ManagerService[ $Service ];
