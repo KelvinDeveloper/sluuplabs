@@ -78,6 +78,7 @@ body {
 #desktop #openStart{
 	width: 20%;
     position: absolute;
+    z-index: 50;
     top: 0px;
     left: -9999px;
     margin: 0px;
@@ -190,4 +191,43 @@ body {
 }
 .listWallpapers{
 	display: flex;
+}
+.mainDesk{
+	position: absolute;
+	z-index: 0;
+	top: 0;
+}
+#desktop .listModules{
+	padding: 0;
+	margin: 0;
+}
+#desktop .listModules li{
+	width: 60px;
+	float: left;
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+	list-style: none;
+	cursor: default;
+	border: solid 1px transparent;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+#desktop .listModules li:hover{
+	opacity: .9;
+	font-weight: bold;
+	border-bottom: solid 1px #efefef;
+	border-radius: 2px;
+}
+#desktop .listModules li img{
+	width: 56px;
+	height: 56px;
+}
+#desktop .listModules li span{
+	width: 100%;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

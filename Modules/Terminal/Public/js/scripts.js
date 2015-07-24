@@ -27,7 +27,9 @@ $(document).ready(function(){
 	  		var action = $('#ModuleTerminal input').val();
 	  		$(this).val( '/: Execultando...' );
 
-	  		if( action == '/: clear' ){
+	  		var ex = action.split(': ');
+
+	  		if( ex[1] == 'clear' ){
 	  			$('#ModuleTerminal pre').html('');
 	  			$("#ModuleTerminal input").val( root );
 	  			return false;
@@ -49,7 +51,9 @@ $(document).ready(function(){
 	              	}
 
 	              	$("#ModuleTerminal input").val( root );
-	              	$("#ModuleTerminal pre").append( R.Message );
+	              	if( R.Message != false ){
+	              		$("#ModuleTerminal pre").append( R.Message + '<br>' );
+	              	}
 	              	$("#ModuleTerminal").scrollTop( scroll );
 	              }
 	          });

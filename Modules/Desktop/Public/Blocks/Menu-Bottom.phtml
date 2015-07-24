@@ -24,7 +24,25 @@
 	<ul class="listModules">
 		
 	</ul>
-
-
-	
 </nav>
+
+<script type="text/javascript">
+  
+$("#searchApps").keyup(function(e){
+  
+  var query = RemoveAccents( $(this).val() );
+
+  if( query == '' ){
+    $(".listModules li").show();
+  } else {
+    $(".listModules li").hide();
+    $('.listModules li[data-quest*="' + query.toLowerCase() + '"]').show();
+  }
+
+  // if( e.keyCode == 13 ){
+    
+  // }
+
+});
+
+</script>

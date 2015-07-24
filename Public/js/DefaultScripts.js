@@ -148,3 +148,25 @@ $(document).on('click', '.checkbox label', function() {
 
 $(document).on('ready')
 /* Ends Post Form */
+
+function RemoveAccents(varString) {
+    var stringAcentos = new String('áàâãèêéíìîóõòôúûùçÁÀÃÂÉÈÊÍÌÎÔÓÕÒÚÛÙÇ');
+    var stringSemAcento = new String('aaaaeeeiiioooouuucAAAAEEEIIIOOOOUUUC');  
+      
+    var i = new Number();  
+    var j = new Number();  
+    var cString = new String();  
+    var varRes = '';  
+      
+    for (i = 0; i < varString.length; i++) {  
+        cString = varString.substring(i, i + 1);  
+        for (j = 0; j < stringAcentos.length; j++) {  
+    
+            if (stringAcentos.substring(j, j + 1) == cString){  
+                cString = stringSemAcento.substring(j, j + 1);  
+            }  
+        }  
+        varRes += cString;  
+    }  
+    return varRes;
+};

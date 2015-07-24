@@ -1,5 +1,5 @@
 var cssOpenStart = function(){
-	$('body, .mainDesk').css({
+	$('body, .mainDesk, #Modules').css({
 		width: $(window).width(),
 		height: $(window).height()
 	});
@@ -19,6 +19,7 @@ function upgradeMDL() {
 
 
 $(document).ready(function(){
+
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
 		$('#desktop .account-user').fadeIn(300);
@@ -135,7 +136,13 @@ $(document).ready(function(){
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
 	    	$.each( Return, function( Module, Info ){
-	    		$('#openStart .listModules').append('<li data-name="' + Module + '">' + Module.replace( '_', ' ' ) + '</li>');
+	    		console.log( Info );
+	    		$('#openStart .listModules').append(
+	    			'<li data-name="' + Module + '" title="' + Module + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
+	    				' <img src="' + Info.icon + '"><br> ' +
+	    				' <span>' + Module.replace( '_', ' ' ) + '</span>' +
+	    			'</li>'
+	    			);
 	    	});
 	   	}
 	});
@@ -198,6 +205,11 @@ $(document).ready(function(){
 			    		$('#Module' + Module + ' .header').fadeIn(100);
 						setInterval("upgradeMDL();", 100);
 			    	}, 600);
+
+					$('.window').draggable({
+						containment: '.mainDesk',
+						scroll: false
+					});
 			   	}
 			});
 		}
