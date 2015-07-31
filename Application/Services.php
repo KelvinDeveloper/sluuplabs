@@ -69,5 +69,8 @@ $ManagerService = array(
 	'autoSystem'	=> array(
 		'Dir'		=> 'autoSystem/autoSystem'
 	),
+	'Terminal'	=> array(
+		'Dir'		=> 'Terminal/Terminal'
+	),
 
 ); // Ends

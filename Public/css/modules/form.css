@@ -1,4 +1,22 @@
-input{
-	font-family: 'Roboto', sans-serif;
-	font-size: 18px;
+/*#desktop input {
+	font-family: "Roboto",sans-serif;
+	font-size: 15px;
+	padding: 10px 15px;
+	border-radius: 2px;
+	border: 1px solid #ccc;
+	margin: 3px;
+	color: #6C6C6C;
+	transition: box-shadow .5s;
 }
+
+#desktop input:focus {
+	box-shadow: -1px 1px 1px #D5D0D0 inset;
+}
+
+#desktop form {
+	padding-top: 15px;
+}
+
+#desktop form button[type="submit"] {
+	margin-left: 3px;
+}*/

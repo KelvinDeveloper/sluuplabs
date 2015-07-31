@@ -32,6 +32,21 @@ function Alert( thisClass, dataContent, thisWidth ){
         }, 3000);
 }
 
+/* save reg */
+function reg( Module, Key, Value ){
+    $.ajax({ 
+        type: "POST",
+        dataType: "html",
+        data: {
+            Module: Module,
+            Key: Key,
+            Value: Value
+        },
+        cache: false,
+        url: '/Action/save_reg',
+    });
+}
+
 $(document).on('click', '#infoStatus', function(){
     $('#infoStatus').fadeOut( 100 );
 });
@@ -121,4 +136,47 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
     });
     return false;
 });
+
+
+
+// per css-tricks restarting css animations
+// http://css-tricks.com/restart-css-animation/
+$(document).on('click', '.checkbox label', function() {
+  
+  // find the first span which is our circle/bubble
+  var el = $(this).children('span:first-child');
+  
+  // clone it
+  var newone = el.clone(true);  
+  
+  // add the cloned version before our original
+  el.before(newone);  
+  
+  // remove the original so that it is ready to run on next click
+  $(this).find("." + el.attr("class") + ":last").remove();
+}); 
+
+$(document).on('ready')
 /* Ends Post Form */
+
+function RemoveAccents(varString) {
+    var stringAcentos = new String('áàâãèêéíìîóõòôúûùçÁÀÃÂÉÈÊÍÌÎÔÓÕÒÚÛÙÇ');
+    var stringSemAcento = new String('aaaaeeeiiioooouuucAAAAEEEIIIOOOOUUUC');  
+      
+    var i = new Number();  
+    var j = new Number();  
+    var cString = new String();  
+    var varRes = '';  
+      
+    for (i = 0; i < varString.length; i++) {  
+        cString = varString.substring(i, i + 1);  
+        for (j = 0; j < stringAcentos.length; j++) {  
+    
+            if (stringAcentos.substring(j, j + 1) == cString){  
+                cString = stringSemAcento.substring(j, j + 1);  
+            }  
+        }  
+        varRes += cString;  
+    }  
+    return varRes;
+};

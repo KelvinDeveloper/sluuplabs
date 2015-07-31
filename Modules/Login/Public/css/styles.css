@@ -44,7 +44,8 @@
     margin-right: 4px;
 }
 #boxLogin .input__field--yoko{
-	color: #333;
+	color: #606060;
+	font-size: 22px;
 }
 #boxLogin #Logar{
 	margin-right: 40px;
@@ -102,4 +103,24 @@ ul#listHistoryUsers li:hover{
     font-weight: 200;
     position: absolute;
     display: none;
+}
+
+#boxLogin .btn{
+	padding: 5px 10px;
+	border: none;
+	font-size: 16px;
+	line-height: 32px;
+	outline: none;
+	text-decoration: none;
+	display: inline-block;
+}
+
+#boxLogin .btn.btn-primary{
+	background: #4285f4;
+	color: #FFF;
+}
+
+#boxLogin .btn.btn-white{
+	background: #fff;
+	color: #333;
 }

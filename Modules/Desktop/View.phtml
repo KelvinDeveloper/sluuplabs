@@ -1,4 +1,7 @@
-<?php sleep(1); ?>
+<?php 
+sleep(1); 
+include 'Model.php';
+?>
 <link href="/Modules/Desktop/Public/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="/Modules/Desktop/Public/js/scripts.js"></script>
 
@@ -9,6 +12,14 @@
 	include 'Public/Blocks/Menu-Bottom.phtml';
 	?>
 
-	<div id="Modules"></div>
+	<div class="mainDesk">
+		
+		<div id="Modules"></div>
+
+	</div>
+	<?php
+	include 'Public/Blocks/Menu-Button-Right.phtml';
+	?>
+	<div id="menu-desk-bottom"></div>
 
 </div>

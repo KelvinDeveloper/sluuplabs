@@ -1,37 +1,114 @@
 var cssOpenStart = function(){
-	$('#desktop #openStart').css({
-		height: $(window).height() / 2
+	$('body, .mainDesk, #Modules').css({
+		width: $(window).width(),
+		height: $(window).height()
 	});
+	$('#desktop #openStart, #desktop nav.top').height( $(window).height() );
 	$('body').css({
 		maxWidth: $(window).width(),
 		maxHeight: $(window).height()
 	});
+	$('#menu-desk-bottom').width( $(window).width() );
 }
 
+function upgradeMDL() {
+  componentHandler.upgradeDom();
+  //componentHandler.upgradeDom();
+  //componentHandler.upgradeAllRegistered();
+}
+
+
 $(document).ready(function(){
+
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
-		$('#desktop nav.top .account-user').fadeIn(300);
+		$('#desktop .account-user').fadeIn(300);
 	}, 100);
 
 	cssOpenStart();
 
-	$('#desktop nav.top .account-user').click(function(e){
+	$('#desktop .account-user').click(function(e){
 		e.stopPropagation();
-		$(this).parent().find('ul:first').css({
-			top: $(this).offset().top + ( $(this).height() / 2 ) + 20
-		}).fadeToggle();
+
+		$(this).toggleClass('active');
+		if( $(this).hasClass('active') == true )
+		{
+
+			$('nav.top').css({
+				right: 0		
+			});
+
+			$(this).css({
+				right: $(window).width() / 6.3
+			});
+
+			$('#desktop .infoUser').css({
+				right: 149
+			});
+
+		} else {
+			$('nav.top').css({
+				right: -999		
+			});
+
+			$(this).css({
+				right: 160
+			});
+
+			$('#desktop .infoUser').css({
+				right: 11
+			});
+		}
+
 	});
 
-	$('#desktop nav.top .account-user ul').click(function(e){
-		e.stopPropagation();
+	$('.mainDesk').mousedown(function(e){
+		if( e.button == 2 ){
+
+			var x = e.pageX,
+				y = e.pageY;
+
+			$('#desktop .menuRigthClick').fadeIn(100).css({
+				top:  y,
+				left:  x
+			});
+		} else {
+			$('#desktop .menuRigthClick').fadeOut(100);
+		}
 	});
 
-	$('html').click(function(){
+	$('.mainDesk').click(function(){
 		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
-		$('#openStart').fadeOut(100);
+		$('#menu-desk-bottom').css('bottom', -999);
+			
+			$('.account-user, #start').removeClass('active');
+
+			$('#openStart').css({
+				left: -999		
+			});
+
+			$('nav.top').css({
+				right: -999		
+			});
+
+			$('#desktop .account-user').css({
+				right: 160
+			});
+
+			$('#desktop .infoUser').css({
+				right: 11
+			});
+
+			$('#desktop .buscarApps #searchApps').val('');
+
 	});
-	$('#lagout').click(function(){
+
+	$(document).on('click', '.listWallpapers li', function(){
+		$('body').css("background", "url('" + $(this).find('img').attr('src') + "')");
+		reg( 'User', 'Wallpaper', $(this).find('img').attr('src') );
+	});
+	
+	$('#logout').click(function(){
 		$('#desktop').fadeOut();
 		$.ajax({ 
 		    type: "POST",
@@ -59,19 +136,42 @@ $(document).ready(function(){
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
 	    	$.each( Return, function( Module, Info ){
-	    		$('#openStart .listModules').append('<li data-name="' + Module + '">' + Module.replace( '_', ' ' ) + '</li>');
+	    		console.log( Info );
+	    		$('#openStart .listModules').append(
+	    			'<li data-name="' + Module + '" title="' + Module + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
+	    				' <img src="' + Info.icon + '"><br> ' +
+	    				' <span>' + Module.replace( '_', ' ' ) + '</span>' +
+	    			'</li>'
+	    			);
 	    	});
 	   	}
 	});
 	$('#start').click(function(e){
 		e.stopPropagation();
-		$('#openStart').css({
-			bottom: $(this).height() * 2 + 20
-		}).fadeToggle();
+
+		$(this).toggleClass('active');
+		if( $(this).hasClass('active') == true )
+		{
+			$('#openStart').css({
+				left: 0		
+			});
+
+			$('#desktop .buscarApps input').focus();
+
+		} else {
+			$('#openStart').css({
+				left: -999		
+			});
+		}
+
 	});
 
 	$(document).on('click', '.listModules li', function(e){
 		e.stopPropagation();
+
+		$('#openStart').css({
+			left: -999		
+		});
 
 		var Module = $(this).data('name');
 
@@ -85,10 +185,6 @@ $(document).ready(function(){
 							'</div>'  +
 							'<div class="content"></div>' +
 						'</div>');
-
-				 	
-				 	
-					   
 
 			$.ajax({ 
 			    type: "POST",
@@ -106,8 +202,14 @@ $(document).ready(function(){
 
 			    	setTimeout(function(){
 			    		$('#Module' + Module + ' .content').html( Page );
-			    		$('#Module' + Module + ' .header').fadeIn();
+			    		$('#Module' + Module + ' .header').fadeIn(100);
+						setInterval("upgradeMDL();", 100);
 			    	}, 600);
+
+					$('.window').draggable({
+						containment: '.mainDesk',
+						scroll: false
+					});
 			   	}
 			});
 		}
@@ -129,6 +231,35 @@ $(document).ready(function(){
     		This.parents('.window').remove();
     	}, 500);
 	});
+
+	$('.menuRigthClick .wallpaper').click(function(){
+
+		if( $('.listWallpapers li').length > 0 ){
+			$('#menu-desk-bottom').css( 'bottom', 75 );
+		} else {
+			$.ajax({ 
+			    type: "POST",
+			    dataType: "json",
+			    cache: false,
+			    url: '/Desktop/Ajax/Wallpapers', 
+			    success: function(Return){ 
+			    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
+			    	$.each( Return, function( id, BG ){
+			    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
+			    	});
+
+			    	$('#menu-desk-bottom').css( 'bottom', 75 );
+			   	}
+			});
+		}
+
+
+	});
+
+	$('.menuRigthClick li').click(function(){
+		$(this).parents('.menuRigthClick').fadeOut(100);
+	});
+
 });
 
 $(window).resize(function(){

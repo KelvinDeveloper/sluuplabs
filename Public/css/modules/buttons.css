@@ -1,19 +1,41 @@
-.btn{
-	padding: 5px 10px;
-	border: none;
+.btn {
+	padding: 2px 21px;
+	border: medium none;
 	font-size: 16px;
 	line-height: 32px;
-	outline: none;
+	outline: medium none;
 	text-decoration: none;
 	display: inline-block;
+	border: 1px solid;
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	transition: box-shadow .2s;
+}
+.btn:hover {
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.btn:active {
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .btn.btn-primary{
-	background: #4285f4;
+	background-color: #4285f4;
 	color: #FFF;
+	border-color: #3676E0;
 }
 
-.btn.btn-white{
-	background: #fff;
-	color: #333;
+.btn-primary:active {
+	background-color: #3D7EE9;
 }
+
+.btn-white {
+	background: #ecf0f1 none repeat scroll 0% 0%;
+	color: #6F6F6F;
+	border-color: #E1E3E4;
+}
+
+.btn-white:active {
+	background-color: #DEE2E3;
+}
+
