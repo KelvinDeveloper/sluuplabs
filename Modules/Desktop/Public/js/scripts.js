@@ -62,21 +62,6 @@ $(document).ready(function(){
 
 	});
 
-	$('.mainDesk').mousedown(function(e){
-		if( e.button == 2 ){
-
-			var x = e.pageX,
-				y = e.pageY;
-
-			$('#desktop .menuRigthClick').fadeIn(100).css({
-				top:  y,
-				left:  x
-			});
-		} else {
-			$('#desktop .menuRigthClick').fadeOut(100);
-		}
-	});
-
 	$('.mainDesk').click(function(){
 		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
 		$('#menu-desk-bottom').css('bottom', -999);
@@ -136,9 +121,9 @@ $(document).ready(function(){
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
 	    	$.each( Return, function( Module, Info ){
-	    		console.log( Info );
+	    		
 	    		$('#openStart .listModules').append(
-	    			'<li data-name="' + Module + '" title="' + Module + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
+	    			'<li data-name="' + Module + '" title="' + Module.replace( '_', ' ' ) + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
 	    				' <img src="' + Info.icon + '"><br> ' +
 	    				' <span>' + Module.replace( '_', ' ' ) + '</span>' +
 	    			'</li>'
@@ -179,9 +164,12 @@ $(document).ready(function(){
 			$('#Modules #Module' + Module ).show();
 		} else {
 			$('#Modules')
-				.append('<div draggable="true" class="window" id="Module'  + Module + '">' +
+				.append('<div class="window" id="Module'  + Module + '">' +
 							'<div class="header">' +
-								'<i class="material-icons close">clear</i>' +
+								'<div class="options">' +
+									'<i class="material-icons close">clear</i>' +
+									'<i class="material-icons maximize">&#xE895;</i>' + 
+								'</div>' +
 							'</div>'  +
 							'<div class="content"></div>' +
 						'</div>');
@@ -195,7 +183,7 @@ $(document).ready(function(){
 			    	$('#Module' + Module ).css({
 			    		width: $(window).width() / 1.2,
 			    		height: $(window).height() / 1.5,
-			    		marginTop: $(window).height() / 6,
+			    		top: $(window).height() / 6,
 			    		'border-radius': '2px',
 			    		opacity: 1
 			    	});
@@ -206,9 +194,16 @@ $(document).ready(function(){
 						setInterval("upgradeMDL();", 100);
 			    	}, 600);
 
-					$('.window').draggable({
+					$('.window:not(.maximize)').draggable({
+						handle: '.header',
 						containment: '.mainDesk',
 						scroll: false
+					});
+					$('.window:not(.maximize)').resizable({
+						maxHeight: 	$(window).height(),
+      					maxWidth: 	$(window).width(),
+      					minHeight: 	$(window).width() / 3,
+      					minWidth: 	$(window).height() / 3,
 					});
 			   	}
 			});
@@ -224,12 +219,43 @@ $(document).ready(function(){
     	This.parents('.window').css({
     		width: $(window).width() / 3,
     		height: $(window).height() / 3,
-    		marginTop: -999,
+    		top: -999,
     		'border-radius': '10%',
     	}).fadeOut(400);
     	setTimeout(function(){
     		This.parents('.window').remove();
     	}, 500);
+	});
+
+	function Maximize( This ){
+
+		if( This.hasClass('active') ){
+	    	This.parents('.window').css({
+	    		width: $(window).width() / 1.2,
+	    		height: $(window).height() / 1.5,
+	    		top: $(window).height() / 6
+	    	});
+		} else {
+
+	    	This.parents('.window').css({
+	    		width: '98%',
+	    		height: $(window).height(),
+	    		top: 0,
+	    		left: 0,
+
+	    	});
+		}
+
+		This.toggleClass('active');
+		This.parents('.window').toggleClass('maximize');
+	}
+
+	$(document).on('click', '#desktop .window .header i.maximize', function(){
+		Maximize( $(this) );
+	});
+
+	$(document).on('dblclick', '#desktop .window .header', function(){
+		Maximize( $(this).find('i.maximize') );
 	});
 
 	$('.menuRigthClick .wallpaper').click(function(){

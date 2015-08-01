@@ -105,7 +105,7 @@ class autoSystem{
 			}
 		}
 
-		$HTML .= '<table ' . ( isset( $Array['Grid']['Width'] ) ? 'width="' . $Array['Grid']['Width'] . '"' : false ) . ' class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">';
+		$HTML .= '<table ' . ( isset( $Array['Grid']['Width'] ) ? 'width="' . $Array['Grid']['Width'] . '"' : false ) . ' class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp tableDefault">';
 
 			$HTML .= '<thead>';
 
@@ -113,9 +113,9 @@ class autoSystem{
 
 				$SQLFields = $Database->Desc( $Array['bd'] );
 
-				$HTML .= '<td> 
-							<label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-							  <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" />
+				$HTML .= '<td class="check"> 
+							<label for="CheckAll" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" id="CheckAll" class="mdl-checkbox__input" />
 							</label>
 
 						</td>';
@@ -134,9 +134,9 @@ class autoSystem{
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '">';
 						
-						$HTML .= '<td> 
-									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-									  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" />
+						$HTML .= '<td class="check"> 
+									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
+									  <input type="checkbox" id="checkbox-' . $Value->$Array['auto_increment'] . '" class="mdl-checkbox__input" checked />
 									</label>
 								</td>';
 
