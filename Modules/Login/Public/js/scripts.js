@@ -8,6 +8,9 @@ $(document).ready(function(){
 	$('#boxLogin').fadeIn(200);
 
 	$('#boxLogin button[type="submit"]').click(function(){
+
+		$('.defaultLoader').show();
+
 		$.ajax({ 
 		    type: "POST",
 		    data: { 
@@ -53,6 +56,8 @@ $(document).ready(function(){
 		    	}
 		    }
 		});
+
+		$('.defaultLoader').hide();
 	});
 
 	cssBoxLogin();

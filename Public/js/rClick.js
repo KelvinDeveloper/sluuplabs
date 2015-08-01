@@ -26,7 +26,7 @@
 
 					$('#desktop .menuRigthClick').fadeOut(100);
 				}
-			}
+			});
 		}
 	}
  

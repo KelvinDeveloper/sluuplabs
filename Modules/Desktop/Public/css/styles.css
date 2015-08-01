@@ -237,6 +237,7 @@ body {
 }
 #desktop .content{
 	overflow: auto;
+	height: 100%;
 }
 #Modules{
 	position: absolute;

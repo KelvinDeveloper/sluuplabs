@@ -125,6 +125,8 @@ class autoSystem{
 					$Fields[ $F->Field ] = $F;
 				}
 
+				$HTML .= '<td></td>';
+
 				$HTML .= '</tr>';
 
 			$HTML .= '</thead>';
@@ -144,6 +146,21 @@ class autoSystem{
 
 						$HTML .= '<td>' . $Value->$Field . '</td>';
 					}
+
+					$HTML .= '
+					<td>
+						<button id="' . $Value->$Array['auto_increment'] . '-menu"
+						        class="mdl-button mdl-js-button mdl-button--icon">
+						  <i class="material-icons">more_vert</i>
+						</button>
+
+						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+						    for="' . $Value->$Array['auto_increment'] . '-menu">
+						  <li class="mdl-menu__item" onclick="editRegister( $(this).parents(\'tr\') )"><i class="material-icons">&#xE254;</i> ' . _('Editar') . '</li>
+						  <li class="mdl-menu__item"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
+						</ul>
+					</td>';
+
 					$HTML .= '</tr>';
 				}
 

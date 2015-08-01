@@ -45,3 +45,10 @@ button:focus, button{
 img.account-user{
 	border-radius: 50%;
 }
+.defaultLoader.mdl-progress{
+	width: 100% !important;
+	display: none;
+	position: absolute;
+	z-index: 99999999;
+	top: 0;
+}
