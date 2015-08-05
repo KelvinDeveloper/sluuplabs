@@ -55,9 +55,6 @@ body {
 	float: right;
 }
 
-
-
-
 #desktop #start {
 	position: absolute;
 	background-color: #fff;
@@ -141,20 +138,24 @@ body {
 #desktop .window .header i.openThisWindow {
 	cursor: pointer;
 }
-#desktop .menuRigthClick{
+/*#desktop .menuRigthClick{
 	position: absolute;
 	display: none;
 	top: 0;
-}
-#desktop .menuRigthClick ul {
+}*/
+ul#rClickMenu {
 	list-style: none;
 	background-color: #fff;
 	border-radius: 2px;
 	margin: 0;
 	padding: 0;
 	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+	width: 160px;
+	position: absolute;
+	z-index: 9999;
+	display: none;
 }
-#desktop .menuRigthClick ul li {
+ul#rClickMenu li {
 	margin: 0px;
 	padding: 5px;
 	color: #333;
@@ -167,10 +168,10 @@ body {
 	-webkit-transition: all .2s;
 	transition: all .2s;
 }
-#desktop .menuRigthClick ul li:hover {
+ul#rClickMenu li:hover {
 	background-color: #ecf0f1;
 }
-#desktop .menuRigthClick ul li i {
+ul#rClickMenu li i {
 	float: left;
 }
 #desktop #menu-desk-bottom{
