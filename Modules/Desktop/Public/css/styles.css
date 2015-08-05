@@ -1,4 +1,4 @@
-body {
+	body {
 	overflow: hidden;
 	background-color: rgba(25, 118, 210, 0.94);
 	background-size: cover;
@@ -134,8 +134,23 @@ body {
 #desktop .window .header i.close{	
 	color: #c0392b;
 }
+
+#desktop .window .header i.maximize{
+
+    -webkit-transition: transform .3s;
+    -moz-transition: transform .3s;
+    -ms-transition: transform .3s;
+}
+
 #desktop .window .header i.maximize.active{
 	color: #3498db;
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+    transition: transform .3s;
+/*    -webkit-transition: transform .2s;
+    -moz-transition: transform .2s;
+    -ms-transition: transform .2s;*/
 }
 
 #desktop .window .header i.openThisWindow {
