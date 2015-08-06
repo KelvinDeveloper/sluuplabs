@@ -17,7 +17,6 @@ function upgradeMDL() {
   //componentHandler.upgradeAllRegistered();
 }
 
-
 $(document).ready(function(){
 
 	$('#desktop').fadeIn(200);
@@ -108,6 +107,7 @@ $(document).ready(function(){
 				    url: '/Login', 
 				    success: function(Page){ 
 				    	$('body').html( Page );
+				    	window.history.pushState( date, false, '/Login' );
 				    }
 				});
 		    }

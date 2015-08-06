@@ -25,6 +25,8 @@ $(document).ready(function(){
 		    		Alert( Return.status, '<i class="material-icons">report_problem</i> ' + Return.message );
 		    	} else if( Return.status == true ){
 
+		    		window.history.pushState( date, false, Url );
+
 		    		$('#boxLogin .account-user').css({
 		    			'background-image': 'url(\'' + Return.user.Folder + '/' + Return.user.Image + '\')'
 		    		});
@@ -97,6 +99,17 @@ $(document).ready(function(){
 			left: -999
 		});
 		$('#HistoryUsers').fadeIn();
+		var img = new Image(),
+			background = $(this).data('wallpaper');
+
+		if( background != '' && background != undefined ){
+			img.src = background;
+			img.onload = function() {
+				$('body').css('background', "url('" + background + "')");
+			}
+		} else {
+			$('body').css('background', "#4285f4");
+		}
 	});
 });
 

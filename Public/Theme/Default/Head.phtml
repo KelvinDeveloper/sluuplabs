@@ -2,6 +2,10 @@
 <html>
 <head>
 	<title><?php echo ( !empty( $Conf['ModelInfo']['Title'] ) ? $Conf['ModelInfo']['Title'] . ' | ' . Title : Title ); ?></title>
+	<script type="text/javascript">
+	var Url = '<?php echo $_SESSION['HeaderURL'] ?>';
+		date = new Date();
+	</script>	
 	<link href="/Public/css/styles.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">

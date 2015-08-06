@@ -1,3 +1,6 @@
+<?php
+include 'Model.php';
+?>
 <link href="/Modules/Login/Public/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="/Modules/Login/Public/js/scripts.js"></script>
 
@@ -38,7 +41,7 @@
 <ul id="listHistoryUsers">
 	<li data-email="" data-bg="/img/icon/account-user.svg"><div class="bg-user" style="background-image: url('/img/icon/account-user.svg')"></div> <?php echo _('Adicionar conta') ?></li>
 	<?php foreach ( $_COOKIE['HistoryUsers'] as $id => $u ){ ?>
-	<li data-email="<?=$u['Email']?>" data-bg="<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>"><div class="bg-user" style="background-image: url('<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <?=$u['Nome']?></li>
+	<li data-email="<?=$u['Email']?>" data-bg="<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>" data-wallpaper="<?php echo $u['Wallpaper'] ?>"><div class="bg-user" style="background-image: url('<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <?=$u['Nome']?></li>
 	<?php } ?>
 </ul>
 
