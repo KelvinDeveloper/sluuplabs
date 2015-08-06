@@ -48,7 +48,12 @@ class Modules{
 			$_SESSION['HeaderURL'] = implode( '/', $Url );
 			header( 'Location: /Login' );
 			exit;
+		} else if( $Login->Verific() && $Url[1] == 'Login' ){
+			$_SESSION['HeaderURL'] = ( empty( $_SESSION['HeaderURL'] ) ? '/' : $_SESSION['HeaderURL'] );
+			header( 'Location: ' . $_SESSION['HeaderURL'] );
 		}
+		
+
 		/* Verifica se existe a view */
 		if(	file_exists( ROOT . '/Modules/' . $Module . '/' . $View . '.phtml' ) ){
 
