@@ -1,21 +1,29 @@
-	body {
+
+body {
 	overflow: hidden;
 	background-color: rgba(25, 118, 210, 0.94);
 	background-size: cover;
 }
 
+#desktop {
+	height: 100%;
+}
 
 #desktop nav.top {
 	width: 500px;
+	height: 100%;
+	width: 20%;
     position: absolute;
     top: 0px;
-    right: -9999px;
+    right: -99999px;
     margin: 0px;
     padding: 0px;
     color: #FFF;
     overflow-y: auto;
     overflow-x: hidden;
     transition: all 0.6s ease 0s;
+
+    background-color: rgba(25, 118, 210, 0.94);
 }
 
 #desktop .account-user{
@@ -74,13 +82,14 @@
 
 #desktop #openStart{
 	width: 20%;
+	height: 100%;   
     position: absolute;
     z-index: 100;
     top: 0px;
-    left: -9999px;
+    left: -99999px;
     margin: 0px;
     padding: 0px;
-    background-color: rgba(25, 118, 210, 0.94);;
+    background-color: rgba(25, 118, 210, 0.94);
     color: #FFF;
     overflow-y: auto;
     overflow-x: hidden;
@@ -221,20 +230,19 @@ ul#rClickMenu li i {
 #desktop .listModules{
 	padding: 0;
 	margin: 0;
+	width: 100%;
 }
 #desktop .listModules li{
-	width: 60px;
-	float: left;
-	margin: 10px;
-	padding: 10px;
-	text-align: center;
-	list-style: none;
-	cursor: default;
-	border: solid 1px transparent;
-	border-radius: 2px;
-
-	-webkit-transition: all .2s;
-	transition: all .2s;
+	border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: default;
+    float: left;
+    list-style: outside none none;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.2s ease 0s;
+    width: 100px;
 }
 #desktop .listModules li:hover{
 	opacity: .9;
@@ -259,4 +267,11 @@ ul#rClickMenu li i {
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+.mdl-cell{
+  height: 100px;
+  background: grey;
+  color: white;
+  padding: 5px;
 }

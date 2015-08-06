@@ -1,14 +1,14 @@
 var cssOpenStart = function(){
-	$('body, .mainDesk, #Modules').css({
-		width: $(window).width(),
-		height: $(window).height()
-	});
-	$('#desktop #openStart, #desktop nav.top').height( $(window).height() );
-	$('body').css({
-		maxWidth: $(window).width(),
-		maxHeight: $(window).height()
-	});
-	$('#menu-desk-bottom').width( $(window).width() );
+	// $('body, .mainDesk, #Modules').css({
+	// 	width: $(window).width(),
+	// 	height: $(window).height()
+	// });
+
+	// $('body').css({
+	// 	maxWidth: $(window).width(),
+	// 	maxHeight: $(window).height()
+	// });
+	// $('#menu-desk-bottom').width( $(window).width() );
 }
 
 function upgradeMDL() {
@@ -120,10 +120,12 @@ $(document).ready(function(){
 	    cache: false,
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
+	    	
 	    	$.each( Return, function( Module, Info ){
 	    		
 	    		$('#openStart .listModules').append(
-	    			'<li data-name="' + Module + '" title="' + Module.replace( '_', ' ' ) + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
+
+	    			'<li class="mdl-cell mdl-cell--1-col" data-name="' + Module + '" title="' + Module.replace( '_', ' ' ) + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
 	    				' <img src="' + Info.icon + '"><br> ' +
 	    				' <span>' + Module.replace( '_', ' ' ) + '</span>' +
 	    			'</li>'
