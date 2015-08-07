@@ -12,12 +12,14 @@ include 'Model.php';
 	include 'Public/Blocks/Menu-Bottom.phtml';
 	?>
 
-	<div class="mainDesk btnRigthOn">
-		
-		<div id="Modules"></div>
-
-	</div>
+	<div class="mainDesk"></div>
 	
 	<div id="menu-desk-bottom"></div>
 
 </div>
+
+<script type="text/javascript">
+	<?php if( isset( $_SESSION['OpenModule'] ) ){ ?>
+		openModule( '<?php echo $_SESSION['OpenModule'][1] ?>' );
+	<?php } unset( $_SESSION['OpenModule'] ); ?>
+</script>

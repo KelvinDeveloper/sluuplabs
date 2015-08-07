@@ -1,5 +1,5 @@
 var cssOpenStart = function(){
-	// $('body, .mainDesk, #Modules').css({
+	// $('body, .mainDesk, body').css({
 	// 	width: $(window).width(),
 	// 	height: $(window).height()
 	// });
@@ -15,6 +15,59 @@ function upgradeMDL() {
   componentHandler.upgradeDom();
   //componentHandler.upgradeDom();
   //componentHandler.upgradeAllRegistered();
+}
+
+function openModule( Module ){
+
+	if( $('body #Module' + Module ).length > 0 ){
+		$('body #Module' + Module ).show();
+	} else {
+		$('body')
+			.append('<div class="window" id="Module'  + Module + '">' +
+						'<div class="header">' +
+							'<div class="options">' +
+								'<i class="material-icons close">clear</i>' +
+								'<i class="material-icons maximize">&#xE895;</i>' + 
+							'</div>' +
+						'</div>'  +
+						'<div class="content"></div>' +
+					'</div>');
+
+		$.ajax({ 
+		    type: "POST",
+		    dataType: "html",
+		    cache: false,
+		    url: '/' + Module, 
+		    success: function(Page){ 
+		    	$('#Module' + Module ).css({
+		    		width: $(window).width() / 1.2,
+		    		height: $(window).height() / 1.5,
+		    		top: $(window).height() / 6,
+		    		'border-radius': '2px',
+		    		opacity: 1,
+		    		position: 'absolute'
+		    	});
+
+		    	setTimeout(function(){
+		    		$('#Module' + Module + ' .content').html( Page );
+		    		$('#Module' + Module + ' .header').fadeIn(100);
+					setInterval("upgradeMDL();", 100);
+		    	}, 600);
+
+				$('.window:not(.maximize)').draggable({
+					handle: '.header',
+					containment: 'body',
+					scroll: false
+				});
+				$('.window:not(.maximize)').resizable({
+					maxHeight: 	$(window).height(),
+  					maxWidth: 	$(window).width(),
+  					minHeight: 	$(window).width() / 3,
+  					minWidth: 	$(window).height() / 3,
+				});
+		   	}
+		});
+	}
 }
 
 $(document).ready(function(){
@@ -160,59 +213,10 @@ $(document).ready(function(){
 			left: -999		
 		});
 
-		var Module = $(this).data('name');
-
-		if( $('#Modules #Module' + Module ).length > 0 ){
-			$('#Modules #Module' + Module ).show();
-		} else {
-			$('#Modules')
-				.append('<div class="window" id="Module'  + Module + '">' +
-							'<div class="header">' +
-								'<div class="options">' +
-									'<i class="material-icons close">clear</i>' +
-									'<i class="material-icons maximize">&#xE895;</i>' + 
-								'</div>' +
-							'</div>'  +
-							'<div class="content"></div>' +
-						'</div>');
-
-			$.ajax({ 
-			    type: "POST",
-			    dataType: "html",
-			    cache: false,
-			    url: '/' + $(this).data('name'), 
-			    success: function(Page){ 
-			    	$('#Module' + Module ).css({
-			    		width: $(window).width() / 1.2,
-			    		height: $(window).height() / 1.5,
-			    		top: $(window).height() / 6,
-			    		'border-radius': '2px',
-			    		opacity: 1
-			    	});
-
-			    	setTimeout(function(){
-			    		$('#Module' + Module + ' .content').html( Page );
-			    		$('#Module' + Module + ' .header').fadeIn(100);
-						setInterval("upgradeMDL();", 100);
-			    	}, 600);
-
-					$('.window:not(.maximize)').draggable({
-						handle: '.header',
-						containment: '.mainDesk',
-						scroll: false
-					});
-					$('.window:not(.maximize)').resizable({
-						maxHeight: 	$(window).height(),
-      					maxWidth: 	$(window).width(),
-      					minHeight: 	$(window).width() / 3,
-      					minWidth: 	$(window).height() / 3,
-					});
-			   	}
-			});
-		}
+		openModule( $(this).data('name') );
 	});
 
-	$(document).on('click', '#desktop .window .header i.close', function(){
+	$(document).on('click', 'body .window .header i.close', function(){
 
 		var This = $(this);
 
@@ -252,11 +256,11 @@ $(document).ready(function(){
 		This.parents('.window').toggleClass('maximize');
 	}
 
-	$(document).on('click', '#desktop .window .header i.maximize', function(){
+	$(document).on('click', 'body .window .header i.maximize', function(){
 		Maximize( $(this) );
 	});
 
-	$(document).on('dblclick', '#desktop .window .header', function(){
+	$(document).on('dblclick', 'body .window .header', function(){
 		Maximize( $(this).find('i.maximize') );
 	});
 

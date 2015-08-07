@@ -80,8 +80,10 @@
 	var Methods = {
 
 		init: function( Element, Settings ){
+			console.log( Element );
+			$(document).on('mousedown', Element.selector, function(event){
 
-			$(document).on('mousedown', Element, function(event){
+				event.stopPropagation();
 
 				if( event.button == 2 ){
 
@@ -161,7 +163,11 @@
 
 	    $('#rClickMenu').on("contextmenu",function(){
 	       return false;
-	    }); 
+	    });
+
+	    $('body').mousedown(function(){
+	    	$('#rClickMenu').fadeOut(100);
+	    });
 
 	};
 

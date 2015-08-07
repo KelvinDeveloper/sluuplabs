@@ -50,7 +50,16 @@ else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
 		$ThisRouter = explode( '/', $ThisRouter );
 		if( $ThisRouter[0] == 'Modules' ){
 			$Conf['ModelInfo'] = parse_ini_file( ROOT . '/Modules/' . $ThisRouter[1] . '/Info.ini' );
-			$Modules->Run( $ThisRouter[1], $ThisRouter[2] );
+			if( ( isset( $DesktopLoad ) || $ThisRouter[1] == 'Desktop' ) || $Function->isAjax() ){
+				$Modules->Run( $ThisRouter[1], $ThisRouter[2] );
+			} else {
+				$_SESSION['OpenModule'] = $ThisRouter;
+				if( $Login->Verific() ){
+					$Modules->Run( 'Desktop', 'View' );
+				} else {
+					$Modules->Run( 'Login', 'View' );
+				}
+			}
 		}
 	}
 }

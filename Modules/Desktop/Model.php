@@ -1,5 +1,7 @@
 <?php
 
+$DesktopLoad = true;
+
 $JS = '<script> ';
 	$JS .= '$(document).ready(function(){
 		var img = new Image();
