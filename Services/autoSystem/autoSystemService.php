@@ -101,9 +101,17 @@ class autoSystem{
 
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
-				echo '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">' . ( isset( $Array['Grid']['Buttons']['Label']['New'] ) ? $Array['Grid']['Buttons']['Label']['New'] : _('Novo registro') ) . ' <i class="material-icons fR">add</i></a> <br><br>';
+				if( !isset( $Array['Grid']['Buttons']['Label']['New'] ) ){
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+								<i class="material-icons">add</i>
+							</a>';
+				} else {
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
+				}
 			}
 		}
+
+		$HTML .= '<br><br>';
 
 		$HTML .= '<table ' . ( isset( $Array['Grid']['Width'] ) ? 'width="' . $Array['Grid']['Width'] . '"' : false ) . ' class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp tableDefault">';
 
@@ -187,7 +195,36 @@ class autoSystem{
 
 		$HTML = '<form action="/' . $Url[1] . '/Salvar/' . ( $new ? 'New' : $Url[2] ) . '" method="post" target="defaultForm">';
 
+		// Título
+		$HTML .= '<h1>';
+		
+		if( isset( $Array['Form']['Title'] ) ){
+
+			if( is_array( $Array['Form']['Title'] ) ){
+
+				$HTML .= ( $new ? $Array['Form']['Title']['New'] : $Array['Form']['Title']['Edit'] );
+
+			} else {
+				$HTML .= $Array['Form']['Title'];
+			}
+
+		} else {
+
+			$HTML .= ( $new ? _('Novo registro') : _('Editando registro') );
+
+		}
+		
+		$HTML .= '</h1>';
+
+		$HTML .= '<table>';
+
 		foreach ( $Array['Fields'] as $Field => $Data ){
+
+			$HTML .= '<tr><td>';
+
+			$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ucfirst( $Field ) . ' </label>';
+
+			$HTML .= '</td><td>';
 
 			switch ( $Data['Type'] ) {
 				
@@ -293,10 +330,22 @@ class autoSystem{
 					break;
 			}
 
-			$HTML .= '<br>';
+			$HTML .= '</td></tr>';
+
 		}
 
-		$HTML .= '<br><button type="submit" class="' . ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false ) . '">' . ( isset( $Array['Form']['Buttons']['Save']['Name'] ) ? $Array['Form']['Buttons']['Save']['Name'] : _('Salvar') ) . '</button>';
+		$HTML .= '</table> <br>';
+
+		$ClassBtn = ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false );
+
+		if( !isset( $Array['Form']['Buttons']['Save']['Name'] ) ){
+			$HTML .= '
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . '" type="submit">
+			  <i class="material-icons">&#xE161;</i>
+			</button>';
+		} else {
+			$HTML .= '<button type="submit" class="' . $ClassBtn . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
+		}
 
 		$HTML .= '</form>';
 

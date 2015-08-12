@@ -1,3 +1,2 @@
-Application/Users/*
-
-
+**/Application/Users/
+Solution/*/Application/Users/

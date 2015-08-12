@@ -42,9 +42,14 @@ $demo = $autoSystem->create(
 			'Width'		=> '100%',
 		),
 		'Form'	=> array(
+			// 'Title'	=> array(
+			// 	'New'	=> _('Teste novo'),
+			// 	'Edit'	=> _('Teste edit'),
+			// ),
+			'Title'	=> 'Teste',
 			'Buttons'	=> array(
 				'Save'	=> array(
-					'Name'	=> _('Salvar demo'),
+					// 'Name'	=> _('Salvar demo'),
 					'Class'	=>	'btn btn-primary'
 				),
 			),

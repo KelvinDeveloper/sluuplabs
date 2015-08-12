@@ -19,7 +19,11 @@ include 'Model.php';
 </div>
 
 <script type="text/javascript">
-	<?php if( isset( $_SESSION['OpenModule'] ) ){ ?>
+	<?php if( 		isset( $_SESSION['OpenModule'] ) 
+				&&	$_SESSION['OpenModule'][1] != '/'
+				&&  $_SESSION['OpenModule'][1] != ''
+				&&  $_SESSION['OpenModule'][1] != 'Login' 
+			){ ?>
 		openModule( '<?php echo $_SESSION['OpenModule'][1] ?>' );
 	<?php } unset( $_SESSION['OpenModule'] ); ?>
 </script>
