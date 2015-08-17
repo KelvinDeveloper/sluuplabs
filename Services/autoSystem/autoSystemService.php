@@ -129,7 +129,7 @@ class autoSystem{
 						</td>';
 
 				while ( $F = $SQLFields->fetch(PDO::FETCH_OBJ) ){
-					$HTML .= '<td>' . $F->Field . '</td>';
+					$HTML .= '<td>' . ucfirst( $F->Field ) . '</td>';
 					$Fields[ $F->Field ] = $F;
 				}
 

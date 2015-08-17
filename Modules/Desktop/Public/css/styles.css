@@ -118,7 +118,7 @@ body .window{
 	border-radius: 10%;
 	background-color: #fff;
 	margin: auto;
-	top: -999px;
+	top: 0;
 	opacity: 0;
 	padding: 15px;
 	z-index: 5;
@@ -278,4 +278,17 @@ body{
   /*background: grey;*/
   color: white;
   padding: 5px;
+}
+
+.iconLoader{
+	position: absolute;
+	left: 50%;
+	margin-left: -68px;
+	top: 10%;
+}
+.moduleLoader.mdl-spinner{
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	margin-left: -16px;
 }

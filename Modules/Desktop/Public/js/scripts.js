@@ -30,8 +30,27 @@ function openModule( Module ){
 								'<i class="material-icons maximize">&#xE895;</i>' + 
 							'</div>' +
 						'</div>'  +
-						'<div class="content"></div>' +
+						'<div class="content">' +
+							'<img src="' + $('.listModules [data-name="' + Module + '"]').find('img').attr('src') + '" class="iconLoader"></img> <br><br>' + 
+							'<div class="moduleLoader mdl-spinner mdl-js-spinner is-active"></div>' +
+						'</div>' +
 					'</div>');
+
+				setInterval("upgradeMDL();", 100);
+
+		    	$('#Module' + Module ).css({
+		    		width: $(window).width() / 1.5,
+		    		height: $(window).height() / 1.5,
+		    		left: '50%',
+		    		marginLeft: - ( $(window).width() / 1.5 ) / 2,
+		    		position: 'absolute',
+		    		'border-radius': '2px',
+		    	});
+
+		    	$('#Module' + Module ).animate({
+		    		top: $(window).height() / 6,
+		    		opacity: 1,
+		    	}, 300);
 
 		$.ajax({ 
 		    type: "POST",
@@ -39,14 +58,6 @@ function openModule( Module ){
 		    cache: false,
 		    url: '/' + Module, 
 		    success: function(Page){ 
-		    	$('#Module' + Module ).css({
-		    		width: $(window).width() / 1.2,
-		    		height: $(window).height() / 1.5,
-		    		top: $(window).height() / 6,
-		    		'border-radius': '2px',
-		    		opacity: 1,
-		    		position: 'absolute'
-		    	});
 
 		    	setTimeout(function(){
 		    		$('#Module' + Module + ' .content').html( Page );
@@ -222,12 +233,11 @@ $(document).ready(function(){
 
 		This.parents('.window').find('.header, .content').hide();
 
-    	This.parents('.window').css({
-    		width: $(window).width() / 3,
-    		height: $(window).height() / 3,
-    		top: -999,
-    		'border-radius': '10%',
-    	}).fadeOut(400);
+    	This.parents('.window').animate({
+    		top: 0,
+    		opacity: 0,
+    	}, 300);
+
     	setTimeout(function(){
     		This.parents('.window').remove();
     	}, 500);

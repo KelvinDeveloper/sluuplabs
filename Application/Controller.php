@@ -35,7 +35,11 @@ else if( $Url[1] === 'SendTerminal' && $Function->isAjax() ){
 }
 else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
 	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
-} else {
+} 
+else if( $Url[1] === 'app' ){ 
+	include ROOT . '/app/' . $Url[2] . '/' . $Url[3] . '/View.phtml';
+}
+else {
 	// Verifica se usuario está logado para ler os registros
 	$Services->Run('Login');
 	if( $Login->Verific() ){
