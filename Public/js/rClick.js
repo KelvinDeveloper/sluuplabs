@@ -1,124 +1,39 @@
 (function($){
 
-	var Menu = {
-
-		copy: {
-			icon: '<i class="material-icons">&#xE14D;</i>',
-			text: 'Copiar',
-			exec: function(){
-				alert('debug');
-			}
-		},
-
-		paste: {
-			icon: '<i class="material-icons">&#xE14F;</i>',
-			text: 'Colar',
-			exec: function(){
-				alert('debug');
-			}
-		},
-
-		close: {
-			icon: '<i class="material-icons">&#xE14C;</i>',
-			text: 'Fechar',
-			exec: function(){
-				alert('debug');
-			}
-		},
-
-		maximize: {
-			icon: '<i class="material-icons">&#xE5D0;</i>',
-			text: 'Maximizar',
-			exec: function(){
-				alert('debug');
-			}
-		},
-
-		minimize: {
-			icon: '<i class="material-icons">&#xE5CF;</i>',
-			text: 'Minimizar',
-			exec: function(){
-				alert('debug');
-			}
-		},
-
-		wallpaper: {
-			icon: '<i class="material-icons">&#xE3F4;</i>',
-			text: 'Papel de Parede',
-			exec: function(){
-				if( $('.listWallpapers li').length > 0 ){
-					$('#menu-desk-bottom').css( 'bottom', 75 );
-				} else {
-					$.ajax({ 
-					    type: "POST",
-					    dataType: "json",
-					    cache: false,
-					    url: '/Desktop/Ajax/Wallpapers', 
-					    success: function(Return){ 
-					    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
-					    	$.each( Return, function( id, BG ){
-					    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
-					    	});
-
-					    	$('#menu-desk-bottom').css( 'bottom', 75 );
-					   	}
-					});
-				}
-			}
-		},
-
-
-		properties: {
-			icon: '<i class="material-icons">&#xE5D4;</i>',
-			text: 'Propriedades',
-			exec: function(){
-				alert('debug');
-			}
-		}
-	}
-
 	var Methods = {
 
-		init: function( Element, Settings ){
-			console.log( Element );
+		init: function( Element, Settings, nMenu ){
+			
 			$(document).on('mousedown', Element.selector, function(event){
 
 				event.stopPropagation();
 
 				if( event.button == 2 ){
 
-					$('#rClickMenu li').hide();
-
-					$.each( Settings.op, function( k, v ){
-						if( v !== false ){
-							$('#rClickMenu #opMenu-' + k).show();
-						}
-					});
-
 					var x = event.pageX,
 						y = event.pageY;
-
-					$('ul#rClickMenu').fadeIn(100).css({
+						console.log( $('ul#rClickMenu-' + Settings.id) );
+					$('ul#rClickMenu-' + Settings.id).fadeIn(100).css({
 						top:  y,
 						left:  x
 					});
 
 				} else {
 
-					$('#rClickMenu').fadeOut(100);
+					$('#rClickMenu-' + Settings.id).fadeOut(100);
 				}
 			});
 
-			this.construct();
+			this.construct( nMenu, Settings.id );
 		},
 
-		construct: function(){
+		construct: function( nMenu, id ){
 
-			if( $('#rClickMenu').length < 1 ){
+			if( $('#rClickMenu-' + id ).length < 1 ){
 
-				var HTML = '<ul class="menu" id="rClickMenu">';
+				var HTML = '<ul class="rClickMenu" id="rClickMenu-' + id + '">';
 
-				$.each( Menu, function( k, v ){
+				$.each( nMenu, function( k, v ){
 					HTML += '<li id="opMenu-' + k + '">' + v.icon + ' ' + v.text + '</li>';
 				});
 
@@ -131,44 +46,94 @@
  
 	$.fn.rClick = function( Values ){
 
-	    var Settings = $.extend(true, {
+	    var Settings 	= Values,
+	    	nMenu 		= Values.Menu;
 
-	    	op: {
-	    		copy			: true,
-	    		paste			: true,
-	    		properties		: true,
-	    		close			: true,
-	    		minimize		: true,
-	    		maximize		: true,
-	    		delete			: true,
-	    		wallpaper		: true,
-	    		new: {
-	    			folder: true,
-	    			file: 	true
-	    		}
-	    	}
+	    Methods.init( this, Settings, nMenu );
 
-	    }, Values);
-
-	    Methods.init( this, Settings );
-
-	    $('#rClickMenu li').click(function(){
+	    $('#rClickMenu-' + Settings.id + ' li').click(function(){
 	    	var Action = $(this).attr('id').replace('opMenu-', '');
-	    	eval('Menu.' + Action + '.exec()');
+	    	eval('nMenu.' + Action + '.exec()');
 	    });
 
 	    this.on("contextmenu",function(){
 	       return false;
 	    }); 
 
-	    $('#rClickMenu').on("contextmenu",function(){
+	    $('#rClickMenu-' + Settings.id).on("contextmenu",function(){
 	       return false;
 	    });
 
 	    $('body').mousedown(function(){
-	    	$('#rClickMenu').fadeOut(100);
+	    	$('#rClickMenu-' + Settings.id).fadeOut(100);
 	    });
 
 	};
 
 })(jQuery);
+
+
+// 	nMenu = $.extend( true, {
+
+// 			Menu: {
+
+// 	copy: {
+// 		icon: '<i class="material-icons">&#xE14D;</i>',
+// 		text: 'Copiar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	paste: {
+// 		icon: '<i class="material-icons">&#xE14F;</i>',
+// 		text: 'Colar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	close: {
+// 		icon: '<i class="material-icons">&#xE14C;</i>',
+// 		text: 'Fechar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	maximize: {
+// 		icon: '<i class="material-icons">&#xE5D0;</i>',
+// 		text: 'Maximizar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	minimize: {
+// 		icon: '<i class="material-icons">&#xE5CF;</i>',
+// 		text: 'Minimizar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	delete: {
+// 		icon: '<i class="material-icons">&#xE872;</i>',
+// 		text: 'Deletar',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	},
+
+// 	,
+
+// 	properties: {
+// 		icon: '<i class="material-icons">&#xE5D4;</i>',
+// 		text: 'Propriedades',
+// 		exec: function(){
+// 			alert('debug');
+// 		}
+// 	}
+// }
+
+// 	}, Values );

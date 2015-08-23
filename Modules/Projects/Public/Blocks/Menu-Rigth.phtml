@@ -26,7 +26,7 @@
 
 		<ul id="p-pages">
 			
-		<li>
+		<li class="new">
 			<i class="material-icons fL">add</i>
 			Nova Página
 		</li>
@@ -72,7 +72,20 @@
 
 		$('.op li button:first').click();
 
-		$('.select li').rClick();
+		$('.select li:not(".new")').rClick({
+
+			id: 's-page-rClick',
+
+			Menu: {
+				delete: {
+					icon: '<i class="material-icons">&#xE872;</i>',
+					text: 'Excluir página',
+					exec: function(){
+						alert('debug');
+					}
+				},
+			}
+		});
 
 	});
 </script>

@@ -302,10 +302,34 @@ $(window).resize(function(){
 $(document).ready(function(){
 
 	$('.mainDesk').rClick({
-		op:{
-			close: 		false,
-			minimize: 	false,
-			maximize: 	false,
+
+		id: 'desktop',
+
+		Menu: {
+			wallpaper: {
+				icon: '<i class="material-icons">&#xE3F4;</i>',
+				text: 'Papel de Parede',
+				exec: function(){
+					if( $('.listWallpapers li').length > 0 ){
+						$('#menu-desk-bottom').css( 'bottom', 75 );
+					} else {
+						$.ajax({ 
+						    type: "POST",
+						    dataType: "json",
+						    cache: false,
+						    url: '/Desktop/Ajax/Wallpapers', 
+						    success: function(Return){ 
+						    	$('#menu-desk-bottom').html('<ul class="listWallpapers"></ul>');
+						    	$.each( Return, function( id, BG ){
+						    		$('#menu-desk-bottom ul').append('<li data-image="' + BG + '"><img src="/Application/System/Backgrounds/' + BG + '"></li>');
+						    	});
+
+						    	$('#menu-desk-bottom').css( 'bottom', 75 );
+						   	}
+						});
+					}
+				}
+			}
 		}
 	});
 	

@@ -169,7 +169,7 @@ body .window .header i.openThisWindow {
 	display: none;
 	top: 0;
 }*/
-ul#rClickMenu {
+ul.rClickMenu {
 	list-style: none;
 	background-color: #fff;
 	border-radius: 2px;
@@ -181,7 +181,7 @@ ul#rClickMenu {
 	z-index: 9999;
 	display: none;
 }
-ul#rClickMenu li {
+ul.rClickMenu li {
 	margin: 0px;
 	padding: 5px;
 	color: #333;
@@ -194,10 +194,10 @@ ul#rClickMenu li {
 	-webkit-transition: all .2s;
 	transition: all .2s;
 }
-ul#rClickMenu li:hover {
+ul.rClickMenu li:hover {
 	background-color: #ecf0f1;
 }
-ul#rClickMenu li i {
+ul.rClickMenu li i {
 	float: left;
 }
 #desktop #menu-desk-bottom{
