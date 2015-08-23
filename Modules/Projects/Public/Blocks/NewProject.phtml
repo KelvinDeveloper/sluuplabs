@@ -16,9 +16,9 @@ $Form = $autoSystem->form(
 				'Lenght'		=>	25
 			),
 
-			'url_projeto'		=> array(
-				'Label'			=>	'Url',
-				'Placeholder'	=>	'Url do projeto',
+			'domain_projeto'	=> array(
+				'Label'			=>	'Dominio',
+				'Placeholder'	=>	'Dominio do projeto',
 				'Type'			=>	'varchar',
 				'Lenght'		=>	255
 			),
@@ -50,14 +50,19 @@ $(document).ready(function(){
 	$('#generateProject').click(function(){
 		$.ajax({ 
 	    	type: "POST",
-	    	dataType: "html",
+	    	dataType: "json",
 	    	cache: false,
 	    	data: {
 	    		array: $('#ModuleProjects [target="defaultForm"]').serialize()
 	    	},
 	    	url: '/Projects/Ajax/CreateProject', 
 	    	success: function(Page){ 
-	    
+	    		console.log( Page );
+	    		if( Page.Status === true ){
+	    			LoadProject( Page.Projeto );
+	    		} else {
+	    			alert('Erro ao criar projeto');
+	    		}
 	    	}
 	    });
 	});

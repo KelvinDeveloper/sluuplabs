@@ -26,24 +26,23 @@
 
 		<ul id="p-pages">
 			
-		<li class="new">
-			<i class="material-icons fL">add</i>
-			Nova Página
-		</li>
-
-			<li>
-				<?php 
-				$loop = 0;
-				foreach ( $j['Pages'] as $k => $v ){ ?>
-					<li data-info='<?php echo json_encode( $v ) ?>' <?php echo ( $loop === 0 ? 'class="active"' : "" ); ?> id="<?=$k?>">
-						<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
-						<?php if( $j['Config']['Index'] === $k ){ ?>
-						<i class="material-icons" id="s-home">&#xE88A;</i>
-							<div class="mdl-tooltip" for="s-home">Página inicial</div>
-						<?php } ?>
-					</li>
-				<?php $loop++; } ?>
+			<li class="new">
+				<i class="material-icons fL">add</i>
+				Criar Página
 			</li>
+
+
+			<?php 
+			$loop = 0;
+			foreach ( $j['Pages'] as $k => $v ){ ?>
+				<li data-info='<?php echo json_encode( $v ) ?>' <?php echo ( $loop === 0 ? 'class="active"' : "" ); ?> id="<?=$k?>" data-title="<?=$v['Title']?>">
+					<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
+					<?php if( $j['Config']['Index'] === $k ){ ?>
+					<i class="material-icons" id="s-home">&#xE88A;</i>
+						<div class="mdl-tooltip" for="s-home">Página inicial</div>
+					<?php } ?>
+				</li>
+			<?php $loop++; } ?>
 
 		</ul>
 
@@ -58,8 +57,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		$('.select ul').hide();
 
 		$('.op li button').click(function(){
 
@@ -70,22 +67,105 @@
 			$('.select ul#' + $(this).parent('li').data('content') ).show();			
 		});
 
-		$('.op li button:first').click();
-
 		$('.select li:not(".new")').rClick({
 
 			id: 's-page-rClick',
 
 			Menu: {
+
+				defineIndex: {
+
+					icon: '<i class="material-icons">&#xE88A;</i>',
+					text: 'Definir página inicial',
+					exec: function(This){
+						$.ajax({ 
+					    	type: "POST",
+					    	dataType: "json",
+					    	cache: false,
+					    	data: {
+					    		Page: This.attr('id'),
+					    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
+					    	},
+					    	url: '/Projects/Ajax/DefineDefault',
+					    	success: function(Page){
+
+					    	}
+					    });
+					}
+
+				},
+
 				delete: {
 					icon: '<i class="material-icons">&#xE872;</i>',
 					text: 'Excluir página',
-					exec: function(){
-						alert('debug');
+					exec: function(This){
+						
+						var isDelete 	= confirm("Tem certeza que deseja deletar esta página?");
+
+						if( isDelete == true ){
+							$.ajax({ 
+						    	type: "POST",
+						    	dataType: "json",
+						    	cache: false,
+						    	data: {
+						    		Page: This.attr('id'),
+						    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
+						    	},
+						    	url: '/Projects/Ajax/DeletePage', 
+						    	success: function(Page){ 
+						    		if( Page.Status === true ){
+						    			This.remove();
+						    		}
+						    	}
+						    });
+						}
 					}
 				},
 			}
 		});
+
+		$('.select li.new').click(function(){
+
+			var NewPage 	= 'Nova Página',
+				LoopName	= true,
+				Loop 		= 0;
+
+			while( LoopName ){
+				if( $('.select li[data-title="' + NewPage + ( Loop === 0 ? '' : '-' + Loop ) + '"]').length > 0 ){
+					Loop++;
+				} else {
+					NewPage 	= NewPage + ( Loop === 0 ? '' : '-' + Loop );
+					LoopName 	= false;
+				}
+			}
+
+			$.ajax({ 
+		    	type: "POST",
+		    	dataType: "json",
+		    	cache: false,
+		    	data: {
+		    		Page: NewPage,
+		    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
+		    	},
+		    	url: '/Projects/Ajax/CreatePage', 
+		    	success: function(Page){ 
+
+		    		if( Page.Status == true ){
+
+		    			$('.select li').removeClass('active');
+
+						$('.select li.new').after('<li data-info=\'' + Page + '\' class="active" id="' + Page.Url.replace('/', '') + '.pjc" data-title="' + Page.Title + '">' +
+							'<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title +
+						'</li>');
+		    		}
+				}
+		    });
+
+		});
+
+		setTimeout(function(){
+			$('.op li button:first').click();
+		}, 100);
 
 	});
 </script>

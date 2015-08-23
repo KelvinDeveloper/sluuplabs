@@ -7,7 +7,7 @@ function LoadProject( Pjc ){
     	data: {
     		Pjc: Pjc
     	},
-    	url: '/Projects/Ajax/loadProject', 
+    	url: '/Projects/Ajax/LoadProject', 
     	success: function(Pjc){ 
 
 			$.ajax({ 

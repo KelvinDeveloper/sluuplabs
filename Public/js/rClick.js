@@ -1,6 +1,8 @@
 (function($){
 
-	var Methods = {
+	var CliquedButton,
+
+	Methods = {
 
 		init: function( Element, Settings, nMenu ){
 			
@@ -10,9 +12,11 @@
 
 				if( event.button == 2 ){
 
+					$(this).addClass('rCliked');
+
 					var x = event.pageX,
 						y = event.pageY;
-						console.log( $('ul#rClickMenu-' + Settings.id) );
+						
 					$('ul#rClickMenu-' + Settings.id).fadeIn(100).css({
 						top:  y,
 						left:  x
@@ -52,8 +56,10 @@
 	    Methods.init( this, Settings, nMenu );
 
 	    $('#rClickMenu-' + Settings.id + ' li').click(function(){
-	    	var Action = $(this).attr('id').replace('opMenu-', '');
-	    	eval('nMenu.' + Action + '.exec()');
+	    	var Action 	= $(this).attr('id').replace('opMenu-', ''),
+	    		This 	= $('.rCliked');
+
+	    	eval('nMenu.' + Action + '.exec( This )');
 	    });
 
 	    this.on("contextmenu",function(){
@@ -66,6 +72,7 @@
 
 	    $('body').mousedown(function(){
 	    	$('#rClickMenu-' + Settings.id).fadeOut(100);
+	    	// $('.rCliked').removeClass('rCliked');
 	    });
 
 	};

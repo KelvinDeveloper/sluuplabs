@@ -32,6 +32,7 @@ if( $Array ){
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Config.pjc', $Array );
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Pages/index.pjc', $Index );
 
+		$Return['Projeto']	= $Array['nome_projeto'];
 		$Return['Message'] 	= _('Projeto criado com sucesso');
 		$Return['Status']	= true;
 
