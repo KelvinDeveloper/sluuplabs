@@ -1,0 +1,65 @@
+<i href="/Projects/Initial" class="pNav material-icons fL">arrow_back</i>
+
+<?php
+
+$Services->Run('autoSystem');
+
+$Form = $autoSystem->form(
+	array(
+
+		'Fields'	=> array(
+
+			'nome_projeto'		=>	array(
+				'Label'			=>	'Nome',
+				'Placeholder'	=>	'Nome do projeto',
+				'Type'			=>	'varchar',
+				'Lenght'		=>	25
+			),
+
+			'url_projeto'		=> array(
+				'Label'			=>	'Url',
+				'Placeholder'	=>	'Url do projeto',
+				'Type'			=>	'varchar',
+				'Lenght'		=>	255
+			),
+
+		),
+
+		'Form'	=> array(
+			'Title'	=> 'Novo Projeto',
+			'Buttons'	=> false
+		)
+
+	)
+
+);
+
+echo $Form; 
+
+?>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fR" id="generateProject">
+	<i class="material-icons">&#xE876;</i>
+</button>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.pNav').click(function(){
+		$('.pInitial').load( $(this).attr('href') );
+	});
+	$('#generateProject').click(function(){
+		$.ajax({ 
+	    	type: "POST",
+	    	dataType: "html",
+	    	cache: false,
+	    	data: {
+	    		array: $('#ModuleProjects [target="defaultForm"]').serialize()
+	    	},
+	    	url: '/Projects/Ajax/CreateProject', 
+	    	success: function(Page){ 
+	    
+	    	}
+	    });
+	});
+});
+</script>

@@ -448,4 +448,38 @@ class RunFunction{
 	    return $ip;
 	 
 	}
+
+	function ArrayToIni( $Array ){
+		
+		$Return = '';
+		if( is_array( $Array ) ){
+			foreach ( $Array as $k => $v ){
+				$Return .= $k . '=' . $v . '
+';
+			}
+		} else {
+			$Return = false;
+		}
+
+		return $Return;
+	}
+
+	function GenerateIni( $File, $Content ){
+
+		if( file_exists( $File ) ){
+			unlink( $File );
+		}
+
+		$Archive = fopen ( $File, 'x+');
+
+		if ( !fwrite( $Archive, $this->ArrayToIni( $Content ) ) ){
+			$Return = false;
+		} else {
+			$Return = true;
+		}
+
+		fclose( $Archive );
+
+		return $Return;
+	}
 }

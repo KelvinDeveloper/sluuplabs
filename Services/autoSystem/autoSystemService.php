@@ -222,7 +222,7 @@ class autoSystem{
 
 			$HTML .= '<tr><td>';
 
-			$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ucfirst( $Field ) . ' </label>';
+			$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ( isset( $Data['Label'] ) ? $Data['Label'] : ucfirst( $Field ) ) . ' </label>';
 
 			$HTML .= '</td><td>';
 
@@ -338,13 +338,15 @@ class autoSystem{
 
 		$ClassBtn = ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false );
 
-		if( !isset( $Array['Form']['Buttons']['Save']['Name'] ) ){
-			$HTML .= '
-			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . '" type="submit">
-			  <i class="material-icons">&#xE161;</i>
-			</button>';
-		} else {
-			$HTML .= '<button type="submit" class="' . $ClassBtn . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
+		if( $Array['Form']['Buttons'] !== false ){
+			if( !isset( $Array['Form']['Buttons']['Save']['Name'] ) ){
+				$HTML .= '
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . '" type="submit">
+				  <i class="material-icons">&#xE161;</i>
+				</button>';
+			} else {
+				$HTML .= '<button type="submit" class="' . $ClassBtn . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
+			}
 		}
 
 		$HTML .= '</form>';

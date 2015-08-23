@@ -1,0 +1,78 @@
+<div class="pMenuRigth">
+	
+	<ul class="op">
+
+		<li data-content="p-pages" class="active">
+
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="opPages">
+	  			<div class="material-icons">&#xE24D;</div>
+			</button>
+			<div class="mdl-tooltip" for="opPages">Páginas</div>
+
+		</li>
+
+		<li data-content="p-menu">
+
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="opMenu">
+	  			<i class="material-icons">&#xE3C7;</i>
+			</button>
+			<div class="mdl-tooltip" for="opMenu">Menus</div>
+
+		</li>
+
+	</ul>
+
+	<div class="select">
+
+		<ul id="p-pages">
+			
+		<li>
+			<i class="material-icons fL">add</i>
+			Nova Página
+		</li>
+
+			<li>
+				<?php 
+				$loop = 0;
+				foreach ( $j['Pages'] as $k => $v ){ ?>
+					<li data-info='<?php echo json_encode( $v ) ?>' <?php echo ( $loop === 0 ? 'class="active"' : "" ); ?> id="<?=$k?>">
+						<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
+						<?php if( $j['Config']['Index'] === $k ){ ?>
+						<i class="material-icons" id="s-home">&#xE88A;</i>
+							<div class="mdl-tooltip" for="s-home">Página inicial</div>
+						<?php } ?>
+					</li>
+				<?php $loop++; } ?>
+			</li>
+
+		</ul>
+
+		<ul id="p-menu">
+			<li>Teste</li>
+		</ul>
+		
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('.select ul').hide();
+
+		$('.op li button').click(function(){
+
+			$('.select ul').hide();
+			$('.op li').removeClass('active');
+			$(this).parent('li').addClass('active');
+
+			$('.select ul#' + $(this).parent('li').data('content') ).show();			
+		});
+
+		$('.op li button:first').click();
+
+		$('.select li').rClick();
+
+	});
+</script>

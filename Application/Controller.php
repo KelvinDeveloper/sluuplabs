@@ -33,7 +33,7 @@ else if( $Url[1] === 'SendTerminal' && $Function->isAjax() ){
 	$Services->Run('Terminal');
 	$Terminal->Init();
 }
-else if( $Url[2] === 'Ajax' && $Function->isAjax() ){
+else if( $Url[2] === 'Ajax' && ( $Function->isAjax() || getenv("PARAM1") == 'DEV' ) ){
 	include ROOT . '/Modules/' . $Url[1] . '/Ajax/' . $Url[3] . '.php';
 } 
 else if( $Url[1] === 'app' ){ 

@@ -53,3 +53,6 @@ img.account-user{
 	z-index: 99999999;
 	top: 0;
 }
+.material-icons{
+	cursor: default;
+}

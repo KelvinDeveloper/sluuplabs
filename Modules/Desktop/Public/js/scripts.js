@@ -22,6 +22,9 @@ function openModule( Module ){
 	if( $('body #Module' + Module ).length > 0 ){
 		$('body #Module' + Module ).show();
 	} else {
+
+		var Info = $('.listModules [data-name="' + Module + '"]').data('info');
+
 		$('body')
 			.append('<div class="window" id="Module'  + Module + '">' +
 						'<div class="header">' +
@@ -52,6 +55,7 @@ function openModule( Module ){
 		    		opacity: 1,
 		    	}, 300);
 
+
 		$.ajax({ 
 		    type: "POST",
 		    dataType: "html",
@@ -63,6 +67,9 @@ function openModule( Module ){
 		    		$('#Module' + Module + ' .content').html( Page );
 		    		$('#Module' + Module + ' .header').fadeIn(100);
 					setInterval("upgradeMDL();", 100);
+					if( Info.info.Maximized == true ){
+						$('#Module' + Module).find('i.maximize').click();
+					}
 		    	}, 600);
 
 				$('.window:not(.maximize)').draggable({
@@ -185,11 +192,15 @@ $(document).ready(function(){
 	    url: '/Desktop/Ajax/ListModules', 
 	    success: function(Return){ 
 	    	
+	    	var JSONString;
+
 	    	$.each( Return, function( Module, Info ){
-	    		
+				
+				JSONString = JSON.stringify( Info );	    		
+
 	    		$('#openStart .listModules').append(
 
-	    			'<li class="mdl-cell mdl-cell--1-col" data-name="' + Module + '" title="' + Module.replace( '_', ' ' ) + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '">' +
+	    			'<li class="mdl-cell mdl-cell--1-col" data-name="' + Module + '" title="' + Module.replace( '_', ' ' ) + '" data-quest="' + RemoveAccents( Module.toLowerCase() ) + '" data-info=\'' + JSONString + '\'">' +
 	    				' <img src="' + Info.icon + '"><br> ' +
 	    				' <span>' + Module.replace( '_', ' ' ) + '</span>' +
 	    			'</li>'
@@ -249,7 +260,9 @@ $(document).ready(function(){
 	    	This.parents('.window').css({
 	    		width: $(window).width() / 1.2,
 	    		height: $(window).height() / 1.5,
-	    		top: $(window).height() / 6
+	    		top: $(window).height() / 6,
+	    		left: '50%',
+	    		marginLeft: - ( $(window).width() / 1.2 )  / 2 
 	    	});
 		} else {
 
@@ -258,6 +271,7 @@ $(document).ready(function(){
 	    		height: $(window).height(),
 	    		top: 0,
 	    		left: 0,
+	    		marginLeft: 0
 
 	    	});
 		}

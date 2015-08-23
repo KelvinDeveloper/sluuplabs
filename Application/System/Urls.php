@@ -5,5 +5,6 @@ $Router['sluup'] = array(
 	'Login'			=>	'Modules/Login/View',
 	'Demo'			=>	'Modules/Demo/View',
 	'Stupid_Ball'	=>	'Modules/Stupid_Ball/View',
-	'Terminal'		=>	'Modules/Terminal/View'
+	'Terminal'		=>	'Modules/Terminal/View',
+	'Projects'		=>	'Modules/Projects/View'
 );
