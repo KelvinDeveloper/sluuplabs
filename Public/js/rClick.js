@@ -1,6 +1,7 @@
 (function($){
 
 	var CliquedButton,
+		This,
 
 	Methods = {
 
@@ -11,6 +12,8 @@
 				event.stopPropagation();
 
 				if( event.button == 2 ){
+
+					This = $(this);
 
 					$(this).addClass('rCliked');
 
@@ -56,8 +59,8 @@
 	    Methods.init( this, Settings, nMenu );
 
 	    $('#rClickMenu-' + Settings.id + ' li').click(function(){
-	    	var Action 	= $(this).attr('id').replace('opMenu-', ''),
-	    		This 	= $('.rCliked');
+
+	    	var Action 	= $(this).attr('id').replace('opMenu-', '');
 
 	    	eval('nMenu.' + Action + '.exec( This )');
 	    });

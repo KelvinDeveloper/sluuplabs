@@ -57,9 +57,12 @@ $(document).ready(function(){
 	    	},
 	    	url: '/Projects/Ajax/CreateProject', 
 	    	success: function(Page){ 
-	    		console.log( Page );
+	    		
 	    		if( Page.Status === true ){
+
 	    			LoadProject( Page.Projeto );
+	    			LoadProject( Page.Projeto );
+
 	    		} else {
 	    			alert('Erro ao criar projeto');
 	    		}

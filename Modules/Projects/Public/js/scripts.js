@@ -9,7 +9,6 @@ function LoadProject( Pjc ){
     	},
     	url: '/Projects/Ajax/LoadProject', 
     	success: function(Pjc){ 
-
 			$.ajax({ 
 		    	type: "POST",
 		    	dataType: "html",
