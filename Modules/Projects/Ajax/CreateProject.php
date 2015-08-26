@@ -27,7 +27,7 @@ if( $Array ){
 		$Array['Index'] = 'index.pjc';
 
 		$Index['Title'] = 'Home';
-		$Index['Url']	= '/home';
+		$Index['Url']	= '/index';
 
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Config.pjc', $Array );
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Pages/index.pjc', $Index );

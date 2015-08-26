@@ -1,4 +1,4 @@
-<div class="pMenuRigth">
+<div class="pMenuRigth" data-pjc="<?php echo $j['Config']['nome_projeto']; ?>">
 	
 	<ul class="op">
 
@@ -36,11 +36,18 @@
 			$loop = 0;
 			foreach ( $j['Pages'] as $k => $v ){ ?>
 				<li data-info='<?php echo json_encode( $v ) ?>' <?php echo ( $loop === 0 ? 'class="active"' : "" ); ?> id="<?=$k?>" data-title="<?=$v['Title']?>">
-					<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
-					<?php if( $j['Config']['Index'] === $k ){ ?>
-					<i class="material-icons" id="s-home">&#xE88A;</i>
-						<div class="mdl-tooltip" for="s-home">Página inicial</div>
-					<?php } ?>
+					<div class="view" style="display:none;">
+						<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
+						<?php if( $j['Config']['Index'] === $k ){ ?>
+						<i class="material-icons" id="s-home">&#xE88A;</i>
+							<div class="mdl-tooltip" for="s-home">Página inicial</div>
+						<?php } ?>						
+					</div>
+
+					<div class="edit">
+						<input value="<?=$v['Title']?>">
+					</div>
+
 				</li>
 			<?php $loop++; } ?>
 
@@ -76,24 +83,34 @@ $(document).ready(function(){
 
 		Menu: {
 
-			defineIndex: {
+			// defineIndex: {
 
-				icon: '<i class="material-icons">&#xE88A;</i>',
-				text: 'Definir página inicial',
+			// 	icon: '<i class="material-icons">&#xE88A;</i>',
+			// 	text: 'Definir página inicial',
+			// 	exec: function(This){
+			// 		$.ajax({ 
+			// 	    	type: "POST",
+			// 	    	dataType: "json",
+			// 	    	cache: false,
+			// 	    	data: {
+			// 	    		Page: This.attr('id'),
+			// 	    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
+			// 	    	},
+			// 	    	url: '/Projects/Ajax/DefineDefault',
+			// 	    	success: function(Page){
+
+			// 	    	}
+			// 	    });
+			// 	}
+
+			// },
+
+			rename: {
+
+				icon: '<i class="material-icons">&#xE150;</i>',
+				text: 'Renomear',
 				exec: function(This){
-					$.ajax({ 
-				    	type: "POST",
-				    	dataType: "json",
-				    	cache: false,
-				    	data: {
-				    		Page: This.attr('id'),
-				    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
-				    	},
-				    	url: '/Projects/Ajax/DefineDefault',
-				    	success: function(Page){
-
-				    	}
-				    });
+					// This.
 				}
 
 			},

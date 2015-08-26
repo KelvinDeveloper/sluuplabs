@@ -37,6 +37,8 @@ $(document).ready(function(){
 		$('.pInitial').load( $(this).attr('href') );
 	});
 
-
+	$('.pNav').click(function(){
+		$('.pInitial').load( $(this).attr('href') );
+	});
 
 });

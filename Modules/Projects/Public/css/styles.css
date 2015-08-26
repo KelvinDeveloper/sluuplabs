@@ -60,10 +60,46 @@ h1{
 .select ul li.active{
 	font-weight: bold;
 }
+
+.select ul li .edit input{
+	font-family: 'Raleway', sans-serif !important;
+	width: 90%;
+	height: 29px;
+	font-size: 18px;
+}
+
 #s-home{
 	position: absolute;
 	margin-left: 5px;
 	font-size: 16px;
 	margin-top: 5px;
 	color: rgb(153, 153, 153);
+}
+
+ul.pOpen{
+	display: flex;
+	padding: 0;
+}
+
+ul.pOpen li{
+	height: 62px;
+	width: 62px;
+	text-align: center;
+	line-height: 12px;
+	list-style: none;
+	cursor: default;
+	background-color: #fbfcfc;
+	border-radius: 2px;
+	margin: 5px;
+
+	-webkit-transition: all 2s;
+	transition: all .2s;
+}
+
+ul.pOpen li:hover, ul.pOpen li.active{
+	background-color: #bdc3c7;
+}
+
+ul.pOpen li i{
+	font-size: 42px;
 }

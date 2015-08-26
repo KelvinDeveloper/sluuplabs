@@ -44,9 +44,7 @@ echo $Form;
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.pNav').click(function(){
-		$('.pInitial').load( $(this).attr('href') );
-	});
+
 	$('#generateProject').click(function(){
 		$.ajax({ 
 	    	type: "POST",

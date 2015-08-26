@@ -1,0 +1,39 @@
+<i href="/Projects/Initial" class="pNav material-icons fL">arrow_back</i>
+
+<?php
+
+$Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/Projects/' ;
+
+$Projects = dir( $Location );
+
+echo '<h1>Selecione o projeto...</h1>';
+
+echo '<ul class="pOpen">';
+
+while ( $Project = $Projects->read() ){
+	if( is_dir( $Location . $Project ) == true && ( $Project != '.' && $Project != '..' ) ){
+		echo '<li data-pjc="' . $Project . '"><i class="material-icons">&#xE8F9;</i> ' . $Project . '</li>';
+	}
+}
+
+echo '</ul>';
+?>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fR openProject" disabled>
+  <i class="material-icons">&#xE876;</i>
+</button>
+
+<script type="text/javascript">
+
+$('.pOpen li').click(function(){
+	$('.pOpen li').removeClass('active');
+	$(this).addClass('active');
+
+	$('.openProject').prop('disabled', false);
+});
+
+$('.openProject').click(function(){
+	LoadProject( $('.pOpen li.active').data('pjc') );
+	LoadProject( $('.pOpen li.active').data('pjc') );
+});
+</script>

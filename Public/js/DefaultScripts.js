@@ -183,3 +183,24 @@ function RemoveAccents(varString) {
     }  
     return varRes;
 };
+
+/* Projects */
+$(document).on('keyup', '#p-pages .edit input', function(e){
+    if( e.keyCode == 13 ){
+        $.ajax({ 
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            data: {
+                page: $(this).parents('li').attr('id'),
+                pjc : $('.pMenuRigth').data('pjc'),
+                title: $(this).val()
+            },
+            url: '/Projects/Ajax/Rename',
+            success: function(Page){
+
+            }
+        });
+    }
+});
+/* Ends Projects */
