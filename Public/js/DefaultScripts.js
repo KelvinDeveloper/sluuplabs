@@ -187,20 +187,43 @@ function RemoveAccents(varString) {
 /* Projects */
 $(document).on('keyup', '#p-pages .edit input', function(e){
     if( e.keyCode == 13 ){
+
+        var This = $(this);
+
         $.ajax({ 
             type: "POST",
             dataType: "json",
             cache: false,
             data: {
-                page: $(this).parents('li').attr('id'),
+                page: This.parents('li').attr('id'),
                 pjc : $('.pMenuRigth').data('pjc'),
                 title: $(this).val()
             },
             url: '/Projects/Ajax/Rename',
             success: function(Page){
 
+                if( Page.Status == true ){
+
+                    This.parents('li').attr('id', Page.File).attr('data-title', Page.Title).attr('data-info', JSON.stringify( Page ) ).find('.view').html('<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title);
+                    This.parents('li').find('.edit').hide();
+                    This.parents('li').find('.view').show();
+
+                } else {
+                    alert( Page.Message );
+                    This.focus();
+                }
             }
         });
     }
+});
+
+$(document).on('click', '#p-pages li:not(".new")', function(){
+
+    var This = $(this);
+
+    This.parents('.select').find('.active').removeClass('active');
+    This.addClass('active');
+
+    LoadPage();
 });
 /* Ends Projects */

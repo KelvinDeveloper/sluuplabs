@@ -36,8 +36,9 @@ h1{
 }
 
 .pMenuRigth .select{
+	overflow: auto;
 	width: 15%;
-	height: 80%;
+	height: 83%;
 	position: absolute;
 	background-color: #f8f9f9;
 	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
@@ -45,6 +46,22 @@ h1{
 	border-radius: 2px;
 	top: 9%;
 	left: 6%;
+}
+
+#stage{
+	width: 76%;
+	height: 80%;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+	left: 23%;
+	position: absolute;
+	top: 9%;
+	border-radius: 2px;
+}
+
+h1.stageTitle{
+	position: absolute;
+	top: 0px;
+	left: 23%;
 }
 
 .select ul{
@@ -82,7 +99,7 @@ ul.pOpen{
 }
 
 ul.pOpen li{
-	height: 62px;
+	height: 72px;
 	width: 62px;
 	text-align: center;
 	line-height: 12px;

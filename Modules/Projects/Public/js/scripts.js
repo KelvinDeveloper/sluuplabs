@@ -25,6 +25,9 @@ function LoadProject( Pjc ){
     });
 }
 
+function LoadPage(){
+	$('.stageTitle').html('<i class="material-icons fL">&#xE24D;</i> ' + $('#p-pages li.active').attr('data-title') );
+}
 
 $(document).ready(function(){
 	// Open initial

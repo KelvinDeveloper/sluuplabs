@@ -36,7 +36,7 @@
 			$loop = 0;
 			foreach ( $j['Pages'] as $k => $v ){ ?>
 				<li data-info='<?php echo json_encode( $v ) ?>' <?php echo ( $loop === 0 ? 'class="active"' : "" ); ?> id="<?=$k?>" data-title="<?=$v['Title']?>">
-					<div class="view" style="display:none;">
+					<div class="view">
 						<i class="material-icons fL">&#xE5CC;</i> <?=$v['Title']?> 
 						<?php if( $j['Config']['Index'] === $k ){ ?>
 						<i class="material-icons" id="s-home">&#xE88A;</i>
@@ -44,7 +44,7 @@
 						<?php } ?>						
 					</div>
 
-					<div class="edit">
+					<div class="edit" style="display:none;">
 						<input value="<?=$v['Title']?>">
 					</div>
 
@@ -76,6 +76,11 @@ $(document).ready(function(){
 	});
 
 	$('.op li button:first').click();
+
+	function rename( This ){
+		This.find('.edit').show();
+		This.find('.view').hide();
+	}
 
 	$('.select li:not(".new")').rClick({
 
@@ -110,7 +115,7 @@ $(document).ready(function(){
 				icon: '<i class="material-icons">&#xE150;</i>',
 				text: 'Renomear',
 				exec: function(This){
-					// This.
+					rename( This );
 				}
 
 			},
@@ -134,7 +139,6 @@ $(document).ready(function(){
 					    	url: '/Projects/Ajax/DeletePage', 
 					    	success: function(Page){ 
 					    		if( Page.Status === true ){
-					    			console.log( This );
 					    			This.remove();
 					    		}
 					    	}
@@ -145,14 +149,14 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.select li.new').click(function(){
+	$('#p-pages li.new').click(function(){
 
 		var NewPage 	= 'Nova Página',
 			LoopName	= true,
 			Loop 		= 0;
 
 		while( LoopName ){
-			if( $('.select li[data-title="' + NewPage + ( Loop === 0 ? '' : '-' + Loop ) + '"]').length > 0 ){
+			if( $('#p-pages li[data-title="' + NewPage + ( Loop === 0 ? '' : '-' + Loop ) + '"]').length > 0 ){
 				Loop++;
 			} else {
 				NewPage 	= NewPage + ( Loop === 0 ? '' : '-' + Loop );
@@ -175,9 +179,16 @@ $(document).ready(function(){
 
 	    			$('.select li').removeClass('active');
 
-					$('.select li.new').after('<li data-info=\'' + Page + '\' class="active" id="' + Page.Url.replace('/', '') + '.pjc" data-title="' + Page.Title + '">' +
-						'<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title +
+					$('.select li.new').after('<li data-info=\'' + JSON.stringify( Page ) + '\' class="active" id="' + Page.Url.replace('/', '') + '.pjc" data-title="' + Page.Title + '">' +
+						'<div class="view" style="display:none">' +
+							'<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title +
+						'</div>' +
+						'<div class="edit">' +
+							'<input value="' + Page.Title + '">' +
+						'</div>' +
 					'</li>');
+
+					$('.select input:first').focus();
 	    		}
 			}
 	    });

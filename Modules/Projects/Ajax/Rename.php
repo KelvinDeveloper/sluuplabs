@@ -45,11 +45,21 @@ if( !file_exists( $Location . $pUrl . '.pjc' ) ){
 		$Return['Message'] = 'Erro ao gerar arquivo';
 	}
 
+} 
+
+else if( $pUrl . '.pjc' == $_POST['page'] ){
+	$Return['Status'] = true;
+
 } else {
 
 	$Return['Status'] = false;
 	$Return['Message'] = 'Já existe uma página com este título';
 
+}
+
+if( $Return['Status'] == true ){
+	$Return['File']  = $pUrl . '.pjc';
+	$Return['Title'] = $_POST['title'];
 }
 
 echo json_encode( $Return );
