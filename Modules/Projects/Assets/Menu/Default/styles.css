@@ -1,0 +1,15 @@
+#pDefaultMenu{
+	background-color: #2196f3;
+}
+
+#pDefaultMenu ul{
+	width: 100%;
+	background-color: #1e88e5;
+	padding: 0;
+	margin: 0;
+}
+
+#pDefaultMenu ul li{
+	list-style: none;
+	color: #fff;
+}

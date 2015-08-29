@@ -35,7 +35,9 @@ class Services {
 				/* autoSystem */
 				$autoSystem,
 				/* Terminal */
-				$Terminal
+				$Terminal,
+				/* Projects */
+				$Projects
 				;
 
 		$thisService = $ManagerService[ $Service ];

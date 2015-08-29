@@ -72,5 +72,7 @@ $ManagerService = array(
 	'Terminal'	=> array(
 		'Dir'		=> 'Terminal/Terminal'
 	),
-
+	'Projects'	=> array(
+		'Dir'		=> 'Projects/Projects'
+	),
 ); // Ends

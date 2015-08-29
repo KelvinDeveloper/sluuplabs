@@ -27,6 +27,20 @@ function LoadProject( Pjc ){
 
 function LoadPage(){
 	$('.stageTitle').html('<i class="material-icons fL">&#xE24D;</i> ' + $('#p-pages li.active').attr('data-title') );
+
+	$.ajax({
+		type: "POST",
+		dataType: "html",
+		cache: false,
+		data: {
+			File: $('#p-pages li.active').attr('id'),
+			Pjc:  $('.pMenuRigth').data('pjc')
+		},
+		url: '/Projects/Ajax/LoadPage',
+		success: function(HTML){
+			$('#stage').html(HTML);
+		}
+	});
 }
 
 $(document).ready(function(){
