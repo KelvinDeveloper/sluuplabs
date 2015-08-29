@@ -4,4 +4,4 @@
 */
 
 $Services->Run('Projects');
-echo $Projects->LoadHeader( $_POST['Pjc'], $_POST['File'] );
+echo $Projects->Start( $_POST['Pjc'], $_POST['File'] );

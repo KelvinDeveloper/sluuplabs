@@ -11,12 +11,12 @@
 
 		</li>
 
-		<li data-content="p-menu">
+		<li data-content="p-blocks">
 
 			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="opMenu">
-	  			<i class="material-icons">&#xE3C7;</i>
+	  			<i class="material-icons">&#xE8F0;</i>
 			</button>
-			<div class="mdl-tooltip" for="opMenu">Menus</div>
+			<div class="mdl-tooltip" for="opMenu">Blocos</div>
 
 		</li>
 
@@ -27,8 +27,10 @@
 		<ul id="p-pages">
 			
 			<li class="new">
-				<i class="material-icons fL">add</i>
-				Criar Página
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:100%">
+					<i class="material-icons fL">add</i>
+					Criar Página
+				</button>
 			</li>
 
 
@@ -53,8 +55,75 @@
 
 		</ul>
 
-		<ul id="p-menu">
-			<li>Teste</li>
+		<ul id="p-blocks">
+			<li class="pBlock">
+				<div style="width:90%">
+					100%
+				</div>
+			</li>
+
+			<li class="pBlock">
+				<div style="width:40%">
+					50%
+				</div>
+
+				<div style="width:40%">
+					50%
+				</div>
+			</li>
+
+			<li class="pBlock">
+				<div style="width:23%">
+					33%
+				</div>
+
+				<div style="width:23%">
+					33%
+				</div>
+
+				<div style="width:23%">
+					33%
+				</div>
+			</li>
+
+			<li class="pBlock">
+				<div style="width:15%">
+					25%
+				</div>
+
+				<div style="width:15%">
+					25%
+				</div>
+
+				<div style="width:15%">
+					25%
+				</div>
+
+				<div style="width:15%">
+					25%
+				</div>
+			</li>
+
+			<li class="pBlock">
+				<div style="width:60%">
+					70%
+				</div>
+
+				<div style="width:20%">
+					30%
+				</div>
+			</li>
+
+			<li class="pBlock">
+				<div style="width:20%">
+					30%
+				</div>
+
+				<div style="width:60%">
+					70%
+				</div>
+			</li>
+
 		</ul>
 		
 	</div>
@@ -72,8 +141,41 @@ $(document).ready(function(){
 		$('.op li').removeClass('active');
 		$(this).parent('li').addClass('active');
 
-		$('.select ul#' + $(this).parent('li').data('content') ).show();			
+		$('.select ul#' + $(this).parent('li').data('content') ).show();
 	});
+
+	$('.pMenuRigth #p-pages').sortable({
+		items: "li:not(.new)",
+		stop: function( event, ui ) {
+			
+			var Sequence = '',
+				Loop     = 1;
+
+			$('.pMenuRigth #p-pages li').each(function(){
+				if( $(this).attr('id') != undefined ){
+					Sequence += $(this).attr('id') + ':' + Loop + ';';
+					Loop++;
+				}
+			});
+
+			$.ajax({ 
+		    	type: "POST",
+		    	dataType: "json",
+		    	cache: false,
+		    	data: {
+		    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>',
+		    		Sequence: Sequence
+		    	},
+		    	url: '/Projects/Ajax/SaveSequence', 
+		    	success: function(Data){ 
+		    		$.each( Data, function(k, v){
+		    			$('#' + k.replace('.', '\\.') ).attr('id', v);
+		    		});
+		    	}
+		    });
+
+		}
+	});	
 
 	$('.op li button:first').click();
 
@@ -82,7 +184,31 @@ $(document).ready(function(){
 		This.find('.view').hide();
 	}
 
-	$('.select li:not(".new")').rClick({
+	$('#p-blocks li').draggable({ 
+		opacity: 0.7, 
+		helper: 'clone',
+		appendTo: '#ModuleProjects',
+		cursorAt: {
+			left: 5,
+			top : 5
+		}
+	});
+
+    $("#stage").droppable({
+      drop: function( event, ui ) {
+        $(this).removeClass( "drop" );
+      },
+
+      over: function( event, ui ){
+      	$(this).addClass( "drop" );
+      },
+
+      out: function( event, ui ){
+      	$(this).removeClass( "drop" );
+      }
+    });
+
+	$('#p-pages li:not(".new")').rClick({
 
 		id: 's-page-rClick',
 

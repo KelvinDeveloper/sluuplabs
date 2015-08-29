@@ -225,5 +225,13 @@ $(document).on('click', '#p-pages li:not(".new")', function(){
     This.addClass('active');
 
     LoadPage();
+    setTimeout(function(){
+        $('#pDefaultMenu a[href="/' + This.attr('id').replace('.pjc', '') + '"] li').addClass('active');
+    }, 200);
+
+});
+
+$(document).on('click', '#stage a', function(){
+    return false;
 });
 /* Ends Projects */

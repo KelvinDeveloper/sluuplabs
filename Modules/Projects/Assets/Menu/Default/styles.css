@@ -1,15 +1,27 @@
 #pDefaultMenu{
 	background-color: #2196f3;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #pDefaultMenu ul{
 	width: 100%;
-	background-color: #1e88e5;
+	background-color: #006FA4;
 	padding: 0;
 	margin: 0;
+	height: 45px;
 }
 
 #pDefaultMenu ul li{
 	list-style: none;
 	color: #fff;
+	float: left;
+	padding: 15px;
+	font-weight: 600;
+
+	-webkit-transition: all 2s;
+	transition: all .2s;
+}
+
+#pDefaultMenu ul li.active, #pDefaultMenu ul li:hover{
+	color: #99CEE8;
 }

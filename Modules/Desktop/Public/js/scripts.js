@@ -72,7 +72,7 @@ function openModule( Module ){
 					}
 		    	}, 600);
 
-				$('.window:not(.maximize)').draggable({
+				$('.window').draggable({
 					handle: '.header',
 					containment: 'body',
 					scroll: false
@@ -264,6 +264,7 @@ $(document).ready(function(){
 	    		left: '50%',
 	    		marginLeft: - ( $(window).width() / 1.2 )  / 2 
 	    	});
+	    	$('.window').draggable("enable");
 		} else {
 
 	    	This.parents('.window').css({
@@ -274,6 +275,7 @@ $(document).ready(function(){
 	    		marginLeft: 0
 
 	    	});
+	    	$('.window').draggable("disable");
 		}
 
 		This.toggleClass('active');

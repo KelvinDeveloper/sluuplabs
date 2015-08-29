@@ -25,8 +25,8 @@ h1{
 	margin-top: 15px;
 	opacity: .6;
 
-	-webkit-transition: all 2s;
-	transition: all .2s;
+/*	-webkit-transition: all 2s;
+	transition: all .2s;*/
 }
 .pMenuRigth ul li:hover{
 	opacity: .9;
@@ -56,6 +56,15 @@ h1{
 	position: absolute;
 	top: 9%;
 	border-radius: 2px;
+	border: solid 2px transparent;
+
+	-webkit-transition: all 2s;
+	transition: all .2s;
+}
+
+#stage.drop{
+	border: dashed 2px #ccc;
+	background-color: #F8F9F9;
 }
 
 h1.stageTitle{
@@ -119,4 +128,18 @@ ul.pOpen li:hover, ul.pOpen li.active{
 
 ul.pOpen li i{
 	font-size: 42px;
+}
+
+li.pBlock{
+	list-style: none;
+	width: 220px;
+}
+
+li.pBlock div{
+	cursor: default;
+	background-color: #fff;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+	float: left;
+	padding: 5px;
+	margin: 5px;
 }
