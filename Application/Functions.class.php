@@ -465,12 +465,12 @@ class RunFunction{
 	}
 
 	function GenerateIni( $File, $Content ){
-
+		
 		if( file_exists( $File ) ){
 			unlink( $File );
 		}
 
-		$Archive = fopen ( $File, 'x+');
+		$Archive = fopen( $File, 'x+');
 
 		if ( !fwrite( $Archive, $this->ArrayToIni( $Content ) ) ){
 			$Return = false;

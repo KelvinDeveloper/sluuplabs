@@ -305,7 +305,7 @@ $(document).ready(function(){
 
 	    			$('.select li').removeClass('active');
 
-					$('.select li.new').after('<li data-info=\'' + JSON.stringify( Page ) + '\' class="active" id="' + Page.Url.replace('/', '') + '.pjc" data-title="' + Page.Title + '">' +
+					$('.select li.new').after('<li data-info=\'' + JSON.stringify( Page ) + '\' class="active" id="' + Page.File + '" data-title="' + Page.Title + '">' +
 						'<div class="view" style="display:none">' +
 							'<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title +
 						'</div>' +
