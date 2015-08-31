@@ -100,43 +100,15 @@ $(document).ready(function(){
 	$('#desktop .account-user').click(function(e){
 		e.stopPropagation();
 
-		$(this).toggleClass('active');
-		if( $(this).hasClass('active') == true )
-		{
-
-			$('nav.top').css({
-				right: 0		
-			});
-
-			$(this).css({
-				right: $(window).width() / 6.3
-			});
-
-			$('#desktop .infoUser').css({
-				right: 149
-			});
-
-		} else {
-			$('nav.top').css({
-				right: -999		
-			});
-
-			$(this).css({
-				right: 160
-			});
-
-			$('#desktop .infoUser').css({
-				right: 11
-			});
-		}
+		//$(this).toggleClass('active');
 
 	});
 
 	$('.mainDesk').click(function(){
-		$('#desktop nav.top .account-user').parent().find('ul:first').fadeOut(100);
+		$('#desktop nav.top').parent().find('ul:first').fadeOut(100);
 		$('#menu-desk-bottom').css('bottom', -999);
 			
-			$('.account-user, #start').removeClass('active');
+			$('#start').removeClass('active');
 
 			$('#openStart').css({
 				left: -999		
@@ -146,9 +118,6 @@ $(document).ready(function(){
 				right: -999		
 			});
 
-			$('#desktop .account-user').css({
-				right: 160
-			});
 
 			$('#desktop .infoUser').css({
 				right: 11
