@@ -81,6 +81,8 @@ h1.stageTitle{
 	font-family: 'Raleway', sans-serif !important;
 	font-size: 22px;
 	cursor: default;
+	height: 35px;
+	line-height: 35px;
 }
 
 .select ul li.active{
@@ -142,4 +144,20 @@ li.pBlock div{
 	float: left;
 	padding: 5px;
 	margin: 5px;
+}
+#stage .grid{
+	width: 100%;
+	display: inline-block;
+}
+
+#stage .grid #grid-1{
+
+}
+
+#stage .grid.grid-2 div{
+	width: 48%;
+	padding: 1%;
+	min-height: 50px;
+	float: left;
+	background-color: #F8F9F9;
 }

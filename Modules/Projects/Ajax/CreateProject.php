@@ -25,12 +25,13 @@ if( $Array ){
 		$Array['Autor']	= $_SESSION['user']['Nome'];
 		$Array['Date']  = date("Y-m-d H:i:s");
 		$Array['Index'] = 'index.pjc';
+		$Array['HeaderMenu']	= 'Default';
 
 		$Index['Title'] = 'Home';
 		$Index['Url']	= '/index';
 
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Config.pjc', $Array );
-		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Pages/index.pjc', $Index );
+		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Pages/1_index.pjc', $Index );
 
 		$Return['Projeto']	= $Array['nome_projeto'];
 		$Return['Message'] 	= _('Projeto criado com sucesso');

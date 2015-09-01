@@ -56,13 +56,13 @@
 		</ul>
 
 		<ul id="p-blocks">
-			<li class="pBlock">
+			<li class="pBlock" data-layout="1">
 				<div style="width:90%">
 					100%
 				</div>
 			</li>
 
-			<li class="pBlock">
+			<li class="pBlock" data-layout="2">
 				<div style="width:40%">
 					50%
 				</div>
@@ -72,7 +72,7 @@
 				</div>
 			</li>
 
-			<li class="pBlock">
+			<li class="pBlock" data-layout="3">
 				<div style="width:23%">
 					33%
 				</div>
@@ -86,7 +86,7 @@
 				</div>
 			</li>
 
-			<li class="pBlock">
+			<li class="pBlock" data-layout="4">
 				<div style="width:15%">
 					25%
 				</div>
@@ -104,7 +104,7 @@
 				</div>
 			</li>
 
-			<li class="pBlock">
+			<li class="pBlock" data-layout="5">
 				<div style="width:60%">
 					70%
 				</div>
@@ -114,7 +114,7 @@
 				</div>
 			</li>
 
-			<li class="pBlock">
+			<li class="pBlock" data-layout="6">
 				<div style="width:20%">
 					30%
 				</div>
@@ -197,6 +197,22 @@ $(document).ready(function(){
     $("#stage").droppable({
       drop: function( event, ui ) {
         $(this).removeClass( "drop" );
+		$.ajax({ 
+	    	type: "POST",
+	    	dataType: "json",
+	    	cache: false,
+	    	data: {
+	    		Page: $('#p-pages li.active').attr('id'),
+	    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>',
+	    		Layout: ui.draggable.data('layout')
+	    	},
+	    	url: '/Projects/Ajax/CreateGrid', 
+	    	success: function(Grid){ 
+	    		if( Grid.Status === true ){
+	    			
+	    		}
+	    	}
+	    });
       },
 
       over: function( event, ui ){
@@ -213,28 +229,6 @@ $(document).ready(function(){
 		id: 's-page-rClick',
 
 		Menu: {
-
-			// defineIndex: {
-
-			// 	icon: '<i class="material-icons">&#xE88A;</i>',
-			// 	text: 'Definir página inicial',
-			// 	exec: function(This){
-			// 		$.ajax({ 
-			// 	    	type: "POST",
-			// 	    	dataType: "json",
-			// 	    	cache: false,
-			// 	    	data: {
-			// 	    		Page: This.attr('id'),
-			// 	    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>'
-			// 	    	},
-			// 	    	url: '/Projects/Ajax/DefineDefault',
-			// 	    	success: function(Page){
-
-			// 	    	}
-			// 	    });
-			// 	}
-
-			// },
 
 			rename: {
 
