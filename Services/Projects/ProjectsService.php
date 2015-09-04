@@ -67,35 +67,50 @@ class Projects{
 
 	function LoadGrid( $Config ){
 		
+		if( !file_exists( $Config['Location'] . 'Grids' ) ){
+			mkdir( $Config['Location'] . 'Grids' );
+			chmod( $Config['Location'] . 'Grids', 0777 );
+		}
+
+		if( !file_exists( $Location . 'Grids/' . $Config['Page'] ) ){
+			mkdir( $Location . 'Grids/' . $Config['Page'] );
+			chmod( $Location . 'Grids/' . $Config['Page'], 0777 );
+		}
+
 		$Grids = dir ( $Config['Location'] . 'Grids/' . $Config['Page'] );
 		$Content = '';
-
-		while ( $Grid = $Grids->read() ){
-			if( $Grid != '..' && $Grid != '.' ){
-				
-				$This = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid );
-				
-				$Content .= '<div class="grid grid-' . $This['Layout'] . '" id="grid-' . str_replace( '.pjc', '', $Grid ) . '">';
-
-				switch ( $This['Layout'] ){
-					case '1':
-						
-						break;
+		if( $Grids ){
+			while ( $Grid = $Grids->read() ){
+				if( $Grid != '..' && $Grid != '.' ){
+					$This = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid . '/Config.pjc' );
 					
-					case '2':
-						// 50%50
+					$Content .= '<div class="grid grid-' . $This['Layout'] . '" id="grid-' . str_replace( '.pjc', '', $Grid ) . '">';
+
+					switch ( $This['Layout'] ){
+						case '1':
+							$Quant = 1;
+							break;
+						case '5':
+						case '6':
+						case '2':
+							$Quant = 2;
+							break;
+						case '3':
+							$Quant = 3;
+							break;
+						case '4':
+							$Quant = 4;
+							break;
+					}
+
+					for ( $i = 1; $i <= $Quant ; $i++ ){
 						$Content .= '<div>';
 
 						$Content .= '</div>';
+					}
 
-						$Content .= '<div>';
-
-						$Content .= '</div>';
-
-						break;
+					$Content .= '</div>';
 				}
-
-				$Content .= '</div>';
 			}
 		}
 

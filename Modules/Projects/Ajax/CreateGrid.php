@@ -17,15 +17,11 @@ if( !file_exists( $Location . 'Grids/' . $Page ) ){
 $Dir   = scandir( $Location . '/Grids/' . $Page );
 $Quant = count( $Dir ) - 1;
 
-$Grid['Layout'] 	= $_POST['Layout'];
-$Grid['Type']		= '';
-$Grid['Content']	= '';
-$Grid['UrlVideo']	= '';
-$Grid['UrlImage']	= '';
-$Grid['Link']		= '';
-$Grid['Target']		= '';
+mkdir( $Location . '/Grids/' . $Page . '/' . $Quant );
 
-if( $Function->GenerateIni( $Location . '/Grids/' . $Page . '/' . $Quant . '.pjc', $Grid ) ){
+$Grid['Layout'] 	= $_POST['Layout'];
+
+if( $Function->GenerateIni( $Location . '/Grids/' . $Page . '/' . $Quant . '/Config.pjc', $Grid ) ){
 	$Grid['Status'] = true;
 } else {
 	$Grid['Status'] = false;

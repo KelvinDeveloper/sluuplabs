@@ -234,4 +234,14 @@ $(document).on('click', '#p-pages li:not(".new")', function(){
 $(document).on('click', '#stage a', function(){
     return false;
 });
+
+$(document).on('mouseenter', '#stage .grid div', function(){ 
+    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">' +
+                        '<i class="material-icons">add</i>' +
+                    '</button>' );
+});
+
+$(document).on('mouseleave', '#stage .grid div', function(){ 
+    $(this).find('#addBlock').remove();
+});
 /* Ends Projects */

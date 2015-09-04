@@ -161,3 +161,55 @@ li.pBlock div{
 	float: left;
 	background-color: #F8F9F9;
 }
+
+.grid div{
+	min-height: 80px;
+	border: solid 1px #ccc;
+	float: left;
+
+	-webkit-transition: border .1s;
+	transition: border .1s;
+}
+.grid div:hover{
+	border: solid 1px #3498db;
+}
+
+#addBlock{
+    left: 50%;
+    margin-left: -23px;
+    position: relative;
+    top: 10px;
+}
+
+/**/
+.grid.grid-1 div{
+	width: 99%;
+}
+
+.grid.grid-2 div{
+	width: 49%;
+}
+
+.grid.grid-3 div{
+	width: 32%;
+}
+
+.grid.grid-4 div{
+	width: 24.4%;
+}
+
+.grid.grid-5 div:first-child{
+	width: 69%;
+}
+.grid.grid-5 div:last-child{
+	width: 29%;
+}
+
+.grid.grid-6 div:first-child{
+	width: 29%;
+}
+.grid.grid-6 div:last-child{
+	width: 69%;
+}
+
+/**/
