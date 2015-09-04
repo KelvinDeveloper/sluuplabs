@@ -209,7 +209,7 @@ $(document).ready(function(){
 	    	url: '/Projects/Ajax/CreateGrid', 
 	    	success: function(Grid){ 
 	    		if( Grid.Status === true ){
-	    			LoadProject( '<?php echo $j['Config']['nome_projeto']; ?>' );
+	    			LoadPage( $('#p-pages li.active').attr('id') );
 	    		}
 	    	}
 	    });

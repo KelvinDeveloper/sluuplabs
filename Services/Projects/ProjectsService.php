@@ -77,10 +77,11 @@ class Projects{
 			chmod( $Location . 'Grids/' . $Config['Page'], 0777 );
 		}
 
-		$Grids = dir ( $Config['Location'] . 'Grids/' . $Config['Page'] );
+		$Grids = scandir( $Config['Location'] . 'Grids/' . $Config['Page'] );
 		$Content = '';
+
 		if( $Grids ){
-			while ( $Grid = $Grids->read() ){
+			foreach( $Grids as $Grid ){
 				if( $Grid != '..' && $Grid != '.' ){
 					$This = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid . '/Config.pjc' );
 					

@@ -150,18 +150,6 @@ li.pBlock div{
 	display: inline-block;
 }
 
-#stage .grid #grid-1{
-
-}
-
-#stage .grid.grid-2 div{
-	width: 48%;
-	padding: 1%;
-	min-height: 50px;
-	float: left;
-	background-color: #F8F9F9;
-}
-
 .grid div{
 	min-height: 80px;
 	border: solid 1px #ccc;
