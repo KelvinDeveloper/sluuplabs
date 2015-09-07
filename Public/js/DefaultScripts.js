@@ -245,3 +245,50 @@ $(document).on('mouseleave', '#stage .grid div', function(){
     $(this).find('#addBlock').remove();
 });
 /* Ends Projects */
+
+/* Modal */
+function Modal ( This ){
+    
+    var Size        = ( This.data('size')       != undefined ? This.data('size')        : 'medium'  ),
+        Url         = ( This.attr('href')       != undefined ? This.attr('href')        : false     ),
+        Draggable   = ( This.data('draggable')  != undefined ? This.data('draggable')   : true      ),
+        Shadow      = ( This.data('shadow')     != undefined ? This.data('shadow')      : true      ),
+        Parent      = ( This.data('parent')     != undefined ? This.data('parent')      : 'body'    ),
+        Title       = ( This.attr('title')      != undefined ? This.attr('title')       : false     ),
+
+        HTML = '';
+
+    $('#modal').remove();
+
+    HTML += '<div class="modal ' + Size + '" id="modal">';
+
+        HTML += ( Title != false ? '<div class="header">' + Title + '</div>' : '' );
+        HTML += '<div class="content"></div>';
+
+    HTML += '</div>';
+
+    $(Parent).append( HTML );
+
+    if( Draggable == true ){
+        $('#modal').draggable({
+            handle: ( Title != false ? '#modal .header' : false ),
+            containment: Parent,
+            scroll: false
+        });
+    }
+
+    if( Shadow == true ){
+        $(Parent).append('<div class="shadowModal"></div>');
+    }
+
+    $('#modal .content').load( Url );
+
+    return false;
+}
+
+$(document).on('click', '.openModal', function(){
+    Modal( $(this) );
+    return false;
+});
+
+/* Ends Modal */
