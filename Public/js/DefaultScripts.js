@@ -236,7 +236,7 @@ $(document).on('click', '#stage a', function(){
 });
 
 $(document).on('mouseenter', '#stage .grid div', function(){ 
-    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">' +
+    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="Adicionando item" data-shadow="false" data-parent="#ModuleProjects" data-size="large">' +
                         '<i class="material-icons">add</i>' +
                     '</button>' );
 });
@@ -262,16 +262,47 @@ function Modal ( This ){
 
     HTML += '<div class="modal ' + Size + '" id="modal">';
 
-        HTML += ( Title != false ? '<div class="header">' + Title + '</div>' : '' );
+        HTML += '<div class="title">' + ( Title != false ? Title : '' ) + ' <i class="material-icons close fR mL">&#xE14C;</i></div>';
         HTML += '<div class="content"></div>';
 
     HTML += '</div>';
 
     $(Parent).append( HTML );
 
+    switch( Size ){
+
+        case 'large' :
+            $('#modal').css({
+                width: ( $(window).width() / 2 ),
+                height: ( $(window).height() / 1.5 ),
+                marginLeft: - ( $(window).width() / 2 ) / 2,
+                marginTop: - ( $(window).height() / 1.5 ) / 2
+            });
+            break;
+
+        case 'medium' :
+            $('#modal').css({
+                width: ( $(window).width() / 3 ),
+                height: ( $(window).height() / 2.5 ),
+                marginLeft: - ( $(window).width() / 3 ) / 2,
+                marginTop: - ( $(window).height() / 2.5 ) / 2
+            });
+            break;
+
+        case 'small' :
+            $('#modal').css({
+                width: ( $(window).width() / 4 ),
+                height: ( $(window).height() / 3.5 ),
+                marginLeft: - ( $(window).width() / 4 ) / 2,
+                marginTop: - ( $(window).height() / 3.5 ) / 2
+            });
+            break;
+    }
+
+
     if( Draggable == true ){
         $('#modal').draggable({
-            handle: ( Title != false ? '#modal .header' : false ),
+            handle: ( Title != false ? '.title' : false ),
             containment: Parent,
             scroll: false
         });
@@ -291,4 +322,32 @@ $(document).on('click', '.openModal', function(){
     return false;
 });
 
+$(document).on('click', '#modal .close', function(){
+    $(this).parents('#modal').remove();
+    return false;
+});
+
 /* Ends Modal */
+
+function editorHTML(){
+
+    // var HTMLWidth = $('body').width() - 205;
+    
+    var editorHTML = new tinymce.Editor('content', {
+                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern "],
+                toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify " ],
+                insertdatetime_formats: ["%d/%m/%Y", "%Y-%m-%d", "%H:%M", "%H:%M:%S"],
+                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+                menubar: "edit insert format table",
+
+                language  : 'pt_BR',
+                selector  : '.tinymce',
+                skin      : 'lightgray',
+                statusbar: false,
+                // width     : HTMLWidth,
+                height    : 200,
+
+    }, tinymce.EditorManager);
+
+    editorHTML.render();
+}

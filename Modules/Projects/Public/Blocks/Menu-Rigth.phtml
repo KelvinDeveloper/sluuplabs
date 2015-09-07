@@ -196,31 +196,37 @@ $(document).ready(function(){
 
     $("#stage").droppable({
       drop: function( event, ui ) {
-        $(this).removeClass( "drop" );
-		$.ajax({ 
-	    	type: "POST",
-	    	dataType: "json",
-	    	cache: false,
-	    	data: {
-	    		Page: $('#p-pages li.active').attr('id'),
-	    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>',
-	    		Layout: ui.draggable.data('layout')
-	    	},
-	    	url: '/Projects/Ajax/CreateGrid', 
-	    	success: function(Grid){ 
-	    		if( Grid.Status === true ){
-	    			LoadPage( $('#p-pages li.active').attr('id') );
-	    		}
-	    	}
-	    });
+      	if( ui.draggable.hasClass('pBlock') === true ){
+	        $(this).removeClass( "drop" );
+			$.ajax({ 
+		    	type: "POST",
+		    	dataType: "json",
+		    	cache: false,
+		    	data: {
+		    		Page: $('#p-pages li.active').attr('id'),
+		    		Pjc : '<?php echo $j['Config']['nome_projeto']; ?>',
+		    		Layout: ui.draggable.data('layout')
+		    	},
+		    	url: '/Projects/Ajax/CreateGrid', 
+		    	success: function(Grid){ 
+		    		if( Grid.Status === true ){
+		    			LoadPage( $('#p-pages li.active').attr('id') );
+		    		}
+		    	}
+		    });
+		}
       },
 
       over: function( event, ui ){
-      	$(this).addClass( "drop" );
+      	if( ui.draggable.hasClass('pBlock') === true ){
+      		$(this).addClass( "drop" );
+      	}
       },
 
       out: function( event, ui ){
-      	$(this).removeClass( "drop" );
+      	if( ui.draggable.hasClass('pBlock') === true ){
+      		$(this).removeClass( "drop" );
+      	}
       }
     });
 
