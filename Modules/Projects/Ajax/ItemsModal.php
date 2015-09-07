@@ -12,7 +12,7 @@ if( isset( $_GET['Block'] ) ){
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Itens</span>
+      <span class="mdl-layout-title"></span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
@@ -23,13 +23,13 @@ if( isset( $_GET['Block'] ) ){
   </header>
   <div class="mdl-layout__drawer">
     <nav class="mdl-navigation">
-			<a class="mdl-navigation__link fL" href="Texto">
+			<a class="mdl-navigation__link mR" href="Texto">
 				<i class="material-icons mR">&#xE165;</i> Texto
 			</a>
 
-			<a class="mdl-navigation__link" href="Image"><i class="material-icons fL mR">&#xE3B6;</i> Imagem</a>
+			<a class="mdl-navigation__link" href="Image"><i class="material-icons mR">&#xE3B6;</i> Imagem</a>
 
-			<a class="mdl-navigation__link" href="Video"><i class="material-icons fL mR">&#xE404;</i> Video</a>
+			<a class="mdl-navigation__link" href="Video"><i class="material-icons mR">&#xE404;</i> Video</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -47,6 +47,9 @@ $('.itens-pjc a').click(function(){
 
 	$('.page-content').load( '/Projects/Ajax/Item' + $(this).attr('href') );
 	$('.mdl-layout__drawer-button').click();
+
+	$('.mdl-layout-title').html( $(this).html() );
+
 	return false;
 });
 
