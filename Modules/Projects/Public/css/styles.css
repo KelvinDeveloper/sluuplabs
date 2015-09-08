@@ -211,4 +211,5 @@ li.pBlock div{
 	position: absolute;
 	bottom: 35px;
 	right: 10px;
+	z-index: 10;
 }

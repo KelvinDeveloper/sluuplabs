@@ -11,11 +11,8 @@ if( isset( $_GET['Block'] ) ){
 <div class="mdl-layout mdl-js-layout itens-pjc">
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
-      <!-- Title -->
       <span class="mdl-layout-title"></span>
-      <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
-      <!-- Navigation -->
       <nav class="mdl-navigation">
 
       </nav>
@@ -33,7 +30,7 @@ if( isset( $_GET['Block'] ) ){
     </nav>
   </div>
   <main class="mdl-layout__content">
-    <div class="page-content"><!-- Your content goes here --></div>
+    <div class="page-content"></div>
   </main>
 </div>
 

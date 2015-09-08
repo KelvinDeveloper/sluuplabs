@@ -1,0 +1,58 @@
+<link href="/Modules/Explorer/Public/css/styles.css" rel="stylesheet">
+<script type="text/javascript" src="/Modules/Explorer/Public/js/scripts.js"></script>
+
+
+<?php
+
+$LUrl = '';
+
+foreach ( $Url as $k => $v ){
+	if( $k > 0 ){
+		$LUrl .= $v . '/';
+	}
+}
+
+$HTML = '';
+$Services->Run('Explorer');
+
+$HTML .= '<ul id="eIcons" data-location="' . $LUrl . '">';
+
+foreach( $Explorer->Start() as $Name => $Values ){
+
+	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\'>';
+
+	if( $Values['Type'] == 'IMAGE' ){
+		$HTML .= 
+				'<div class="eIcon" style="background-image:url(\'' . $Values['Location'] . '\');"></div>
+					<span>' . $Name . '</span>';
+	} 
+
+	else if( $Values['Type'] == 'FOLDER' ){
+
+		$HTML .= '<i class="material-icons">&#xE2C7;</i>
+					<span>' . $Name . '</span>';
+
+	} else {
+		$HTML .= '<i class="material-icons">&#xE63B;</i>
+						<span>' . $Name . '</span>';
+	}
+
+	$HTML .= '</li>';
+}
+
+$HTML .= '</ul>';
+
+
+echo $HTML;
+
+?>
+
+<script type="text/javascript">
+	
+if( <?=count( $Url );?> > 2 && $('#ModuleExplorer .header i#navPrev').length < 1 ){
+	$('#ModuleExplorer .header').prepend('<i class="material-icons fL" id="navPrev">&#xE317;</i>');
+} else if( $('#ModuleExplorer .header i#navPrev').length < 1 ){
+	$('#ModuleExplorer .header i#navPrev').remove();
+}
+
+</script>

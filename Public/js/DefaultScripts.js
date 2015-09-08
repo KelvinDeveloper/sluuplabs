@@ -329,11 +329,9 @@ $(document).on('click', '#modal .close', function(){
 
 /* Ends Modal */
 
-function editorHTML(){
+function editorHTML( Array ){
 
-    // var HTMLWidth = $('body').width() - 205;
-    
-    var editorHTML = new tinymce.Editor('content', {
+    var editorHTML = new tinymce.Editor( Array.Element, {
                 plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern "],
                 toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify " ],
                 insertdatetime_formats: ["%d/%m/%Y", "%Y-%m-%d", "%H:%M", "%H:%M:%S"],
@@ -344,10 +342,42 @@ function editorHTML(){
                 selector  : '.tinymce',
                 skin      : 'lightgray',
                 statusbar: false,
-                // width     : HTMLWidth,
-                height    : 200,
+                width     : Array.Width,
+                height    : Array.Height,
 
     }, tinymce.EditorManager);
 
     editorHTML.render();
 }
+
+/* Explorer */
+
+$(document).on('dblclick', '#eIcons li', function(){
+
+   var JSON = $(this).data('info');
+
+    switch( JSON.Type ){
+
+        case 'FOLDER':
+            $('#ModuleExplorer .content').load( ( $('#eIcons').data('location') + $(this).find('span').text() ) );
+            break;
+    }
+
+    return false;
+});
+
+$(document).on('click', '#navPrev', function(){
+
+    
+
+    var Url = $('#eIcons').data('location').split('/'),
+        New = '';
+
+        for( var i = 0; i < ( Url.length - 2 ); i++ ){
+            New += Url[ i ] + '/';
+        };
+
+    $('#ModuleExplorer .content').load( New );
+});
+
+/* Ends Explorer */

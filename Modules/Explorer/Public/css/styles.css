@@ -1,0 +1,30 @@
+#eIcons{
+	margin: 0;
+	padding: 0;
+}
+
+#eIcons li{
+	list-style: none;
+	float: left;
+	padding: 5px;
+	width: 62px;
+	text-align: center;
+	cursor: default;
+	border-radius: 2px;
+}
+
+#eIcons li:hover{
+	opacity: .8
+}
+
+#eIcons li i{
+	font-size: 55px;
+}
+
+.eIcon{
+	width: 56px;
+	height: 56px;
+	display: inline-block;
+	background-size: cover;
+	border-radius: 2px;
+}

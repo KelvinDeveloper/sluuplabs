@@ -40,7 +40,9 @@ class Modules{
 				$Translate,
 				/* autoSystem */
 				$autoSystem,
-				$reg;
+				$reg,
+				/* Explorer */
+				$Explorer;
 
 		/* Se for protegido, manda para Login */
 		$Services->Run('Login');
