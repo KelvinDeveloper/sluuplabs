@@ -368,16 +368,39 @@ $(document).on('dblclick', '#eIcons li', function(){
 
 $(document).on('click', '#navPrev', function(){
 
+    var Location = $('#eIcons').data('location'),
+        Array    = Location.split('/'),
+        NewUrl   = '';
+
+    /* Preparando array */
+    Location = '';
+    for( var i = 0; i <= Array.length; i++ ){
+        if( Array[ i ] != '' && Array[ i ] != undefined ){
+            Location += Array[ i ] + '/';
+        }
+    }
+
+    Array    = Location.split('/');
+
+        console.log( Array[ Array.length -2 ] );
     
+    Array = Location.replace( Array[ Array.length -2 ], '' ).split('/');
 
-    var Url = $('#eIcons').data('location').split('/'),
-        New = '';
+    for( var i = 0; i <= Array.length; i++ ){
+        if( Array[ i ] != '' && Array[ i ] != undefined ){
+            NewUrl += Array[ i ] + '/';
+        }
+    };
 
-        for( var i = 0; i < ( Url.length - 2 ); i++ ){
-            New += Url[ i ] + '/';
-        };
+    // var Count = NewUrl.split('/');
 
-    $('#ModuleExplorer .content').load( New );
+    // console.log( Count.length );
+
+    // if( Count.length <= 2 ){
+    //     $('#ModuleExplorer #navPrev').remove();
+    // }
+
+    $('#ModuleExplorer .content').load( NewUrl );
 });
 
 /* Ends Explorer */
