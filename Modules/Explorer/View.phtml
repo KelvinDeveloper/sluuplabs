@@ -15,7 +15,15 @@ foreach ( $Url as $k => $v ){
 $HTML = '';
 $Services->Run('Explorer');
 
-$HTML .= '<ul id="eIcons" data-location="' . $LUrl . '">';
+$HTML .= '<ul id="eIcons" data-location="' . $LUrl . '" data-filtro="navPrev=' . $_GET['navPrev'] . '&type=' . $_GET['type'] . '">';
+
+if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_filter( $Url ) ) > 1 ){
+	$HTML .= '
+	<li id="navPrev">
+		<i class="material-icons">&#xE166;</i>
+		<span>Voltar</span>
+	</li>';
+}
 
 foreach( $Explorer->Start() as $Name => $Values ){
 
@@ -47,11 +55,10 @@ echo $HTML;
 ?>
 
 <script type="text/javascript">
-	
+
 if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navPrev').length < 1 ){
 	$('#ModuleExplorer .header').prepend('<i class="material-icons fL" id="navPrev">&#xE317;</i>');
 } else if( <?=count( array_filter( $Url ) );?> == 1 && $('#ModuleExplorer .header i#navPrev').length > 0 ){
 	$('#ModuleExplorer .header i#navPrev').remove();
 }
-
 </script>

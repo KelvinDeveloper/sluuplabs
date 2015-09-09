@@ -23,10 +23,17 @@ class Explorer{
 
 		if( $Dir == true ){
 			foreach ( $Dir as $Name ){
-				if( $Name != '.' && $Name != '..' ){
+
+				$Type = $this->Type( $Location . $Name );
+
+				if( 
+
+					( $Name != '.' && $Name != '..' ) &&
+					( !isset( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) 
+				){
 					$Return[ $Name ] = array(
 						'Name'		=> $Name,
-						'Type'		=> $this->Type( $Location . $Name ),
+						'Type'		=> $Type,
 						'Location'	=> $FileLocation . $Name
 					);
 				}

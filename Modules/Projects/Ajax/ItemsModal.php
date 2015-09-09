@@ -37,9 +37,9 @@ if( isset( $_GET['Block'] ) ){
 <div class="item-content"></div>
 
 <script type="text/javascript">
-$('.itens-pjc a').click(function(){
+$('.itens-pjc .mdl-navigation a').click(function(){
 
-	$('.itens-pjc a').removeClass('active');
+	$('.itens-pjc .mdl-navigation a').removeClass('active');
 	$(this).addClass('active');
 
 	$('.page-content').load( '/Projects/Ajax/Item' + $(this).attr('href') );

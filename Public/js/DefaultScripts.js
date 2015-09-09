@@ -236,7 +236,7 @@ $(document).on('click', '#stage a', function(){
 });
 
 $(document).on('mouseenter', '#stage .grid div', function(){ 
-    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="Adicionando item" data-shadow="false" data-parent="#ModuleProjects" data-size="large">' +
+    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="Adicionando item" data-parent="#ModuleProjects" data-size="large">' +
                         '<i class="material-icons">add</i>' +
                     '</button>' );
 });
@@ -352,14 +352,14 @@ function editorHTML( Array ){
 
 /* Explorer */
 
-$(document).on('dblclick', '#eIcons li', function(){
+$(document).on('dblclick', '#eIcons:visible li', function(){
 
    var JSON = $(this).data('info');
 
     switch( JSON.Type ){
 
         case 'FOLDER':
-            $('#ModuleExplorer .content').load( ( $('#eIcons').data('location') + $(this).find('span').text() ) );
+            $('#eIcons').parent('div').load( ( $('#eIcons').data('location') + $(this).find('span').text() + '?' + $('#eIcons').data('filtro') ) );
             break;
     }
 
@@ -382,25 +382,13 @@ $(document).on('click', '#navPrev', function(){
 
     Array    = Location.split('/');
 
-        console.log( Array[ Array.length -2 ] );
-    
-    Array = Location.replace( Array[ Array.length -2 ], '' ).split('/');
-
-    for( var i = 0; i <= Array.length; i++ ){
+    for( var i = 0; i < ( Array.length ) - 2 ; i++ ){
         if( Array[ i ] != '' && Array[ i ] != undefined ){
             NewUrl += Array[ i ] + '/';
         }
     };
 
-    // var Count = NewUrl.split('/');
-
-    // console.log( Count.length );
-
-    // if( Count.length <= 2 ){
-    //     $('#ModuleExplorer #navPrev').remove();
-    // }
-
-    $('#ModuleExplorer .content').load( NewUrl );
+    $('#eIcons').parent('div').load( NewUrl + '?' + $('#eIcons').data('filtro') );
 });
 
 /* Ends Explorer */
