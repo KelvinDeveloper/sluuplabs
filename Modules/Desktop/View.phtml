@@ -15,6 +15,8 @@ include 'Model.php';
 	
 	<div id="menu-desk-bottom"></div>
 
+	<button id="upload"></button>
+
 </div>
 
 <script type="text/javascript">
@@ -25,4 +27,14 @@ include 'Model.php';
 			){ ?>
 		openModule( '<?php echo $_SESSION['OpenModule'][1] ?>' );
 	<?php } unset( $_SESSION['OpenModule'] ); ?>
+
+	/* Uploadfive */
+	<?php $timestamp = time(); ?>
+	$('#upload').uploadifive({
+		'formData' : {
+			'timestamp'   	: '<?php echo $timestamp;?>',
+			'token'    		: '<?php echo md5('unique_salt' . $timestamp);?>',
+		}
+	});
+	/* Ends uploadfive */
 </script>
