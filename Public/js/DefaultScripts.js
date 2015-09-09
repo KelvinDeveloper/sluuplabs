@@ -258,7 +258,7 @@ function Modal ( This ){
 
         HTML = '';
 
-    $('#modal').remove();
+    $('#modal, .shadowModal').remove();
 
     HTML += '<div class="modal ' + Size + '" id="modal">';
 
@@ -324,6 +324,7 @@ $(document).on('click', '.openModal', function(){
 
 $(document).on('click', '#modal .close', function(){
     $(this).parents('#modal').remove();
+    $('.shadowModal').remove();
     return false;
 });
 
