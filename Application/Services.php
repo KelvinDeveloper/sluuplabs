@@ -81,4 +81,8 @@ $ManagerService = array(
 	'Explorer'	=> array(
 		'Dir'		=> 'Explorer/Explorer'
 	),
+
+	'Upload'	=> array(
+		'Dir'		=> 'Upload/Upload'
+	),
 ); // Ends

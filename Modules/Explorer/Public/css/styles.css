@@ -19,11 +19,12 @@
 
 #eIcons li span{
 	display: block;
-	height: 62px;
+	height: 33px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: pre-line;
 	width: 62px;
+	line-height: 16px;
 }
 
 #eIcons li span:hover{

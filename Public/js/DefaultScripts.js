@@ -236,7 +236,7 @@ $(document).on('click', '#stage a', function(){
 });
 
 $(document).on('mouseenter', '#stage .grid div', function(){ 
-    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="Adicionando item" data-parent="#ModuleProjects" data-size="large">' +
+    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Adicionando item" data-parent="#ModuleProjects" data-size="large">' +
                         '<i class="material-icons">add</i>' +
                     '</button>' );
 });
