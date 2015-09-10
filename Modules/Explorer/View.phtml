@@ -25,6 +25,14 @@ if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_
 	</li>';
 }
 
+$HTML .= '
+	<li>
+		<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+			<i class="material-icons">&#xE2C3;</i>
+		</button>
+		<span>Upload</span>
+	</li>';
+
 foreach( $Explorer->Start() as $Name => $Values ){
 
 	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\'>';
@@ -33,7 +41,7 @@ foreach( $Explorer->Start() as $Name => $Values ){
 		$HTML .= 
 				'<div class="eIcon" style="background-image:url(\'' . $Values['Location'] . '\');"></div>
 					<span>' . $Name . '</span>';
-	} 
+	}
 
 	else if( $Values['Type'] == 'FOLDER' ){
 
@@ -61,4 +69,5 @@ if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navP
 } else if( <?=count( array_filter( $Url ) );?> == 1 && $('#ModuleExplorer .header i#navPrev').length > 0 ){
 	$('#ModuleExplorer .header i#navPrev').remove();
 }
+
 </script>
