@@ -27,9 +27,7 @@ if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_
 
 $HTML .= '
 	<li>
-		<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-			<i class="material-icons">&#xE2C3;</i>
-		</button>
+		<button id="upload"></button>
 		<span>Upload</span>
 	</li>';
 
@@ -70,4 +68,18 @@ if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navP
 	$('#ModuleExplorer .header i#navPrev').remove();
 }
 
+/* Uploadfive */
+<?php $timestamp = time(); ?>
+$('#upload').uploadifive({
+	'formData' : {
+		'timestamp'   	: '<?php echo $timestamp;?>',
+		'token'    		: '<?php echo md5('unique_salt' . $timestamp);?>',
+	},
+
+	'buttonText'	: '<i class="material-icons">&#xE2C3;</i>',
+	'buttonClass'	: 'mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored',
+	'width'			: 62,
+	'height'		: 62
+});
+/* Ends uploadfive */
 </script>

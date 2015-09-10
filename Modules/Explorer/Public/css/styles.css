@@ -21,8 +21,9 @@
 	font-size: 55px;
 }
 
-#eIcons li button i{
-	font-size: 24px;
+#eIcons li .uploadifive-button i{
+	font-size: 36px !important;
+	margin-left: -5px;
 }
 
 #eIcons li button{
