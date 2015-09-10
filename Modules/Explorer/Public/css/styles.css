@@ -17,6 +17,23 @@
 	opacity: .8
 }
 
+#eIcons li span{
+	display: block;
+	height: 62px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	width: 62px;
+}
+
+#eIcons li span:hover{
+	overflow: inherit;
+}
+#eIcons li .mdl-progress{
+	width: 62px;
+	position: absolute;
+}
+
 #eIcons li i{
 	font-size: 55px;
 }

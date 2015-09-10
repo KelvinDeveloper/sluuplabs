@@ -1,13 +1,12 @@
 <link href="/Modules/Explorer/Public/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="/Modules/Explorer/Public/js/scripts.js"></script>
 
-
 <?php
 
 $LUrl = '';
 
 foreach ( $Url as $k => $v ){
-	if( $k > 0 ){
+	if( $k > 0 && !empty( $v ) ){
 		$LUrl .= $v . '/';
 	}
 }
@@ -74,12 +73,31 @@ $('#upload').uploadifive({
 	'formData' : {
 		'timestamp'   	: '<?php echo $timestamp;?>',
 		'token'    		: '<?php echo md5('unique_salt' . $timestamp);?>',
+		'Location'		: $('#eIcons').data('location'),
 	},
 
+	'progressData'  : 'speed',
 	'buttonText'	: '<i class="material-icons">&#xE2C3;</i>',
 	'buttonClass'	: 'mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored',
+	'queueID'		: 'eIcons',
+	'itemTemplate'	: '<li class="uploadifive-queue-item"> <i class="material-icons">&#xE2C2;</i> <div id="p1" class="mdl-progress mdl-js-progress"></div> <span class="filename"></span> </li>',
 	'width'			: 62,
-	'height'		: 62
+	'height'		: 62,
+	'auto'        	: true,
+	'removeCompleted' 	: false,
+	'uploadScript' 	: '/Upload',
+
+	'onProgress'   : function(file, e) {
+		file.queueItem.find('.progressbar').width( Math.round( ( e.loaded / e.total ) * 100 ) + '%' );
+	},
+
+	'onUploadComplete' : function(file, data) {
+
+		file.queueItem.find('.progressbar').parent().fadeOut(200);
+		setTimeout( function(){
+			file.queueItem.find('.progressbar').parent().remove();
+		}, 300 );
+	}
 });
 /* Ends uploadfive */
 </script>

@@ -11,7 +11,7 @@ class Explorer{
 		$Return = '';
 
 		foreach ( $Url as $k => $v ){
-			if( $k > 1 ){
+			if( $k > 1 && !empty( $v ) ){
 				$LUrl .= $v . '/';
 			}
 		}
@@ -29,7 +29,7 @@ class Explorer{
 				if( 
 
 					( $Name != '.' && $Name != '..' ) &&
-					( !isset( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) 
+					( empty( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) 
 				){
 					$Return[ $Name ] = array(
 						'Name'		=> $Name,
