@@ -93,10 +93,22 @@ $('#upload').uploadifive({
 
 	'onUploadComplete' : function(file, data) {
 
-		file.queueItem.find('.progressbar').parent().fadeOut(200);
-		setTimeout( function(){
-			file.queueItem.find('.progressbar').parent().remove();
-		}, 300 );
+		var JSON = JSON.parse( data );
+
+		if( JSON.Status == true ){
+
+			file.queueItem.find('.progressbar').parent().fadeOut(200);
+			setTimeout( function(){
+				file.queueItem.find('.progressbar').parent().remove();
+			}, 300 );
+
+			file.queueItem.attr('data-info', data).find('i').remove();
+			file.queueItem.prepend( ( JSON.Type == 'IMAGE' ? JSON.Icon.replace( '{Location}', "'" + JSON.Location + "'" ) : JSON.Icon ) ).find('span').text( JSON.Name );
+
+		} else {
+			alert('Erro ao fazer upload!');
+		}
+
 	}
 });
 /* Ends uploadfive */

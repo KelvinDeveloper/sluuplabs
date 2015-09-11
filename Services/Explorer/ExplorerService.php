@@ -59,6 +59,25 @@ class Explorer{
 
 	}
 
+	function Icon( $File ){
+
+		$Link = explode( 'sluup', $File );
+
+		switch ( $this->Type( $File ) ) {
+			case 'IMAGE':
+				return '<div class="eIcon" style="background-image:url({Location});"></div>';
+				break;
+
+			case 'FOLDER':
+				return '<i class="material-icons">&#xE2C7;</i>';
+				break;
+
+			default:
+				return '<i class="material-icons">&#xE63B;</i>';
+				break;
+		}
+	}
+
 
 }
 

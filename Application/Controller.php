@@ -39,10 +39,10 @@ else if( $Url[2] === 'Ajax' && ( $Function->isAjax() || getenv("PARAM1") == 'DEV
 else if( $Url[1] === 'app' ){ 
 	include ROOT . '/app/' . $Url[2] . '/' . $Url[3] . '/View.phtml';
 }
-else if( $Url[1] === 'Upload' && $Function->isAjax() ){
+else if( $Url[1] === 'Upload' && !empty( $_POST ) ){
+	
 	$Services->Run('Explorer');
 	$Services->Run('Upload');
-	$Upload->Upload();
 }
 else {
 	// Verifica se usuario está logado para ler os registros

@@ -29,6 +29,7 @@
 
 #eIcons li span:hover{
 	overflow: inherit;
+	background-color: #fff;
 }
 #eIcons li .mdl-progress{
 	width: 62px;
