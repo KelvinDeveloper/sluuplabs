@@ -31,14 +31,26 @@ class Explorer{
 					( $Name != '.' && $Name != '..' ) &&
 					( empty( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) 
 				){
-					$Return[ $Name ] = array(
-						'Name'		=> $Name,
-						'Type'		=> $Type,
-						'Location'	=> $FileLocation . $Name
-					);
+
+					if( $Type == 'FOLDER' ){
+						$ReturnFolder[ $Name ] = array(
+							'Name'		=> $Name,
+							'Type'		=> $Type,
+							'Location'	=> $FileLocation . $Name
+						);
+					} else {
+						$Return[ $Name ] = array(
+							'Name'		=> $Name,
+							'Type'		=> $Type,
+							'Location'	=> $FileLocation . $Name
+						);
+					}
 				}
 			}
 		}
+
+		$Return = array_merge( $ReturnFolder, $Return );
+
 		return $Return;
 	}
 

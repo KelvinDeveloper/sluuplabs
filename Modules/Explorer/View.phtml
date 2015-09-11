@@ -25,7 +25,7 @@ if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_
 }
 
 $HTML .= '
-	<li>
+	<li id="uploadifive">
 		<button id="upload"></button>
 		<span>Upload</span>
 	</li>';
@@ -42,11 +42,11 @@ foreach( $Explorer->Start() as $Name => $Values ){
 
 	else if( $Values['Type'] == 'FOLDER' ){
 
-		$HTML .= '<i class="material-icons">&#xE2C7;</i>
+		$HTML .= '<i class="material-icons eIcon">&#xE2C7;</i>
 					<span>' . $Name . '</span>';
 
 	} else {
-		$HTML .= '<i class="material-icons">&#xE63B;</i>
+		$HTML .= '<i class="material-icons eIcon">&#xE63B;</i>
 						<span>' . $Name . '</span>';
 	}
 
@@ -68,6 +68,9 @@ if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navP
 }
 
 /* Uploadfive */
+
+var toJSON = '';
+
 <?php $timestamp = time(); ?>
 $('#upload').uploadifive({
 	'formData' : {
@@ -93,9 +96,9 @@ $('#upload').uploadifive({
 
 	'onUploadComplete' : function(file, data) {
 
-		var JSON = JSON.parse( data );
+		toJSON = JSON.parse( data );
 
-		if( JSON.Status == true ){
+		if( toJSON.Status == true ){
 
 			file.queueItem.find('.progressbar').parent().fadeOut(200);
 			setTimeout( function(){
@@ -103,7 +106,7 @@ $('#upload').uploadifive({
 			}, 300 );
 
 			file.queueItem.attr('data-info', data).find('i').remove();
-			file.queueItem.prepend( ( JSON.Type == 'IMAGE' ? JSON.Icon.replace( '{Location}', "'" + JSON.Location + "'" ) : JSON.Icon ) ).find('span').text( JSON.Name );
+			file.queueItem.prepend( ( toJSON.Type == 'IMAGE' ? toJSON.Icon.replace( '{Location}', "'" + toJSON.Location + "'" ) : toJSON.Icon ) ).find('span').text( toJSON.Name );
 
 		} else {
 			alert('Erro ao fazer upload!');

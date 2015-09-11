@@ -215,6 +215,7 @@ ul.rClickMenu li:hover {
 }
 ul.rClickMenu li i {
 	float: left;
+	margin-right: 5px;
 }
 #desktop #menu-desk-bottom{
 	position: absolute;
