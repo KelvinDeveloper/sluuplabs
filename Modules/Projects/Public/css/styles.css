@@ -91,6 +91,7 @@ h1.stageTitle{
 
 .select ul li.active{
 	font-weight: bold;
+	color: #7D9FEF;
 }
 
 .select ul li .edit input{

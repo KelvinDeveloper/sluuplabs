@@ -143,15 +143,16 @@ body .window{
 }
 body .window .header{
 	display: none;
-	height: 35px;
+	height: 15px;
 	margin: -15px;
-	margin-bottom: -16px;
+	margin-bottom: 5px;
 	padding: 10px;
+	background-color: rgba(2, 2, 2, 0.08);
 }
 
 body .window .header .options i{
 	float: right;
-	font-size: 26px;
+	font-size: 18px;
 	cursor: default;
 }
 
