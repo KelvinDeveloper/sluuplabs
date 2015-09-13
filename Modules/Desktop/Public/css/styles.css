@@ -318,3 +318,17 @@ body{
 .terminal input{
 	outline: none;
 }
+
+/*STYLE DOS ICONES */
+.minimizedIcons {
+	position: absolute;
+	background-color: #000;
+	border-radius: 50%;
+	padding: 10px;
+	border: none;
+	bottom: 15px;
+	cursor: default;
+	z-index: 99999;
+	transition: background .2s;
+	float: left;
+}
