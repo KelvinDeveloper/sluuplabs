@@ -34,7 +34,7 @@ $HTML .= '
 
 foreach( $Explorer->Start() as $Name => $Values ){
 
-	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\'>';
+	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\' ' . ( isset( $_GET['Location'] ) && $_GET['Location'] == $Values['Location'] ? ' class="rCliked"' : "" ) . '>';
 
 	if( $Values['Type'] == 'IMAGE' ){
 		$HTML .= 
@@ -119,11 +119,4 @@ $('#upload').uploadifive({
 	}
 });
 /* Ends uploadfive */
-
-
-$('.eIcon').click(function(e){
-	e.stopPropagation();
-	$('#explorerContent .rCliked').removeClass('rCliked');
-	$(this).parent('li').addClass('rCliked');
-});
 </script>

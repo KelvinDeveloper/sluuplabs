@@ -17,7 +17,14 @@ class Projects{
 
 		/* Load Header */
 		$Content = $this->LoadHeader( $Config );
-		$Content .= $this->LoadGrid( $Config );
+		
+		$Content .= '<div id="bodyContent">';
+
+			$Content .= $this->LoadItens( $Config );
+
+		$Content .= '</div>';
+
+		$Content .= $this->LoadFooter( $Config );
 
 		return $Content;
 
@@ -38,6 +45,52 @@ class Projects{
 		}
 
 		$Content .= $this->LoadMenu( $Config );
+
+		return $Content;
+	}
+
+	function LoadItens( $Config ){
+
+		if( !file_exists( $Config['Location'] . 'Itens' ) ){
+			mkdir( $Config['Location'] . 'Itens' );
+			chmod( $Config['Location'] . 'Itens', 0777 );
+		}
+
+		if( !file_exists( $Location . 'Itens/' . $Config['Page'] ) ){
+			mkdir( $Config['Location'] . 'Itens/' . $Config['Page'] . '/' );
+			chmod( $Config['Location'] . 'Itens/' . $Config['Page'] . '/', 0777 );
+		}
+
+		$Itens = scandir( $Config['Location'] . 'Itens/' . $Config['Page'] . '/' );
+
+		foreach ( $Itens as $Item ){
+			if( $Item != '..' && $Item != '.' ){
+				
+				$This = parse_ini_file( $Config['Location'] . 'Itens/' . $Config['Page'] . '/' . $Item );
+
+				$Content .= '<div id="item-' . $Item . '" class="item" style="top:' . $This['Top'] . 'px;left:' . $This['Left'] . 'px" data-type="' . $This['Type'] . '">';
+
+				$Content .= '<div class="item-header">
+					<i class="material-icons openModal" href="/Projects/Ajax/ItemsModal/' . $Config['Pjc'] . '/' . $Item . '/' . $This['Type'] . '" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Adicionando item" data-parent="#ModuleProjects" data-size="large">&#xE869;</i>
+				</div>';
+
+				switch ( $This['Type'] ){
+					case 'TEXT':
+						$Content .= $This['Value'];
+						break;
+
+					case 'IMAGE':
+						$Content .= '<img src="' . $This['Location'] . '">';
+						break;
+
+					case 'VIDEO':
+						$Content .= $This['Value'];
+						break;
+				}
+
+				$Content .= '</div>';
+			}
+		}
 
 		return $Content;
 	}
@@ -65,58 +118,75 @@ class Projects{
 		return $content;		
 	}
 
-	function LoadGrid( $Config ){
+	// function LoadGrid( $Config ){
 		
-		if( !file_exists( $Config['Location'] . 'Grids' ) ){
-			mkdir( $Config['Location'] . 'Grids' );
-			chmod( $Config['Location'] . 'Grids', 0777 );
-		}
+	// 	if( !file_exists( $Config['Location'] . 'Grids' ) ){
+	// 		mkdir( $Config['Location'] . 'Grids' );
+	// 		chmod( $Config['Location'] . 'Grids', 0777 );
+	// 	}
 
-		if( !file_exists( $Location . 'Grids/' . $Config['Page'] ) ){
-			mkdir( $Location . 'Grids/' . $Config['Page'] );
-			chmod( $Location . 'Grids/' . $Config['Page'], 0777 );
-		}
+	// 	if( !file_exists( $Location . 'Grids/' . $Config['Page'] ) ){
+	// 		mkdir( $Location . 'Grids/' . $Config['Page'] );
+	// 		chmod( $Location . 'Grids/' . $Config['Page'], 0777 );
+	// 	}
 
-		$Grids = scandir( $Config['Location'] . 'Grids/' . $Config['Page'] );
-		$Content = '';
+	// 	$Grids = scandir( $Config['Location'] . 'Grids/' . $Config['Page'] );
+	// 	$Content = '';
 
-		if( $Grids ){
-			foreach( $Grids as $Grid ){
-				if( $Grid != '..' && $Grid != '.' ){
-					$This = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid . '/Config.pjc' );
+	// 	if( $Grids ){
+	// 		foreach( $Grids as $Grid ){
+	// 			if( $Grid != '..' && $Grid != '.' ){
+	// 				$This = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid . '/Config.pjc' );
 					
-					$Content .= '<div class="grid grid-' . $This['Layout'] . '" id="grid-' . str_replace( '.pjc', '', $Grid ) . '">';
+	// 				$Content .= '<div class="grid grid-' . $This['Layout'] . '" id="grid-' . str_replace( '.pjc', '', $Grid ) . '">';
 
-					switch ( $This['Layout'] ){
-						case '1':
-							$Quant = 1;
-							break;
-						case '5':
-						case '6':
-						case '2':
-							$Quant = 2;
-							break;
-						case '3':
-							$Quant = 3;
-							break;
-						case '4':
-							$Quant = 4;
-							break;
-					}
+	// 				switch ( $This['Layout'] ){
+	// 					case '1':
+	// 						$Quant = 1;
+	// 						break;
+	// 					case '5':
+	// 					case '6':
+	// 					case '2':
+	// 						$Quant = 2;
+	// 						break;
+	// 					case '3':
+	// 						$Quant = 3;
+	// 						break;
+	// 					case '4':
+	// 						$Quant = 4;
+	// 						break;
+	// 				}
 
-					for ( $i = 1; $i <= $Quant ; $i++ ){
-						$Content .= '<div>';
+	// 				$QuantItem = 1;
 
-						$Content .= '</div>';
-					}
+	// 				for ( $i = 1; $i <= $Quant ; $i++ ){
+	// 					$Content .= '<div id="item-' . $QuantItem . '">';
 
-					$Content .= '</div>';
-				}
-			}
-		}
+	// 					$Item = parse_ini_file( $Config['Location'] . 'Grids/' . $Config['Page'] . '/' . $Grid . '/' . $QuantItem . '.pjc' );
+	// 					if( $Item ){
 
-		return $Content;
-	}
+	// 						switch ( $Item['Type'] ) {
+	// 							case 'IMAGE':
+	// 								$Content .= '<img src="' . $Item['Location'] . '" width="">';
+	// 								break;
+								
+	// 							default:
+	// 								# code...
+	// 								break;
+	// 						}
+	// 					}
+
+	// 					$Content .= '</div>';
+	// 					$QuantItem++;
+	// 				}
+
+	// 				$Content .= '</div>';
+	// 			}
+	// 		}
+	// 	}
+
+		// return $Content;
+	// }
 
 	function LoadFooter( $Pjc ){
 

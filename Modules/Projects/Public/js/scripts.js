@@ -39,9 +39,49 @@ function LoadPage(){
 		url: '/Projects/Ajax/LoadPage',
 		success: function(HTML){
 			$('#stage').html(HTML);
+
+			setTimeout(function(){
+				$('#bodyContent .item').draggable({
+				    containment: '#bodyContent',
+				    handle: '.item-header',
+
+				    start: function(event, ui ){
+				    	ui.helper.addClass('active');
+				    },
+				    stop: function(event, ui ){
+				    	ui.helper.removeClass('active');
+
+						$.ajax({
+							type: "POST",
+							dataType: "html",
+							cache: false,
+							data: {
+								Page: JSON.stringify( $('#p-pages li.active').data('info') ),
+								Pjc:  $('.pMenuRigth').data('pjc'),
+								Item: ui.helper.attr('id'),
+								Left: ui.position.left,
+								Top:  ui.position.top
+							},
+							url: '/Projects/Ajax/SavePosition',
+							success: function(HTML){
+
+							}
+						});
+				    }
+
+				});
+			}, 300);
 		}
 	});
 }
+
+$(document).on('mouseenter', '#bodyContent .item', function(){ 
+	$(this).find('.item-header').fadeIn(100);
+});
+
+$(document).on('mouseleave', '#bodyContent .item', function(){ 
+	$(this).find('.item-header').fadeOut(100);
+});
 
 $(document).ready(function(){
 	// Open initial

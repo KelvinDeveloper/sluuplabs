@@ -185,6 +185,11 @@ function RemoveAccents(varString) {
 };
 
 /* Projects */
+$(document).on('click', '#p-pages .edit input', function(e){
+
+    e.stopPropagation();
+});
+
 $(document).on('keyup', '#p-pages .edit input', function(e){
     if( e.keyCode == 13 ){
 
@@ -217,17 +222,21 @@ $(document).on('keyup', '#p-pages .edit input', function(e){
     }
 });
 
-$(document).on('click', '#p-pages li:not(".new")', function(){
+$(document).on('click', '#p-pages li', function(){
 
     var This = $(this);
 
-    This.parents('.select').find('.active').removeClass('active');
+    $('#p-pages li.active').removeClass('active');
     This.addClass('active');
 
     LoadPage();
     setTimeout(function(){
         $('#pDefaultMenu a[href="/' + This.attr('id').replace('.pjc', '') + '"] li').addClass('active');
     }, 200);
+
+    $('#ModuleProjects .mdl-layout__drawer-button').click();
+    $('#ModuleProjects .mdl-layout-title').html( This.find('.view').html() );
+    $('#ModuleProjects .mdl-layout-title').find('i').remove();
 
 });
 
@@ -236,7 +245,7 @@ $(document).on('click', '#stage a', function(){
 });
 
 $(document).on('mouseenter', '#stage .grid div', function(){ 
-    $(this).html(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Adicionando item" data-parent="#ModuleProjects" data-size="large">' +
+    $(this).append(   '<button id="addBlock" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored openModal" href="/Projects/Ajax/ItemsModal/' + $('.pMenuRigth:visible').data('pjc') + '" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Adicionando item" data-parent="#ModuleProjects" data-size="large">' +
                         '<i class="material-icons">add</i>' +
                     '</button>' );
 });
@@ -244,6 +253,14 @@ $(document).on('mouseenter', '#stage .grid div', function(){
 $(document).on('mouseleave', '#stage .grid div', function(){ 
     $(this).find('#addBlock').remove();
 });
+
+$(document).on('click', '#addBlock', function(){
+    $('#stage .itemEdit').removeClass('itemEdit');
+    $(this).parent('div').addClass('itemEdit');
+    // alert('ok');
+
+});
+
 /* Ends Projects */
 
 /* Modal */
@@ -394,6 +411,12 @@ $(document).on('click', '#navPrev', function(){
 
 $(document).on('click', '#explorerContent', function(){
     $('#explorerContent .rCliked').removeClass('rCliked');
+});
+
+$(document).on('click', '.eIcon', function(e){
+    e.stopPropagation();
+    $('#explorerContent .rCliked').removeClass('rCliked');
+    $(this).parent('li').addClass('rCliked');
 });
 
 /* Ends Explorer */

@@ -37,22 +37,49 @@ if( isset( $_GET['Block'] ) ){
 <div class="item-content"></div>
 
 <script type="text/javascript">
-$('.itens-pjc .mdl-navigation a').click(function(){
+
+<?php if( isset( $Url[5] ) ){ 
+
+$Url[6] = ucfirst( $Url[6] );
+
+?>
+
+var Type = '',
+	This = $('#p-pages li.active').data('info');
+
+switch( '<?=$Url[6]?>' ){
+	case 'TEXT':
+		Type = 'Texto';
+		break;
+
+	default:
+		Type = '<?=$Url[6]?>';
+}
+
+$('#modal .page-content').load( '/Projects/Ajax/Item' + Type + '/' + $('.pMenuRigth').data('pjc') + '/' + This.Url.replace('/', '') + '/<?=$Url[5]?>/' );
+
+<?php } else { ?>
+
+$(document).ready(function(){
+	setTimeout(function(){
+		$('#modal .mdl-layout__drawer-button').click();
+	}, 100);
+});
+
+<?php } ?>
+
+$('#modal .itens-pjc .mdl-navigation a').click(function(){
 
 	$('.itens-pjc .mdl-navigation a').removeClass('active');
 	$(this).addClass('active');
 
-	$('.page-content').load( '/Projects/Ajax/Item' + $(this).attr('href') );
-	$('.mdl-layout__drawer-button').click();
+	$('#modal .page-content').load( '/Projects/Ajax/Item' + $(this).attr('href') );
+	$('#modal .mdl-layout__drawer-button').click();
 
-	$('.mdl-layout-title').html( $(this).html() );
+	$('#modal .mdl-layout-title').html( $(this).html() );
 
 	return false;
 });
 
-$(document).ready(function(){
-	setTimeout(function(){
-		$('.mdl-layout__drawer-button').click();
-	}, 100);
-});
+
 </script>
