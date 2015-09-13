@@ -305,3 +305,77 @@ $(document).ready(function(){
 	});
 	
 });
+
+$('#eIcons li:not(#navPrev, #uploadifive)').rClick({
+
+	id: 'eIcons',
+
+	Menu: {
+
+		download: {
+			icon: '<i class="material-icons">&#xE2C0;</i>',
+			text: 'Baixar',
+			exec: function(This){
+			}
+		},
+
+		copy: {
+			icon: '<i class="material-icons">&#xE14D;</i>',
+			text: 'Copiar',
+			exec: function(This){
+			}
+		},
+
+		cut: {
+			icon: '<i class="material-icons">&#xE14E;</i>',
+			text: 'Recortar',
+			exec: function(This){
+			}
+		},
+
+		rename: {
+			icon: '<i class="material-icons">&#xE254;</i>',
+			text: 'Renomear...',
+			exec: function(This){
+			}
+		},
+
+		delete: {
+			icon: '<i class="material-icons">&#xE872;</i>',
+			text: 'Excluir',
+			exec: function(This){
+				var Confirm = confirm('Tem certeza que deseja excluir este item permanentemente?');
+
+				if( Confirm == true ){
+					This.parent('li').remove();
+				}
+			}
+		}
+	}
+});
+
+$('#ModuleExplorer').rClick({
+
+	id: 'ModuleExplorer',
+	Menu: {
+
+		paste: {
+			icon: '<i class="material-icons">&#xE14F;</i>',
+			text: 'Colar',
+			exec: function(This){
+
+			}
+		},
+
+		newFolder: {
+			icon: '<i class="material-icons">&#xE2C7;</i>',
+			text: 'Criar pasta',
+			exec: function(This){
+
+			}
+		}
+	}
+
+});
+
+/* Ends rClick */
