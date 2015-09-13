@@ -1,3 +1,7 @@
+.content, #explorerContent{
+	height: 100%;
+}
+
 #eIcons{
 	margin: 0;
 	padding: 0;
@@ -57,4 +61,7 @@
 	display: inline-block;
 	background-size: cover;
 	border-radius: 2px;
+}
+#eIcons .rCliked{
+	background-color: rgb(224, 224, 224);
 }

@@ -392,4 +392,8 @@ $(document).on('click', '#navPrev', function(){
     $('#eIcons').parent('div').load( NewUrl + '?' + $('#eIcons').data('filtro') );
 });
 
+$(document).on('click', '#explorerContent', function(){
+    $('#explorerContent .rCliked').removeClass('rCliked');
+});
+
 /* Ends Explorer */

@@ -354,7 +354,7 @@ $('#eIcons li:not(#navPrev, #uploadifive)').rClick({
 	}
 });
 
-$('#ModuleExplorer').rClick({
+$('#explorerContent').rClick({
 
 	id: 'ModuleExplorer',
 	Menu: {

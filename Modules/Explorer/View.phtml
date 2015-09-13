@@ -1,6 +1,8 @@
 <link href="/Modules/Explorer/Public/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="/Modules/Explorer/Public/js/scripts.js"></script>
 
+<div id="explorerContent">
+
 <?php
 
 $LUrl = '';
@@ -59,6 +61,8 @@ $HTML .= '</ul>';
 echo $HTML;
 ?>
 
+</div>
+
 <script type="text/javascript">
 
 if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navPrev').length < 1 ){
@@ -115,4 +119,11 @@ $('#upload').uploadifive({
 	}
 });
 /* Ends uploadfive */
+
+
+$('.eIcon').click(function(e){
+	e.stopPropagation();
+	$('#explorerContent .rCliked').removeClass('rCliked');
+	$(this).parent('li').addClass('rCliked');
+});
 </script>
