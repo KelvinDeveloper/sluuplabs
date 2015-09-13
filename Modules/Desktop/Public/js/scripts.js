@@ -24,6 +24,7 @@ function openModule( Module ){
 	} else {
 
 		var Info = $('.listModules [data-name="' + Module + '"]').data('info');
+		console.log("quero saber infos dos modulos",Info)
 
 		$('body')
 			.append('<div class="window" id="Module'  + Module + '">' +
@@ -31,6 +32,7 @@ function openModule( Module ){
 							'<div class="options">' +
 								'<i class="material-icons close">clear</i>' +
 								'<i class="material-icons maximize">&#xE895;</i>' + 
+								'<i class="material-icons minimize">&#xE15B;</i>' + 
 							'</div>' +
 						'</div>'  +
 						'<div class="content">' +
@@ -38,6 +40,24 @@ function openModule( Module ){
 							'<div class="moduleLoader mdl-spinner mdl-js-spinner is-active"></div>' +
 						'</div>' +
 					'</div>');
+			
+				$('body').on('click','i.material-icons.minimize', function(){
+
+				   var Module = $(this).parents('.window').attr('id'); // id do modulo 
+				   console.log("ID do modulo ",Module);
+				  	$('#' + Module).hide() // esconde o modulo
+				  	$('body').append('<i class="material-icons minimizedIcons" id="'+ Module +'" style="left:50px;">&#xE87A;</i>');
+				  	leftMulti=leftMulti+1;
+				});
+
+				$('body').on('click','i.material-icons.minimizedIcons', function(){
+				   $(this).hide();
+				   var Module = $(this).attr('id'); // id do modulo
+				   console.log("ID do modulo minimizado ",Module);
+				  	$('#' + Module).show() // esconde o modulo
+				  	//$('body').append('<i class="material-icons" style="left:30px;" id="upmin' + Module + '">&#xE87A;</i>');
+
+				});
 
 				setInterval("upgradeMDL();", 100);
 
