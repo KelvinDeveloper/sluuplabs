@@ -8,7 +8,8 @@ class Explorer{
 
 
 		$LUrl = '';
-		$Return = '';
+		$Return = array();
+		$ReturnFolter = array();
 
 		foreach ( $Url as $k => $v ){
 			if( $k > 1 && !empty( $v ) ){
