@@ -5,7 +5,7 @@ $Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/Proj
 $Page  = json_decode( $_POST['Page'] );
 
 $Array['Type']   = 'TEXT';
-$Array['Value']  = $_POST['Value'];
+$Array['Value']  = "'" . $_POST['Value'] . "'";
 $Array['Width']  = '';
 $Array['Height'] = '';
 $Array['Left']   = '';
