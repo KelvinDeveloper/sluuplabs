@@ -1,5 +1,5 @@
 <?php
-if( strpos( $_SERVER['HTTP_HOST'], '.dev' ) == false ){
+if( getenv("PARAM1") == 'PROD' ){
 	// Esconde erros quando aplicação for execultada em prod
 	ini_set('display_errors', 0 );
 	error_reporting(0);
@@ -52,7 +52,7 @@ $Conf['Queue']	= array(
 	'Try'		=> 3,
 );
 
-$Conf['Cookie']['Expire'] = time()+60*60*24*30;
+$Conf['Cookie']['Expire'] = time() + 60 * 60 * 24 * 30;
 $Conf["Date"] = array(
 	'TimeZone' => 'America/Sao_Paulo'
 );
