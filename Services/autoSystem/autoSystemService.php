@@ -55,16 +55,15 @@ class autoSystem{
 
 		foreach ( $Array['Fields'] as $k => $v ){
 			// Colum exist
+
+			$Type = $this->field_type( $v );
+
 			if( !isset( $Field[ $k ] ) ){
-				
-				$Type = $this->field_type( $v );
 
 				$PDO->exec( " ALTER TABLE `" . BD . "`.`" . $Array['bd'] . "` 
 				ADD COLUMN `" . $k . "` " . $Type . "  NULL " );
 			}
 			else if( $v['Type'] .'(' . $v['Lenght'] . ')' != $Field[ $k ]->Type ){
-
-				$Type = $this->field_type( $v );
 
 				$PDO->exec( " ALTER TABLE `" . BD . "`.`" . $Array['bd'] . "` 
 							CHANGE COLUMN `" . $k . "` `" . $k . "` " . $Type . " NULL DEFAULT NULL " );
@@ -76,6 +75,7 @@ class autoSystem{
 	function field_type( $v ){
 		switch ( $v['Type'] ){
 			case 'text':
+			case 'html':
 				$Type = 'TEXT';
 				break;
 			case 'int':
@@ -98,6 +98,7 @@ class autoSystem{
 		global $Database, $PDO, $Conf, $Domain, $Url;
 		
 		$HTML = '';
+		$Script = '';
 
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
@@ -152,7 +153,15 @@ class autoSystem{
 
 					foreach ( $Fields as $Field => $Info ){
 
-						$HTML .= '<td>' . $Value->$Field . '</td>';
+						$v = $Value->$Field;
+
+						switch ( $Array['Fields'][ $Field ]['Type'] ){
+							case 'select':
+								$v = $Array['Fields'][ $Field ]['Options'][ $Value->$Field ];
+								break;
+						}
+
+						$HTML .= '<td>' . $v . '</td>';
 					}
 
 					$HTML .= '
@@ -220,11 +229,11 @@ class autoSystem{
 
 		foreach ( $Array['Fields'] as $Field => $Data ){
 
-			$HTML .= '<tr><td>';
+			$HTML .= '<tr><td valign="top">';
 
 			$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ( isset( $Data['Label'] ) ? $Data['Label'] : ucfirst( $Field ) ) . ' </label>';
 
-			$HTML .= '</td><td>';
+			$HTML .= '</td><td valign="top">';
 
 			switch ( $Data['Type'] ) {
 				
@@ -254,17 +263,18 @@ class autoSystem{
 					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
 					break;
 
-				case 'HTML':
-					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="content" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
-					$EditorHTML = true;
+				case 'html':
+					$HTML 	.= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
+					$Script .= '
+					editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\'});
+					tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . $Value->$Field . '\');';
 					break;
 
 				case 'select':
-					$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+					$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : '' ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 
-					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
-					
-						$HTML .= '<option value="' . $Value . '" ' . ( $Value == $Value->$Field ? 'selected="selected"' : false ) . '>' . $Content . '</option>';
+					foreach ( $Data['Options'] as $k => $v ) {
+						$HTML .= '<option value="' . $k . '" ' . ( $k == $Value->$Field ? 'selected="selected"' : '' ) . '>' . $v . '</option>';
 
 					}
 
@@ -350,6 +360,8 @@ class autoSystem{
 		}
 
 		$HTML .= '</form>';
+
+		$HTML .= '<script>' . $Script . '</script>';
 
 		return $HTML;
 	}

@@ -8,4 +8,5 @@ $Router['sluup'] = array(
 	'Terminal'		=>	'Modules/Terminal/View',
 	'Projects'		=>	'Modules/Projects/View',
 	'Explorer'		=>	'Modules/Explorer/View',
+	'Blog'			=>	'Modules/Blog/View'
 );

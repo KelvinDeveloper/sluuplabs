@@ -179,13 +179,17 @@ body .window .header i.maximize.active{
 }
 
 body .window .header i.openThisWindow {
-	cursor: pointer;
+	cursor: default;
 }
 /*#desktop .menuRigthClick{
 	position: absolute;
 	display: none;
 	top: 0;
 }*/
+body .window .content{
+	overflow: auto;
+	height: 98%;
+}
 ul.rClickMenu {
 	list-style: none;
 	background-color: #fff;
