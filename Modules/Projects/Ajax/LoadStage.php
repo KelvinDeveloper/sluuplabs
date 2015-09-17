@@ -95,11 +95,15 @@ $('#newPage').click(function(){
 		url: '/Projects/Ajax/CreatePage', 
 		success: function(Page){ 
 
+			var rJSON = JSON.stringify( Page );
+
+			console.log( rJSON );
+
 			if( Page.Status == true ){
 
 				$('#p-pages li.active').removeClass('active');
 
-				$('#p-pages').prepend('<li data-info=\'' + JSON.stringify( Page ) + '\' class="active" id="' + Page.File + '" data-title="' + Page.Title + '">' +
+				$('#p-pages').prepend('<li data-info=\'' + rJSON + '\' class="active" id="' + Page.File + '" data-title="' + Page.Title + '">' +
 					'<div class="view" style="display:none">' +
 						'<i class="material-icons fL">&#xE5CC;</i> ' + Page.Title +
 					'</div>' +

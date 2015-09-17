@@ -9,7 +9,7 @@ $Dir   = scandir( $Location . $_POST['Pjc'] . '/Pages/' );
 $Quant = count( $Dir ) - 1;
 
 $Page['Title'] 	= $_POST['Page'];
-$Page['Url']	= '/' . $pUrl;
+$Page['Url']	= $pUrl;
 $Page['File']	= $Quant . '_' . $pUrl . '.pjc';
 
 if( $Function->GenerateIni( $Location . $_POST['Pjc'] . '/Pages/'. $Quant . '_' . $pUrl . '.pjc', $Page ) ){
