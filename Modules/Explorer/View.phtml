@@ -16,6 +16,8 @@ foreach ( $Url as $k => $v ){
 $HTML = '';
 $Services->Run('Explorer');
 
+$HTML .= '<div class="files">';
+
 $HTML .= '<ul id="eIcons" data-location="' . $LUrl . '" data-filtro="navPrev=' . $_GET['navPrev'] . '&type=' . $_GET['type'] . '">';
 
 if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_filter( $Url ) ) > 1 ){
@@ -56,6 +58,8 @@ foreach( $Explorer->Start() as $Name => $Values ){
 }
 
 $HTML .= '</ul>';
+
+$HTML .= '</div>';
 
 
 echo $HTML;
@@ -119,4 +123,28 @@ $('#upload').uploadifive({
 	}
 });
 /* Ends uploadfive */
+
+<?php if( isset( $_GET['for'] ) && !empty( isset( $_GET['for'] ) ) ){ ?>
+	$('#modal .content .files').css({
+		height: '70%',
+		overflow: 'auto'
+	});
+
+	$('#modal .content').append('<div class="openFile">' + 
+		'<button class="fR mdl-button mdl-js-button mdl-button--raised mdl-button--colored open">Abrir</button>' + 
+		'</div>');
+
+	$('.openFile').click(function(){
+
+		var toJSON = $('#eIcons li.rCliked').data('info');
+
+		if( toJSON && toJSON.Type != 'FOLDER' ){
+			$('#<?=$_GET['for']?>').val( toJSON.Location );
+			$('#modal, .shadowModal').remove();
+		} else {
+			alert('Selecione um arquivo válido');
+		}
+
+	});
+<?php } ?>
 </script>

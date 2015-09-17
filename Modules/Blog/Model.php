@@ -8,21 +8,30 @@ $blog = $autoSystem->create(
 		'auto_increment'	=> 'id_blog',
 		'Fields'	=> 
 			array(
-			
+
+				'image'		=> array(
+					'Label'		=> 'Imagem de capa',
+					'Type'		=> 'file',
+					'Options'	=> array(
+						'Types'	=> 'IMAGE'
+					),
+				),
+
 				'title'		=>	array(
 					'Label'		=>	'Título',
 					'Type'		=>	'varchar',
+					'Placeholder'	=> 'Título da postagem',
 					'Lenght'	=>	100
 				),
 
 				'shot_description'	=>	array(
-					'Label'		=>	'Descrição curta',
+					'Label'		=>	'Breve descrição da postagem',
 					'Type'		=>	'html',
 					'Lenght'	=>	255
 				),
 
-				'description'	=>	array(
-					'Label'		=>	'Descrição Completa',
+				'conteudo'	=>	array(
+					'Label'		=>	'Conteúdo da postagem',
 					'Type'		=>	'html',
 				),
 
@@ -42,10 +51,11 @@ $blog = $autoSystem->create(
 						1	=> 'Sim',
 						2	=> 'Não'
 					),
-				)
+				),
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',
+			'Hide'		=> array( 'id_blog', 'conteudo', 'coment' ),
 		),
 		'Form'	=> array(
 			'Title'	=> 'Postagem',

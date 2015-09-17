@@ -26,7 +26,7 @@ class Explorer{
 			foreach ( $Dir as $Name ){
 
 				$Type = $this->Type( $Location . $Name );
-
+				
 				if( 
 
 					( $Name != '.' && $Name != '..' ) &&

@@ -132,7 +132,7 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
         dataType: "json",
         cache: false,
         data: $(this).parents('form').serialize(),
-        url: $(this).parents('form').attr('action'),
+        url:  $(this).parents('form').attr('action'),
         success: function(Page){
 
         }
