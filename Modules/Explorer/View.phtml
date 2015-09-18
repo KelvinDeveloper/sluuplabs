@@ -140,6 +140,7 @@ $('#upload').uploadifive({
 
 		if( toJSON && toJSON.Type != 'FOLDER' ){
 			$('#<?=$_GET['for']?>').val( toJSON.Location );
+			$('[for="<?=$_GET['for']?>"] span').text( toJSON.Location ).parent('div').attr( 'title', toJSON.Location );
 			$('#modal, .shadowModal').remove();
 		} else {
 			alert('Selecione um arquivo válido');

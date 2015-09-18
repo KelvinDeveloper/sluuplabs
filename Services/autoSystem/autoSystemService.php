@@ -86,6 +86,8 @@ class autoSystem{
 				break;
 			case 'datetime':
 				$Type = 'DATETIME';
+			case 'file':
+				$Type = "VARCHAR(255)";
 				break;
 			default:
 				$Type = "VARCHAR(" . ( isset( $v['Lenght'] ) ? $v['Lenght']: 45 ) . ")";
@@ -131,6 +133,7 @@ class autoSystem{
 
 				while ( $F = $SQLFields->fetch(PDO::FETCH_OBJ) ){
 					if( !in_array( $F->Field, $Array['Grid']['Hide'] ) ){
+
 						$HTML .= '<td>' . ( !empty( $Array['Fields'][ $F->Field ]['Label'] ) ? $Array['Fields'][ $F->Field ]['Label'] : ucfirst( $F->Field ) ) . '</td>';
 						$Fields[ $F->Field ] = $F;
 					}
@@ -160,6 +163,13 @@ class autoSystem{
 						switch ( $Array['Fields'][ $Field ]['Type'] ){
 							case 'select':
 								$v = $Array['Fields'][ $Field ]['Options'][ $Value->$Field ];
+								break;
+							case 'file':
+
+								if( $Array['Fields'][ $Field ]['Options']['Types'] == 'IMAGE' ){
+									$v = '<div class="image" style="background-image:url(\'' . $v . '\')"></div>';
+								}
+
 								break;
 						}
 
@@ -268,7 +278,7 @@ class autoSystem{
 			case 'html':
 				$HTML 	.= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
 				$Script .= '
-				editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\'});
+				editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . $Data['Width'] . '});
 				setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . $Value->$Field . '\') }, 300);';
 				break;
 
@@ -338,8 +348,13 @@ class autoSystem{
 
 				case 'file':
 					$HTML 	.= '
-					<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden">
-					<button class="openModal" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Selecionar arquivo" data-parent="#Module' . $Url[1] . '" href="/Explorer?navPrev=true&type=' . $Array['Fields'][ $Field ]['Options']['Types'] . '&for=fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">Selecionar arquivo</button>';
+					<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden" value="' . $Value->$Field . '">
+					
+					<div for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="field_files" title="' . $Value->$Field . '">
+						<span class="name_file">' . $Value->$Field . '</span>
+					</div>
+
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored openModal" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Selecionar arquivo" data-parent="#Module' . $Url[1] . '" href="/Explorer?navPrev=true&type=' . $Array['Fields'][ $Field ]['Options']['Types'] . '&for=fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">Selecionar arquivo</button>';
 					break;
 
 				default:

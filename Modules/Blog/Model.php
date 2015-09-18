@@ -24,15 +24,10 @@ $blog = $autoSystem->create(
 					'Lenght'	=>	100
 				),
 
-				'shot_description'	=>	array(
-					'Label'		=>	'Breve descrição da postagem',
-					'Type'		=>	'html',
-					'Lenght'	=>	255
-				),
-
 				'conteudo'	=>	array(
 					'Label'		=>	'Conteúdo da postagem',
 					'Type'		=>	'html',
+					'Width'		=>  '$(this).parents(\'.window\').width() + \'px\' '
 				),
 
 				'publish'	=> array(

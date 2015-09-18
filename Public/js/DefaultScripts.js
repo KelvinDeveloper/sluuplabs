@@ -127,11 +127,18 @@ $(document).on("contextmenu", '.tableDefault tbody tr', function(e){
 /* Ends Grid */
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
+
+    var Post = $(this).parents('form').serialize();
+
+    $(this).parents('[target="defaultForm"]').find('.tinymce').each(function(){
+        Post += '&' + $(this).attr('name') + '=' + tinyMCE.get( $(this).attr('id') ).getContent();
+    });
+
     $.ajax({ 
         type: "POST",
         dataType: "json",
         cache: false,
-        data: $(this).parents('form').serialize(),
+        data: Post,
         url:  $(this).parents('form').attr('action'),
         success: function(Page){
 
@@ -350,7 +357,7 @@ $(document).on('click', '#modal .close', function(){
 function editorHTML( Array ){
 
     var editorHTML = new tinymce.Editor( Array.Element, {
-                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern "],
+                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern autoresize "],
                 toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify " ],
                 insertdatetime_formats: ["%d/%m/%Y", "%Y-%m-%d", "%H:%M", "%H:%M:%S"],
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
