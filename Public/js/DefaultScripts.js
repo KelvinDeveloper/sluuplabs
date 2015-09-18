@@ -141,13 +141,42 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
         data: Post,
         url:  $(this).parents('form').attr('action'),
         success: function(Page){
-
+            if( Page.message != false ){
+                $( '#Module' + Page.Location.replace( '/', '' ) + ' .content' ).load( Page.Location );
+            } else {
+                alert('Erro ao salvar, contate o administrador');
+            }
         }
     });
     return false;
 });
 
+$(document).on('click', '.tableDefault .item_delete', function(){
+    var Confirm = confirm( 'Tem certeza que deseja deletar este registro? Esta comando não pode ser desfeito!' );
 
+    if( Confirm == true ){
+
+        var This = $(this);
+
+        $.ajax({ 
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            data: {
+                Id: This.parents('tr').data('id'),
+            },
+            url:  '/' + This.parents('tr').data('module') + '/Deletar/' + This.parents('tr').data('id'),
+            success: function(Page){
+                
+                if( Page.message == true ){
+                    This.parents('tr').remove();
+                } else {
+                    alert('Erro ao salvar, contate o administrador');
+                }
+            }
+        });
+    }
+});
 
 // per css-tricks restarting css animations
 // http://css-tricks.com/restart-css-animation/

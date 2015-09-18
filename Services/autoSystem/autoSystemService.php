@@ -32,7 +32,17 @@ class autoSystem{
 			if( function_exists('onEnd') ){
 				onEnd( $Array );
 			}
+
+			exit;
 		}
+		else if( $Url[2] == 'Deletar' ){
+			if( $Database->Delete( $Array['bd'], $Array['auto_increment'] . '=' . $Url[3]  ) ){
+				$Return['message'] = true;
+				echo json_encode( $Return );
+			}
+			exit;
+		}
+
 	}
 
 	function autobd( $Array ){
@@ -148,7 +158,7 @@ class autoSystem{
 			
 				$Result = $Database->Fetch( $Array['bd'] );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
-					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '">';
+					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '">';
 						
 						$HTML .= '<td class="check"> 
 									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
@@ -186,7 +196,7 @@ class autoSystem{
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 						    for="' . $Value->$Array['auto_increment'] . '-menu">
 						  <li class="mdl-menu__item" onclick="editRegister( $(this).parents(\'tr\') )"><i class="material-icons">&#xE254;</i> ' . _('Editar') . '</li>
-						  <li class="mdl-menu__item"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
+						  <li class="mdl-menu__item item_delete"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
 						</ul>
 					</td>';
 
@@ -330,7 +340,7 @@ class autoSystem{
 
 					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
 					
-						$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . ' tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
+						$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . ' tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
 						$HTML .= '<br>';
 
 					}
@@ -340,7 +350,7 @@ class autoSystem{
 
 					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
 					
-						$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Content . '</label>';
+						$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Content . '</label>';
 						$HTML .= '<br>';
 
 					}
@@ -351,7 +361,7 @@ class autoSystem{
 					<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden" value="' . $Value->$Field . '">
 					
 					<div for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="field_files" title="' . $Value->$Field . '">
-						<span class="name_file">' . $Value->$Field . '</span>
+						<span class="name_file">' . ( !empty( $Value->$Field ) ? $Value->$Field : 'Nenhum arquivo selecionado' ) . '</span>
 					</div>
 
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored openModal" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Selecionar arquivo" data-parent="#Module' . $Url[1] . '" href="/Explorer?navPrev=true&type=' . $Array['Fields'][ $Field ]['Options']['Types'] . '&for=fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">Selecionar arquivo</button>';
@@ -433,6 +443,7 @@ class autoSystem{
 		$PDO->exec( $Query );
 		$Return['new']      = $new;
 		$Return['message']  = $PDO->errorInfo();
+		$Return['Location'] = '/' . $Url[1];
 
 		return $Return;
 	}

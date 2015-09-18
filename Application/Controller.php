@@ -58,6 +58,7 @@ else if( $Conf['Type'] == 2 ){
 
 
 } else {
+
 	// Verifica se usuario está logado para ler os registros
 	$Services->Run('Login');
 	if( $Login->Verific() ){

@@ -4,6 +4,7 @@
 
 .mdl-data-table td{
 	text-align: center !important;
+	vertical-align: inherit !important;
 }
 
 .tableDefault .image{
