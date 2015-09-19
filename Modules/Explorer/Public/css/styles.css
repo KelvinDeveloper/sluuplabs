@@ -2,12 +2,12 @@
 	height: 100%;
 }
 
-#eIcons{
+.eIcons{
 	margin: 0;
 	padding: 0;
 }
 
-#eIcons li{
+.eIcons li{
 	list-style: none;
 	float: left;
 	padding: 5px;
@@ -18,11 +18,11 @@
 	margin: 5px 8px;
 }
 
-#eIcons li:hover{
+.eIcons li:hover{
 	opacity: .8
 }
 
-#eIcons li span{
+.eIcons li span{
 	display: block;
 	height: 33px;
 	overflow: hidden;
@@ -30,27 +30,29 @@
 	white-space: pre-line;
 	width: 62px;
 	line-height: 16px;
+	position: relative;
 }
 
-#eIcons li span:hover{
+.eIcons li span:hover{
 	overflow: inherit;
 	background-color: #fff;
 }
-#eIcons li .mdl-progress{
+.eIcons li .mdl-progress{
 	width: 62px;
+	margin-top: -6px;
 	position: absolute;
 }
 
-#eIcons li i{
+.eIcons li i{
 	font-size: 55px;
 }
 
-#eIcons li .uploadifive-button i{
+.eIcons li .uploadifive-button i{
 	font-size: 36px !important;
 	margin-left: -5px;
 }
 
-#eIcons li button{
+.eIcons li button{
 	height: 62px;
 	width: 62px;
 }
@@ -62,7 +64,7 @@
 	background-size: cover;
 	border-radius: 2px;
 }
-#eIcons .rCliked{
+.eIcons .rCliked{
 	background-color: rgb(224, 224, 224);
 }
 
@@ -73,4 +75,7 @@
     padding: 11px;
     position: absolute;
     width: 97%;
+}
+.uploadifive-button.mdl-button input{
+	height: 57px;
 }

@@ -97,6 +97,7 @@ class autoSystem{
 			case 'datetime':
 				$Type = 'DATETIME';
 			case 'file':
+			case 'files':
 				$Type = "VARCHAR(255)";
 				break;
 			default:
@@ -175,11 +176,27 @@ class autoSystem{
 								$v = $Array['Fields'][ $Field ]['Options'][ $Value->$Field ];
 								break;
 							case 'file':
-
 								if( $Array['Fields'][ $Field ]['Options']['Types'] == 'IMAGE' ){
 									$v = '<div class="image" style="background-image:url(\'' . $v . '\')"></div>';
 								}
+								break;
 
+							case 'files':
+
+								if( $Array['Fields'][ $Field ]['Options']['Types'] == 'IMAGE' ){
+
+									$Dir = scandir( ROOT . $v );
+									$path = $v;
+									$v = '<ul class="multi_files" data-value="' . $path . '">';
+									$m = 5;
+										foreach ( $Dir as $value ){
+											if( $value != '.' && $value != '..' ){
+												$v .= '<li style="background-image:url(\'' . $path . '/' . $value . '\');left:' . $m . 'px"></li>';
+												$m = $m * 2;
+											}
+										}
+									$v .= '</ul>';
+								}
 								break;
 						}
 
@@ -367,6 +384,20 @@ class autoSystem{
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored openModal" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Selecionar arquivo" data-parent="#Module' . $Url[1] . '" href="/Explorer?navPrev=true&type=' . $Array['Fields'][ $Field ]['Options']['Types'] . '&for=fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">Selecionar arquivo</button>';
 					break;
 
+				case 'files':
+
+					if( $new ){
+						$Folder = $this->tmp( $Array );
+					} else {
+						$Folder = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $Url[2];
+					}
+					
+					$HTML .= '<div class="multi_files" id="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></div>
+								<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden" value="' . ( $new ? $Folder : $Value->$Field ) . '">';
+					$Script .= '$(\'#' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\').load(\'/Explorer?Dir=' . $Folder . '\')';
+
+					break;
+
 				default:
 				
 					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
@@ -397,6 +428,27 @@ class autoSystem{
 		$HTML .= '<script>' . $Script . '</script>';
 
 		return $HTML;
+	}
+
+	function tmp( $Array ){
+		global $Url;
+
+		$time = time();
+		if( mkdir( ROOT . '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time ) ){
+			return '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time;
+		} else {
+			return false;
+		}
+	}
+
+	function move( $Array, $move ){
+
+		global $PDO, $Database;
+
+		foreach( $move as $old => $values ){
+			rename( ROOT . $old, ROOT . $values['new'] );
+			$Database->Update( $Array['bd'], $values['Field'] . "='" . $values['new'] . "'", $Array['auto_increment'] . '=' . $values['Id']  );
+		}
 	}
 
 	function post( $Array ){
@@ -441,6 +493,26 @@ class autoSystem{
 		}
 
 		$PDO->exec( $Query );
+
+		if( $new ){
+
+			$move = false;
+
+			foreach( $Array['Fields'] as $Field => $Data ){
+
+				if( $Data['Type'] == 'files' ){
+					$tmp = $Database->Search( $Array['bd'], $Field, $Array['auto_increment'] . '=' . $PDO->lastInsertId() );
+					$move[ $tmp->$Field ]['new'] = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $PDO->lastInsertId();
+					$move[ $tmp->$Field ]['Field'] = $Field;
+					$move[ $tmp->$Field ]['Id'] = $PDO->lastInsertId();
+				}
+			}
+
+			if( $move != false ){
+				$this->move( $Array, $move );
+			}
+		}
+
 		$Return['new']      = $new;
 		$Return['message']  = $PDO->errorInfo();
 		$Return['Location'] = '/' . $Url[1];

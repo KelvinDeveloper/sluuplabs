@@ -21,7 +21,7 @@ class Upload extends Explorer{
 		$ConsultName = true;
 		$nName = '';
 		$L = 1;
-
+		
 		while ( $ConsultName ) {
 
 			$FileName = $FileParts['filename'] . $nName . '.' . $FileParts['extension'];
@@ -34,7 +34,11 @@ class Upload extends Explorer{
 			}
 		}
 
-	$TargetFile = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . $_POST['Location'] . $FileName;
+	if( strstr( $_POST['Location'], '/tmp/' ) || strstr( $_POST['Location'], '/Application/Users/' ) ){
+		$TargetFile = ROOT . $_POST['Location'] . $FileName;
+	} else {
+		$TargetFile = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . $_POST['Location'] . $FileName;
+	}
 
 	$Location = explode( 'sluup', $TargetFile );
 

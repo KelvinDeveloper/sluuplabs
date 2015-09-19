@@ -47,6 +47,14 @@ $blog = $autoSystem->create(
 						2	=> 'Não'
 					),
 				),
+
+				'galery'		=> array(
+					'Label'		=> 'Galeria de Imagens',
+					'Type'		=> 'files',
+					'Options'	=> array(
+						'Types'	=> 'IMAGE'
+					),
+				),
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',

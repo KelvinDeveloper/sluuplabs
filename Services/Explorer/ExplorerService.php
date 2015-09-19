@@ -17,35 +17,39 @@ class Explorer{
 			}
 		}
 
-		$Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
-		$FileLocation = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
+		if( isset( $_GET['Dir'] ) && !empty( $_GET['Dir'] ) ){
+			$Location = ROOT . $_GET['Dir'] . '/';
+			$FileLocation = $_GET['Dir'] . '/';
+		} else {
+			$Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
+			$FileLocation = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
+		}
 
 		$Dir = scandir( $Location );
 
 		if( $Dir == true ){
 			foreach ( $Dir as $Name ){
+				if( ( $Name != '.' && $Name != '..' ) ){
 
-				$Type = $this->Type( $Location . $Name );
-				
-				if( 
+					$Type = $this->Type( $Location . $Name );
 
-					( $Name != '.' && $Name != '..' ) &&
-					( empty( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) 
-				){
+					if( ( empty( $_GET['type'] ) || ( $Type == 'FOLDER' || strstr( $_GET['type'], $Type ) == true ) ) ){
 
-					if( $Type == 'FOLDER' ){
-						$ReturnFolder[ $Name ] = array(
-							'Name'		=> $Name,
-							'Type'		=> $Type,
-							'Location'	=> $FileLocation . $Name
-						);
-					} else {
-						$Return[ $Name ] = array(
-							'Name'		=> $Name,
-							'Type'		=> $Type,
-							'Location'	=> $FileLocation . $Name
-						);
+						if( $Type == 'FOLDER' ){
+							$ReturnFolder[ $Name ] = array(
+								'Name'		=> $Name,
+								'Type'		=> $Type,
+								'Location'	=> $FileLocation . $Name
+							);
+						} else {
+							$Return[ $Name ] = array(
+								'Name'		=> $Name,
+								'Type'		=> $Type,
+								'Location'	=> $FileLocation . $Name
+							);
+						}
 					}
+
 				}
 			}
 		}

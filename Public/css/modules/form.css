@@ -14,6 +14,26 @@
 	margin: 0 auto 10px auto
 }
 
+.tableDefault ul.multi_files{
+	position: relative;
+	padding: 0;
+	margin: 0;
+	height: 70px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.tableDefault .multi_files li{
+	list-style: none;
+	width: 70px;
+	height: 70px;
+	background-size: cover;
+	float: left;
+	position: absolute;
+	box-shadow: 0 0 3px #333;
+
+}
+
 form[target="defaultForm"] input{
 	height: 20px;
 	width: 20em;
@@ -46,5 +66,4 @@ form[target="defaultForm"] .field_files span {
 	width: 250px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
->>>>>>> de6eb1d4384d1f0e68b7ff6e13e070af80895929
 }

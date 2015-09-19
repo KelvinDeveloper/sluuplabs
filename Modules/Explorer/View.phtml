@@ -5,11 +5,18 @@
 
 <?php
 
-$LUrl = '';
+$timestamp = time();
 
-foreach ( $Url as $k => $v ){
-	if( $k > 0 && !empty( $v ) ){
-		$LUrl .= $v . '/';
+$LUrl = '';
+if( $_GET['Dir'] ){
+
+	$LUrl = $_GET['Dir'];
+} else {
+
+	foreach ( $Url as $k => $v ){
+		if( $k > 0 && !empty( $v ) ){
+			$LUrl .= $v . '/';
+		}
 	}
 }
 
@@ -18,7 +25,7 @@ $Services->Run('Explorer');
 
 $HTML .= '<div class="files">';
 
-$HTML .= '<ul id="eIcons" data-location="' . $LUrl . '" data-filtro="navPrev=' . $_GET['navPrev'] . '&type=' . $_GET['type'] . '">';
+$HTML .= '<ul id="eIcons-' . $timestamp . '" class="eIcons" data-location="' . $LUrl . '" data-filtro="navPrev=' . $_GET['navPrev'] . '&type=' . $_GET['type'] . '">';
 
 if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_filter( $Url ) ) > 1 ){
 	$HTML .= '
@@ -30,14 +37,14 @@ if( ( isset( $_GET['navPrev'] ) && $_GET['navPrev'] == 'true' ) && count( array_
 
 $HTML .= '
 	<li id="uploadifive">
-		<button id="upload"></button>
+		<button id="upload-' . $timestamp . '"></button>
 		<span>Upload</span>
 	</li>';
 
 foreach( $Explorer->Start() as $Name => $Values ){
 
 	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\' ' . ( isset( $_GET['Location'] ) && $_GET['Location'] == $Values['Location'] ? ' class="rCliked"' : "" ) . '>';
-
+	
 	if( $Values['Type'] == 'IMAGE' ){
 		$HTML .= 
 				'<div class="eIcon" style="background-image:url(\'' . $Values['Location'] . '\');"></div>
@@ -79,18 +86,17 @@ if( <?=count( array_filter( $Url ) );?> > 1 && $('#ModuleExplorer .header i#navP
 
 var toJSON = '';
 
-<?php $timestamp = time(); ?>
-$('#upload').uploadifive({
+$('#upload-<?=$timestamp?>').uploadifive({
 	'formData' : {
 		'timestamp'   	: '<?php echo $timestamp;?>',
 		'token'    		: '<?php echo md5('unique_salt' . $timestamp);?>',
-		'Location'		: $('#eIcons').data('location'),
+		'Location'		: $('#eIcons-<?=$timestamp?>').data('location'),
 	},
 
 	'progressData'  : 'speed',
 	'buttonText'	: '<i class="material-icons">&#xE2C3;</i>',
 	'buttonClass'	: 'mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored',
-	'queueID'		: 'eIcons',
+	'queueID'		: 'eIcons-<?=$timestamp?>',
 	'itemTemplate'	: '<li class="uploadifive-queue-item"> <i class="material-icons">&#xE2C2;</i> <div id="p1" class="mdl-progress mdl-js-progress"></div> <span class="filename"></span> </li>',
 	'width'			: 62,
 	'height'		: 62,
@@ -124,7 +130,7 @@ $('#upload').uploadifive({
 });
 /* Ends uploadfive */
 
-<?php if( isset( $_GET['for'] ) && !empty( isset( $_GET['for'] ) ) ){ ?>
+<?php if( isset( $_GET['for'] ) && !empty( $_GET['for'] ) ){ ?>
 	$('#modal .content .files').css({
 		height: '70%',
 		overflow: 'auto'
@@ -136,7 +142,7 @@ $('#upload').uploadifive({
 
 	$('.openFile').click(function(){
 
-		var toJSON = $('#eIcons li.rCliked').data('info');
+		var toJSON = $('#eIcons-<?=$timestamp?> li.rCliked').data('info');
 
 		if( toJSON && toJSON.Type != 'FOLDER' ){
 			$('#<?=$_GET['for']?>').val( toJSON.Location );
