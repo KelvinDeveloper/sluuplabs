@@ -406,14 +406,14 @@ function editorHTML( Array ){
 
 /* Explorer */
 
-$(document).on('dblclick', '#eIcons:visible li', function(){
+$(document).on('dblclick', '.eIcons:visible li', function(){
 
    var JSON = $(this).data('info');
 
     switch( JSON.Type ){
 
         case 'FOLDER':
-            $('#eIcons').parent('div').load( ( $('#eIcons').data('location') + $(this).find('span').text() + '?' + $('#eIcons').data('filtro') ) );
+            $('.eIcons').parent('div').load( ( $('.eIcons').data('location') + $(this).find('span').text() + '?' + $('.eIcons').data('filtro') ) );
             break;
     }
 
@@ -422,7 +422,7 @@ $(document).on('dblclick', '#eIcons:visible li', function(){
 
 $(document).on('click', '#navPrev', function(){
 
-    var Location = $('#eIcons').data('location'),
+    var Location = $('.eIcons').data('location'),
         Array    = Location.split('/'),
         NewUrl   = '';
 
@@ -442,7 +442,7 @@ $(document).on('click', '#navPrev', function(){
         }
     };
 
-    $('#eIcons').parent('div').load( NewUrl + '?' + $('#eIcons').data('filtro') );
+    $('.eIcons').parent('div').load( NewUrl + '?' + $('.eIcons').data('filtro') );
 });
 
 $(document).on('click', '#explorerContent', function(){

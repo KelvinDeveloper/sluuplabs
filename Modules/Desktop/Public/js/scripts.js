@@ -326,7 +326,7 @@ $(document).ready(function(){
 	
 });
 
-$('#eIcons li:not(#navPrev, #uploadifive)').rClick({
+$('.eIcons li:not(#navPrev, #uploadifive)').rClick({
 
 	id: 'eIcons',
 
