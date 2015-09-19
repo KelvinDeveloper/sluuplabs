@@ -65,3 +65,12 @@
 #eIcons .rCliked{
 	background-color: rgb(224, 224, 224);
 }
+
+.openFile{
+    background-color: #ccc;
+    bottom: 0;
+    left: 0;
+    padding: 11px;
+    position: absolute;
+    width: 97%;
+}

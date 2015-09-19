@@ -1,8 +1,50 @@
 .tableDefault .mdl-checkbox{
 	width: auto !important;
 }
+
+.mdl-data-table td{
+	text-align: center !important;
+	vertical-align: inherit !important;
+}
+
+.tableDefault .image{
+	width:70px;
+	height:70px;
+	background-size: cover;
+	margin: 0 auto 10px auto
+}
+
 form[target="defaultForm"] input{
 	height: 20px;
 	width: 20em;
 	padding: 5px;
+}
+
+form[target="defaultForm"] .field_files {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: #ccc -moz-use-text-color #ccc #ccc;
+	border-image: none;
+	border-radius: 2px 0 0 2px;
+	border-style: solid none solid solid;
+	border-width: 1px medium 1px 1px;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	padding: 5px;
+	max-width: 300px;
+	overflow: hidden;
+	cursor: default;
+}
+
+form[target="defaultForm"] .field_files span {
+	display: inline-block;
+	height: 20px;
+	overflow: hidden;
+	width: 250px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+>>>>>>> de6eb1d4384d1f0e68b7ff6e13e070af80895929
 }

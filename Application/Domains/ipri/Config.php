@@ -21,8 +21,8 @@ if( getenv("PARAM1") == 'DEV' ){
 }
 
 define( 'BD', 'labs' );
-define( 'Title', 'Sluup Labs' );
+define( 'Title', 'IPRI' );
 
 $Conf['Login']['Table'] = 'users';
-$Conf['InitUrl'] = '/Desktop';
-$Conf['Type'] 	 = 1; // Sistema
+$Conf['InitUrl'] = 'home';
+$Conf['Type'] = 2; // 2 = Site

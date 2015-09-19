@@ -127,20 +127,56 @@ $(document).on("contextmenu", '.tableDefault tbody tr', function(e){
 /* Ends Grid */
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
+
+    var Post = $(this).parents('form').serialize();
+
+    $(this).parents('[target="defaultForm"]').find('.tinymce').each(function(){
+        Post += '&' + $(this).attr('name') + '=' + tinyMCE.get( $(this).attr('id') ).getContent();
+    });
+
     $.ajax({ 
         type: "POST",
         dataType: "json",
         cache: false,
-        data: $(this).parents('form').serialize(),
-        url: $(this).parents('form').attr('action'),
+        data: Post,
+        url:  $(this).parents('form').attr('action'),
         success: function(Page){
-
+            if( Page.message != false ){
+                $( '#Module' + Page.Location.replace( '/', '' ) + ' .content' ).load( Page.Location );
+            } else {
+                alert('Erro ao salvar, contate o administrador');
+            }
         }
     });
     return false;
 });
 
+$(document).on('click', '.tableDefault .item_delete', function(){
+    var Confirm = confirm( 'Tem certeza que deseja deletar este registro? Esta comando não pode ser desfeito!' );
 
+    if( Confirm == true ){
+
+        var This = $(this);
+
+        $.ajax({ 
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            data: {
+                Id: This.parents('tr').data('id'),
+            },
+            url:  '/' + This.parents('tr').data('module') + '/Deletar/' + This.parents('tr').data('id'),
+            success: function(Page){
+                
+                if( Page.message == true ){
+                    This.parents('tr').remove();
+                } else {
+                    alert('Erro ao salvar, contate o administrador');
+                }
+            }
+        });
+    }
+});
 
 // per css-tricks restarting css animations
 // http://css-tricks.com/restart-css-animation/
@@ -350,7 +386,7 @@ $(document).on('click', '#modal .close', function(){
 function editorHTML( Array ){
 
     var editorHTML = new tinymce.Editor( Array.Element, {
-                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern "],
+                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern autoresize "],
                 toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify " ],
                 insertdatetime_formats: ["%d/%m/%Y", "%Y-%m-%d", "%H:%M", "%H:%M:%S"],
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
@@ -418,5 +454,4 @@ $(document).on('click', '.eIcon', function(e){
     $('#explorerContent .rCliked').removeClass('rCliked');
     $(this).parent('li').addClass('rCliked');
 });
-
 /* Ends Explorer */
