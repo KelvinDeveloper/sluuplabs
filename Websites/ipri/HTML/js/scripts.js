@@ -15,6 +15,14 @@ function js(){
 
 $(document).ready(function(){
 	js();
+
+	$(document).on('mouseenter', '.slide li', function(){ 
+		$(this).addClass('hover');
+	});
+
+	$(document).on('mouseleave', '.slide li', function(){ 
+		$(this).removeClass('hover');
+	});
 });
 
 $(document).resize(function(){

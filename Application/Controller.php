@@ -47,8 +47,8 @@ else if( $Url[1] === 'Upload' && !empty( $_POST ) ){
 else if( $Conf['Type'] == 2 ){
 	// Website
 	include ROOT . '/Websites/' . $Domain[0] . '/Urls.php';
-	$File = ROOT . '/Websites/' . $Domain[0] . '/' . $Router[ ( empty( $Url[0] ) ?  $Conf['InitUrl'] : $Url[0] ) ];
-	$Path = 'Websites/' . $Domain[0] . '/HTML/';
+	$File = ROOT . '/Websites/' . $Domain[0] . '/' . $Router[ ( empty( $Url[1] ) ?  $Conf['InitUrl'] : $Url[1] ) ];
+	$Path = '/Websites/' . $Domain[0] . '/HTML/';
 
 	if( file_exists( $File ) ){
 		include $File;

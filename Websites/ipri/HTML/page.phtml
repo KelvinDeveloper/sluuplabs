@@ -1,0 +1,21 @@
+<?php 
+
+include ROOT . '/' . $Path . 'Head.phtml';
+include ROOT . '/' . $Path . 'Menu.phtml';
+
+$Assunto = explode( '-', $Url[2] );
+$Assunto = $Assunto[0]; 
+
+?>
+<div class="content">
+
+<?php
+
+$Result = $Database->Fetch( 'blog', false, "assunto='" . $Assunto . "'" , 'id_blog DESC' );
+while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
+	echo $Slide->title;
+}
+
+?>
+
+<?php include ROOT . '/' . $Path . 'Footer.phtml'; ?>
