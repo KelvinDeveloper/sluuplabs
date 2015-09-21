@@ -24,10 +24,8 @@ function openModule( Module ){
 	} else {
 
 		var Info = $('.listModules [data-name="' + Module + '"]').data('info');
-		console.log("quero saber infos dos modulos",Info)
-
 		$('body')
-			.append('<div class="window" id="Module'  + Module + '">' +
+			.append('<div class="window" id="Module'  + Module + '" target="' + Module + '">' +
 						'<div class="header">' +
 							'<div class="options">' +
 								'<i class="material-icons close">clear</i>' +
@@ -44,7 +42,7 @@ function openModule( Module ){
 				$('body').on('click','i.material-icons.minimize', function(){
 
 				   var Module = $(this).parents('.window').attr('id'); // id do modulo 
-				   console.log("ID do modulo ",Module);
+				   
 				  	$('#' + Module).hide() // esconde o modulo
 				  	$('body').append('<i class="material-icons minimizedIcons" id="'+ Module +'" style="left:50px;">&#xE87A;</i>');
 				  	leftMulti=leftMulti+1;

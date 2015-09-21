@@ -63,19 +63,21 @@ $(document).on('click', '.openThisWindow', function(){
         cache: false,
         url: $(this).attr('href'),
         success: function(Page){
-            var Url = This.attr('href').split('/'),
-                DeleteI = false;
-            
-            if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
+
+            var Url             = This.attr('href').split('/'),
+                DeleteIcon      = false,
+                Element         = $('[target="' + This.attr('for') + '"]');
+
+            if( Element.find('.header i.openThisWindow, .title i.openThisWindow').length > 0 ){
                 DeleteI = true;
             } else {
-                This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
+                Element.find('.header, .title').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '" for="' + This.attr('for') + '">arrow_back</i>');
             }
 
-            This.parents('.window').find('.content').html( Page );
+            Element.find('.content').html( Page );
 
-            if( DeleteI === true ){
-                This.parents('.window').find('.header i.openThisWindow').remove();
+            if( DeleteIcon === true ){
+                Element.find('.header i.openThisWindow, .title i.openThisWindow').remove();
             }
         }
     });
@@ -90,19 +92,20 @@ function editRegister( This ){
         cache: false,
         url: This.attr('href'),
         success: function(Page){
-            var Url = This.attr('href').split('/'),
-                DeleteI = false;
-            
-            if( This.parents('.window').find('.header i.openThisWindow').length > 0 ){
+            var Url             = This.attr('href').split('/'),
+                DeleteIcon      = false,
+                Element         = $('[target="' + This.attr('for') + '"]');
+                console.log( Element, This );
+            if( Element.find('.header i.openThisWindow, .title i.openThisWindow').length > 0 ){
                 DeleteI = true;
             } else {
-                This.parents('.window').find('.header').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '">arrow_back</i>');
+                Element.find('.header, .title').append('<i class="material-icons openThisWindow fL" href="/' + Url[1] + '" for="' + This.attr('for') + '">arrow_back</i>');
             }
 
-            This.parents('.window').find('.content').html( Page );
+            Element.find('.content').html( Page );
 
-            if( DeleteI === true ){
-                This.parents('.window').find('.header i.openThisWindow').remove();
+            if( DeleteIcon === true ){
+                Element.find('.header i.openThisWindow, .title i.openThisWindow').remove();
             }
         }
     });
@@ -128,7 +131,8 @@ $(document).on("contextmenu", '.tableDefault tbody tr', function(e){
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
 
-    var Post = $(this).parents('form').serialize();
+    var Post = $(this).parents('form').serialize(),
+        This = $(this);
 
     $(this).parents('[target="defaultForm"]').find('.tinymce').each(function(){
         Post += '&' + $(this).attr('name') + '=' + tinyMCE.get( $(this).attr('id') ).getContent();
@@ -142,7 +146,8 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
         url:  $(this).parents('form').attr('action'),
         success: function(Page){
             if( Page.message != false ){
-                $( '#Module' + Page.Location.replace( '/', '' ) + ' .content' ).load( Page.Location );
+                console.log( '[target="' + This.attr('for') + '"]', This );
+                $('[target="' + This.attr('for') + '"] .content').load( Page.Location );
             } else {
                 alert('Erro ao salvar, contate o administrador');
             }
@@ -308,12 +313,13 @@ function Modal ( This ){
         Shadow      = ( This.data('shadow')     != undefined ? This.data('shadow')      : true      ),
         Parent      = ( This.data('parent')     != undefined ? This.data('parent')      : 'body'    ),
         Title       = ( This.attr('title')      != undefined ? This.attr('title')       : false     ),
+        Target      = ( This.attr('for')        != undefined ? This.attr('for')         : ''        ),
 
         HTML = '';
 
     $('#modal, .shadowModal').remove();
 
-    HTML += '<div class="modal ' + Size + '" id="modal">';
+    HTML += '<div class="modal ' + Size + '" id="modal" target="' + Target + '">';
 
         HTML += '<div class="title">' + ( Title != false ? Title : '' ) + ' <i class="material-icons close fR mL">&#xE14C;</i></div>';
         HTML += '<div class="content"></div>';

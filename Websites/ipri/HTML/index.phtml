@@ -6,16 +6,54 @@ include ROOT . '/' . $Path . 'Menu.phtml';
 ?>
 
 <div class="content">
+
+	<?php
+	/* Slide */
+	$Result = $Database->Fetch( 'blog', false, false, 'id_blog DESC', false, 4 );
+	$Loop	= 1;
 	
+	echo '<ul class="slide">';
+	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
+		echo '<li style="background-image: url(\'' . $Slide->image . '\'" class="slide-' . $Loop . '">';
+
+			echo '<span class="title">' . $Slide->title . '</title>';
+
+		echo '</li>';
+		$Loop++;
+	}
+	echo '</ul>';
+	/* Ends Slide */
+	?>
+	
+
+
+<!-- Image card -->
+<style>
+
+</style>
+
 	<h2>
 		<a href="#">Ultimas postagens</a>
 	</h2>
 
 	<div class="mdl-grid w80">
-	  <div class="mdl-cell mdl-cell--1-col">1</div>
-	  <div class="mdl-cell mdl-cell--1-col">1</div>
-	  <div class="mdl-cell mdl-cell--1-col">1</div>
-	  <div class="mdl-cell mdl-cell--1-col">1</div>
+
+	<?php
+	$Result = $Database->Fetch( 'blog', false, false, 'id_blog DESC', false, 4 );
+	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
+	?>
+
+
+		<div class="card-image mdl-card mdl-shadow--2dp" style="background-image:url('<?=$Slide->image?>')">
+			<div class="mdl-card__title mdl-card--expand"></div>
+			<div class="mdl-card__actions">
+				<span class="card-image__filename"><?=$Slide->title?></span>
+			</div>
+		</div>
+
+
+	<?php } ?>
+
 	</div>
 
 </div>

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,800);
 
 @font-face {
   font-family: "And Black";
@@ -159,7 +160,7 @@ h2 a{
     border-bottom: 4px solid transparent;
   }
 
-    .android-navigation .mdl-navigation__link:hover {
+    .android-navigation .mdl-navigation__link:hover, .android-navigation .mdl-navigation__link.active {
       border-bottom: 4px solid #fff;
     }
 
@@ -585,16 +586,102 @@ h2 a{
   background-color: #2196f3 !important;
   position: fixed;
   top: 0;
+  height: auto !important;
 
   -webkit-transition: all .5s;
   transition: all .5s;
 }
 
+.mdl-layout__container, .mdl-layout{
+  height: auto !important;
+}
+
 .content{
-  margin-top: 80px;
+  margin-top: 64px;
 }
 .w80{
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
+}
+
+.slide{
+  margin: 0;
+  padding: 0;
+}
+
+.slide li{
+  list-style: none;
+  float: left;
+  width: 30%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.slide li:hover{
+  opacity: .8;
+}
+
+.slide li span{
+  font-family: "Open Sans",sans-serif;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+  font-size: 1.55em;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+.slide li.slide-1{
+  width: 40%;
+}
+
+.slide li.slide-3, .slide li.slide-4{
+  height: 50%;
+}
+
+.mdl-navigation__link i{
+  margin-top: 22px;
+}
+
+.card-image.mdl-card {
+  width: 256px;
+  height: 256px;
+  background-size: cover;
+  background-position: center;
+  margin: 6px;
+  cursor: pointer;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.card-image.mdl-card:hover{
+  opacity: .8;
+}
+
+.card-image > .mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.card-image__filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
 }

@@ -1,9 +1,12 @@
 <?php include 'Model.php'; ?>
 
-<!--link href="/Modules/Desktop/Empty/css/styles.css" rel="stylesheet">
-<script type="text/javascript" src="/Modules/Desktop/Empty/js/scripts.js"></script-->
+<link href="/Modules/Blog/Public/css/styles.css" rel="stylesheet">
+<!--script type="text/javascript" src="/Modules/Desktop/Empty/js/scripts.js"></script-->
 
-<?php
+<?php echo $blog; ?>
 
-echo $blog;
-?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('[href="/Blog/Novo"]').after('<button class="add_assunto mdl-button mdl-js-button mdl-button--raised mdl-button--colored openModal" title="Adicionar Assuntos" data-parent="#ModuleBlog" href="/Assuntos" data-size="large" for="Assuntos">Adicionar Assuntos</button>');
+	});
+</script>

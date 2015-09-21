@@ -7,7 +7,7 @@ class autoSystem{
 		$this->autobd( $Array );
 
 		// Grid
-		if( !isset( $Url[2] ) ){
+		if( !isset( $Url[2] ) || $Url[2] == 'Ajax' ){
 			return $this->grid( $Array );
 		}
 		// Form
@@ -116,11 +116,11 @@ class autoSystem{
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
 				if( !isset( $Array['Grid']['Buttons']['Label']['New'] ) ){
-					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" for="' . $Url[1] . '">
 								<i class="material-icons">add</i>
 							</a>';
 				} else {
-					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" for="' . $Url[1] . '">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
 				}
 			}
 		}
@@ -159,7 +159,7 @@ class autoSystem{
 			
 				$Result = $Database->Fetch( $Array['bd'] );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
-					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '">';
+					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '" for="' . $Url[1] . '">';
 						
 						$HTML .= '<td class="check"> 
 									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
@@ -173,6 +173,13 @@ class autoSystem{
 
 						switch ( $Array['Fields'][ $Field ]['Type'] ){
 							case 'select':
+								if( isset( $Array['Fields'][ $Field ]['Query'] ) ){
+									$R = $PDO->query( $Array['Fields'][ $Field ]['Query'] );
+									while( $v = $R->fetch(PDO::FETCH_OBJ) ){
+										$Array['Fields'][ $Field ]['Options'][ $v->$Array['Fields'][ $Field ]['Key'] ] = $v->$Array['Fields'][ $Field ]['Value'];
+									}
+								}
+
 								$v = $Array['Fields'][ $Field ]['Options'][ $Value->$Field ];
 								break;
 							case 'file':
@@ -192,7 +199,7 @@ class autoSystem{
 										foreach ( $Dir as $value ){
 											if( $value != '.' && $value != '..' ){
 												$v .= '<li style="background-image:url(\'' . $path . '/' . $value . '\');left:' . $m . 'px"></li>';
-												$m = $m * 2;
+												$m = $m + 5;
 											}
 										}
 									$v .= '</ul>';
@@ -312,6 +319,13 @@ class autoSystem{
 			case 'select':
 				$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : '' ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 
+				if( isset( $Data['Query'] ) ){
+					$Result = $PDO->query( $Data['Query'] );
+					while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
+						$Data['Options'][ $v->$Data['Key'] ] = $v->$Data['Value'];
+					}
+				}
+
 				foreach ( $Data['Options'] as $k => $v ) {
 					$HTML .= '<option value="' . $k . '" ' . ( $k == $Value->$Field ? 'selected="selected"' : '' ) . '>' . $v . '</option>';
 
@@ -415,11 +429,11 @@ class autoSystem{
 		if( $Array['Form']['Buttons'] !== false ){
 			if( !isset( $Array['Form']['Buttons']['Save']['Name'] ) ){
 				$HTML .= '
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . ' fR" type="submit">
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . ' fR" type="submit" for="' . $Url[1] . '">
 				  <i class="material-icons">&#xE161;</i>
 				</button>';
 			} else {
-				$HTML .= '<button type="submit" class="' . $ClassBtn . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
+				$HTML .= '<button type="submit" class="' . $ClassBtn . '" for="' . $Url[1] . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
 			}
 		}
 

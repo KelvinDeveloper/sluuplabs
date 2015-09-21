@@ -30,6 +30,14 @@ $blog = $autoSystem->create(
 					'Width'		=>  '$(this).parents(\'.window\').width() + \'px\' '
 				),
 
+				'assunto'	=> array(
+					'Label'	=> 'Assunto',
+					'Type'	=> 'select',
+					'Query'	=> 'SELECT * FROM ' . BD . '.assuntos',
+					'Key'	=> 'id_assunto',
+					'Value'	=> 'name'
+				),
+
 				'publish'	=> array(
 					'Label'	=> 'Publicar',
 					'Type'	=> 'select',

@@ -485,6 +485,10 @@ class RunFunction{
 
 	function is_image( $path ){
 
+		if( !file_exists( $path ) ){
+			return false;
+		}
+
 	    $a = getimagesize($path);
 	    $image_type = $a[2];
 	     

@@ -17,13 +17,13 @@
       <!-- Navigation -->
       <div class="android-navigation-container">
         <nav class="android-navigation mdl-navigation">
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Phones</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Tablets</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Wear</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Auto</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">One</a>
-          <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Play</a>
+          <?php
+          $Result = $Database->Fetch( 'assuntos', false, false, 'name ASC' );
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase active" href="/home"><i class="material-icons fL">&#xE88A;</i></a>';
+          while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
+            echo '<a class="mdl-navigation__link mdl-typography--text-uppercase" href="/page/' . $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( $v->name ) ) . '">' . $v->name . '</a>';
+          }
+          ?>
         </nav>
       </div>
       <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
