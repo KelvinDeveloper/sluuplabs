@@ -9,7 +9,7 @@ $(document).scroll(function(){
 
 function js(){
 	$('.slide').css({
-		height: $(window).height() / 1.09
+		height: $(window).height() / 1.05
 	});
 }
 

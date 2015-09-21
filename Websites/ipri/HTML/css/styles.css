@@ -33,6 +33,7 @@ body {
   position: absolute;
   top: 0;
   font-family: "Open Sans",sans-serif;
+  overflow-x: hidden;
 }
 
 /* Disable ugly boxes around images in IE10 */
@@ -40,7 +41,7 @@ a img{
   border: 0px;
 }
 
-h2{
+h2, h1{
   font-family: 'Droid Serif', serif;
   font-size: 26px;
   width: 100%;
@@ -48,7 +49,11 @@ h2{
   text-align: center;
 }
 
-h2 a{
+h1{
+  font-size: 36px;
+}
+
+h2 a, h1 span{
     border-top: 3px solid #f44336;
     color: inherit;
     display: inline-block;
@@ -63,6 +68,13 @@ p{
   font-weight: 400;
   text-align: justify;
   line-height: 35px;
+}
+
+.fL{
+  float: left;
+}
+.fR{
+  float: right;
 }
 
 ::-moz-selection {
@@ -697,11 +709,22 @@ p{
   font-weight: 500;
 }
 
+.mdl-mini-footer{
+  width: 100%;
+}
+
+.mdl-mini-footer__left-section{
+  width: 98%;
+}
+
+.mdl-mini-footer__link-list a{
+  color: #2196f3;
+  text-decoration: none;
+}
+
 .mdl-mini-footer__link-list{
   padding: 0;
   margin: 0;
-  width: 100%;
-  display: inline-block;
 }
 
 .mdl-mini-footer__link-list li{
@@ -712,4 +735,29 @@ p{
 
 .mdl-mini-footer__link-list .mdl-logo{
   margin: 10px !important;
+}
+
+.card-wide.mdl-card {
+  width: 60%;
+  cursor: pointer;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  margin: 30px auto;
+}
+
+.card-wide.mdl-card:hover {
+  opacity: .8;
+}
+
+.card-wide > .mdl-card__title {
+  color: #fff;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.card-wide > .mdl-card__menu {
+  color: #fff;
 }

@@ -19,9 +19,10 @@
         <nav class="android-navigation mdl-navigation">
           <?php
           $Result = $Database->Fetch( 'assuntos', false, false, 'name ASC' );
-          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase active" href="/home"><i class="material-icons fL">&#xE88A;</i></a>';
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase' . ( empty( $Url[2] ) || $Url[2] == 'home' ? ' active' : '' ) . '" href="/home"><i class="material-icons fL">&#xE88A;</i></a>';
           while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
-            echo '<a class="mdl-navigation__link mdl-typography--text-uppercase" href="/page/' . $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( $v->name ) ) . '">' . $v->name . '</a>';
+            $thisUrl = $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( $v->name ) );
+            echo '<a class="mdl-navigation__link mdl-typography--text-uppercase' . ( $Url[2] == $thisUrl ? ' active' : '' ) . '" href="/page/' . $thisUrl . '">' . $v->name . '</a>';
           }
           ?>
         </nav>
