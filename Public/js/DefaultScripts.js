@@ -131,18 +131,65 @@ $(document).on("contextmenu", '.tableDefault tbody tr', function(e){
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
 
-    var Post = $(this).parents('form').serialize(),
-        This = $(this);
+    var 
+        post = '',
+        This = $(this),
+        Form = $(this).parents('form');
 
-    $(this).parents('[target="defaultForm"]').find('.tinymce').each(function(){
-        Post += '&' + $(this).attr('name') + '=' + tinyMCE.get( $(this).attr('id') ).getContent();
+    Form.find('input[type="text"]').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+
+    // password
+    Form.find('input[type="password"]').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined && $(this).val() != ''  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+    // hidden
+    Form.find('input[type="hidden"]').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+    // select
+    Form.find('select').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+    // textarea
+    Form.find('textarea').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined && $(this).hasClass('tinymce') == false  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+    // radio
+    Form.find('input[type="radio"]').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    });
+    // checkbox
+    Form.find('input[type="checkbox"]:checked').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + $(this).val() ;
+        }
+    }); 
+    // tinymce
+    Form.find('textarea.tinymce').each(function(){
+        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + tinyMCE.get( $(this).attr('id') ).getContent();
+        }
     });
 
     $.ajax({ 
         type: "POST",
         dataType: "json",
         cache: false,
-        data: Post,
+        data: {post: post},
         url:  $(this).parents('form').attr('action'),
         success: function(Page){
             if( Page.message != false ){

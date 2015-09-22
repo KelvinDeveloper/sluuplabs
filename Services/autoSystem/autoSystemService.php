@@ -473,6 +473,19 @@ class autoSystem{
 		$new = true;
 		$Query = '';
 
+		if( isset( $_POST['post'] ) ){
+			$post = explode( '#&#', $_POST['post'] );
+			unset( $_POST );
+			foreach ( $post as $thisPost ) {
+				$value = explode( '#=#', $thisPost );
+				if(
+					$value[0] != 'onUpdate'  &&
+					$value[0] != 'alterSess'
+				)
+				$_POST[ $value[0] ] = $value[1];
+			}
+		}
+
 		if( is_numeric( $Url[3] ) ){
 			$new = false;
 		}
