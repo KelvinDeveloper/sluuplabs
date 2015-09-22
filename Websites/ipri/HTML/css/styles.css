@@ -89,16 +89,16 @@ p{
 }
 
 .mR{
-  margin-right: 10px;
+  margin-right: 21px;
 }
 
 ::-moz-selection {
-  background-color: #fff;
+  background-color: #2196f3;
   color: #fff;
 }
 
 ::selection {
-  background-color: #fff;
+  background-color: #2196f3;
   color: #fff;
 }
 
@@ -640,6 +640,10 @@ p{
   margin: 0 auto;
 }
 
+.w100{
+  width: 100%;
+}
+
 .slide{
   margin: 0;
   padding: 0;
@@ -817,7 +821,7 @@ input {
   outline: 0 none;
   padding: 5px;
   transition: all 0.5s ease 0s;
-  width: 300px;
+  width: 46%;
 }
 
 textarea{
@@ -831,7 +835,7 @@ textarea{
   outline: 0 none;
   padding: 5px;
   transition: all 0.5s ease 0s;
-  width: 620px;
+  width: 94%;
 }
 
 select{
@@ -845,7 +849,7 @@ select{
   outline: 0 none;
   padding: 5px;
   transition: all 0.5s ease 0s;
-  width: 310px;
+  width: 47%;
 }
 
 input:focus, textarea:focus, select:focus{
@@ -860,7 +864,7 @@ button i {
 form {
     margin: 0 auto;
     text-align: center;
-    width: 650px;
+    width: 100%;
 }
 
 #infoStatus{
