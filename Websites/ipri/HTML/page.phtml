@@ -1,7 +1,10 @@
 <?php 
 
-include ROOT . '/' . $Path . 'Head.phtml';
-include ROOT . '/' . $Path . 'Menu.phtml';
+if( !$Function->isAjax() ){
+  include ROOT . '/' . $Path . 'Head.phtml';
+  include ROOT . '/' . $Path . 'Menu.phtml';
+  echo '<div class="content">';
+}
 
 $Assunto = explode( '-', $Url[2] );
 $Assunto = $Assunto[0];
@@ -10,15 +13,13 @@ $Assunto = $Database->Search( 'assuntos', false, "id_assunto=" . $Assunto );
 
 ?>
 
-<div class="content">
-
 <h1><span><?=$Assunto->name?></span></h1>
 
 <?php
 
-$Result = $Database->Fetch( 'blog', false, "assunto='" . $Assunto->id_assunto . "'" , 'id_blog DESC' );
+$Result = $Database->Fetch( 'blog', false, "assunto='" . $Assunto->id_assunto . "' and publish = '1'" , 'id_blog DESC' );
 while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
-	echo '<div class="post card-wide mdl-card mdl-shadow--2dp" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( $Post->title ) ) . '">';
+	echo '<div class="post card-wide mdl-card mdl-shadow--2dp openFunction" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Post->title ) ) ) . '">';
 		echo '<div class="mdl-card__title" style="background-image:url(\'' . $Post->image . '\')">';
 		echo '<span class="mdl-card__title-text">' . $Post->title . '</span>';
 		echo '</div>';
@@ -45,24 +46,8 @@ while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<?php include ROOT . '/' . $Path . 'Footer.phtml'; ?>
-
-<!--div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Mauris sagittis pellentesque lacus eleifend lacinia...
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      Get Started
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div-->
+<?php 
+if( !$Function->isAjax() ){
+  echo '</div>';
+  include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

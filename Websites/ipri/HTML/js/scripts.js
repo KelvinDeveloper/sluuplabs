@@ -1,3 +1,7 @@
+var Url,
+	date    = new Date(),
+	Load 	= '.content';
+
 $(document).scroll(function(){
 
 	if( $(document).scrollTop() > 300 ){
@@ -8,8 +12,12 @@ $(document).scroll(function(){
 });
 
 function js(){
-	$('.slide').css({
+	$('.slide, .postImage').css({
 		height: $(window).height() / 1.05
+	});
+
+	$('.postContent').css({
+		minHeight: $(window).height() / 1.05
 	});
 }
 
@@ -23,8 +31,43 @@ $(document).ready(function(){
 	$(document).on('mouseleave', '.slide li', function(){ 
 		$(this).removeClass('hover');
 	});
+
+	$('.android-navigation-container a').click(function(){
+		$('.android-navigation-container a.active').removeClass('active');
+		$(this).addClass('active');
+	});
 });
 
 $(document).resize(function(){
-	js()
+	js();
+});
+
+function navAjax( Href, Title, History ){
+
+    $( Load ).load( Href, function(){
+    	js();
+    });
+    if( History == true && Href != Url ){
+        window.history.pushState( date, false, Href ); // Grava no Historico do navegador
+        Url = Href;
+    }
+
+    if( Title ){
+        document.title = Title;
+    }
+
+    // ga('send', 'pageview', Href); /* Google Analitycs */
+}
+
+window.onpopstate = function(event) {
+
+    var Url   = window.location.pathname,
+        Title = $('[href="' + Url + '"]').attr('title');
+    navAjax( Url, Title, false );
+};
+
+$(document).on('click', '.openFunction', function(e){
+	e.stopPropagation();
+	navAjax( $(this).attr('href'), ( $(this).attr('title') != undefined ? $(this).attr('title') : false ), true );
+	return false;
 });
