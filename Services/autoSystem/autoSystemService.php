@@ -310,7 +310,7 @@ class autoSystem{
 				break;
 
 			case 'html':
-				$HTML 	.= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
+				$HTML 	.= '<textarea id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></textarea>';
 				$Script .= '
 				editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . $Data['Width'] . '});
 				setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . $Value->$Field . '\') }, 300);';

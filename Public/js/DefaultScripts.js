@@ -1,3 +1,22 @@
+function addslashes(str) {
+  //  discuss at: http://phpjs.org/functions/addslashes/
+  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Ates Goral (http://magnetiq.com)
+  // improved by: marrtins
+  // improved by: Nate
+  // improved by: Onno Marsman
+  // improved by: Brett Zamir (http://brett-zamir.me)
+  // improved by: Oskar Larsson Högfeldt (http://oskar-lh.name/)
+  //    input by: Denny Wardhana
+  //   example 1: addslashes("kevin's birthday");
+  //   returns 1: "kevin\\'s birthday"
+
+  return (str + '')
+    .replace(/[\\"']/g, '\\$&')
+    .replace(/\u0000/g, '\\0');
+}
+
+
 var ImageOnLoad = function(){
     $('img').each(function(i){
         if (this.complete){
@@ -135,7 +154,7 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
         This = $(this);
 
     $(this).parents('[target="defaultForm"]').find('.tinymce').each(function(){
-        Post += '&' + $(this).attr('name') + '=' + tinyMCE.get( $(this).attr('id') ).getContent();
+        Post += '&' + $(this).attr('id').replace('fld', '') + "=" + addslashes( tinyMCE.get( $(this).attr('id') ).getContent() );
     });
 
     $.ajax({ 
