@@ -12,7 +12,12 @@ $(document).scroll(function(){
 });
 
 function js(){
-	$('.slide, .postImage').css({
+	
+	$('.slide').css({
+		height: $(window).height() / 2
+	});
+
+	$('.postImage').css({
 		height: $(window).height() / 1.05
 	});
 
