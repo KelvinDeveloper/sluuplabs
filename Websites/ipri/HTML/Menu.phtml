@@ -19,10 +19,10 @@
         <nav class="android-navigation mdl-navigation">
           <?php
           $Result = $Database->Fetch( 'assuntos', false, false, 'name ASC' );
-          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase' . ( empty( $Url[2] ) || $Url[2] == 'home' ? ' active' : '' ) . '" href="/home"><i class="material-icons fL">&#xE88A;</i></a>';
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( empty( $Url[2] ) || $Url[2] == 'home' ? ' active' : '' ) . '" href="/home" title="' . Title . '"><i class="material-icons fL">&#xE88A;</i></a>';
           while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
-            $thisUrl = $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( $v->name ) );
-            echo '<a class="mdl-navigation__link mdl-typography--text-uppercase' . ( $Url[2] == $thisUrl ? ' active' : '' ) . '" href="/page/' . $thisUrl . '">' . $v->name . '</a>';
+            $thisUrl = $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $v->name ) ) );
+            echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[2] == $thisUrl ? ' active' : '' ) . '" href="/page/' . $thisUrl . '" title="' . $v->name . ' | ' . Title . '">' . $v->name . '</a>';
           }
           ?>
         </nav>

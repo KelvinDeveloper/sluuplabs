@@ -1,20 +1,19 @@
 <?php 
-
-include ROOT . '/' . $Path . 'Head.phtml';
-include ROOT . '/' . $Path . 'Menu.phtml';
-
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+}
 ?>
-
-<div class="content">
 
 	<?php
 	/* Slide */
-	$Result = $Database->Fetch( 'blog', false, false, 'id_blog DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC', false, 4 );
 	$Loop	= 1;
 	
 	echo '<ul class="slide">';
 	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
-		echo '<li style="background-image: url(\'' . $Slide->image . '\');" class="slide-' . $Loop . '">';
+		echo '<li style="background-image: url(\'' . $Slide->image . '\');" class="slide-' . $Loop . ' openFunction" href="/post/' . $Slide->id_blog . '-' . strtolower( $Function->RemoveAccents(  str_replace( ' ', '-', $Slide->title) ) ) . '">';
 
 			echo '<span class="title">' . $Slide->title . '</title>';
 
@@ -39,12 +38,12 @@ include ROOT . '/' . $Path . 'Menu.phtml';
 	<div class="mdl-grid w80">
 
 	<?php
-	$Result = $Database->Fetch( 'blog', false, false, 'id_blog DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC', false, 4 );
 	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
 	?>
 
 
-		<div class="card-image mdl-card mdl-shadow--2dp" style="background-image:url('<?=$Slide->image?>')">
+		<div class="card-image mdl-card mdl-shadow--2dp openFunction" style="background-image:url('<?=$Slide->image?>')" href="/post/<?php echo $Slide->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Slide->title ) ) ); ?>">
 			<div class="mdl-card__title mdl-card--expand"></div>
 			<div class="mdl-card__actions">
 				<span class="card-image__filename"><?=$Slide->title?></span>
@@ -84,7 +83,9 @@ include ROOT . '/' . $Path . 'Menu.phtml';
 
 	</div>
 
-</div>
 
-
-<?php include ROOT . '/' . $Path . 'Footer.phtml'; ?>
+<?php 
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>
