@@ -131,10 +131,16 @@ p{
 
 
 .android-logo-image {
-  height: 28px;
-  width: 140px;
+  height: 60px;
+  width: 60px;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease 0s;
 }
 
+.android-logo-image:hover{
+  opacity: .8;
+}
 
 .android-header {
   overflow: visible;
@@ -757,13 +763,14 @@ p{
 }
 
 .mdl-mini-footer__link-list{
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  width: 400px;
+  margin: 0 auto;
+  color: #fff;
 }
 
 .mdl-mini-footer__link-list li{
   list-style: none;
-  float: left;
   margin: 10px;
 }
 
