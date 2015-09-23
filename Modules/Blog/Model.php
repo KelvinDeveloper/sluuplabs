@@ -63,6 +63,13 @@ $blog = $autoSystem->create(
 						'Types'	=> 'IMAGE'
 					),
 				),
+
+				'visitas'	=> array(
+					'Label'		=> '',
+					'Type'		=> 'hidden',
+					'Lenght'	=>	11,
+
+				),
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',

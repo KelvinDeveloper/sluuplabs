@@ -19,7 +19,7 @@ $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 	<div class="fb-like mL" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url)?>"></div><br><br>
 
 	<div class="text">
-		<?=$Post->conteudo?>		
+		<?=$Post->conteudo?>
 	</div>
 
 	<?php if( $Post->coment == '1' ){ ?>
@@ -31,6 +31,13 @@ $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 </div>
 
 <?php 
+// acresenta +1 nas visitas
+if( !isset( $_SESSION['view'][ $Post->id_blog ] ) ){
+	$Count = $Post->visitas + 1;
+	$Database->Update('blog', "visitas='" . $Count . "'", "id_blog='" . $Post->id_blog . "'");
+	$_SESSION['view'][ $Post->id_blog ] = true;
+}
+
 if( !$Function->isAjax() ){
   echo '</div>';
   include ROOT . '/' . $Path . 'Footer.phtml';

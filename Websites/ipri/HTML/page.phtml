@@ -9,15 +9,13 @@ if( !$Function->isAjax() ){
 $Assunto = explode( '-', $Url[2] );
 $Assunto = $Assunto[0];
 
-$Assunto = $Database->Search( 'assuntos', false, "id_assunto=" . $Assunto );
-
 ?>
 
-<h1><span><?=$Assunto->name?></span></h1>
+<h1><span>Blog</span></h1>
 
 <?php
 
-$Result = $Database->Fetch( 'blog', false, "assunto='" . $Assunto->id_assunto . "' and publish = '1'" , 'id_blog DESC' );
+$Result = $Database->Fetch( 'blog', false, "publish = '1'" , 'id_blog DESC' );
 while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 	echo '<div class="post card-wide mdl-card mdl-shadow--2dp openFunction" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Post->title ) ) ) . '">';
 		echo '<div class="mdl-card__title" style="background-image:url(\'' . $Post->image . '\')">';
@@ -27,6 +25,9 @@ while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 		'<div class="mdl-card__actions mdl-card--border">
 			
 			<div class="fb-like fL facebook" data-share="true" data-href="http://' . implode( '.', $Domain ) . '/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( $Post->title ) ) . '"></div>
+			<div class="views">
+			<i class="material-icons fL" style="margin-right: 7px;">&#xE8F4;</i> ' . ( empty( $Post->visitas ) ? 0 : $Post->visitas ) . ' visita(s)
+			</div>
 
 	    	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect fR">
 	      		Ler...

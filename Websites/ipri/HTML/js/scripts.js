@@ -17,6 +17,18 @@ function js(){
 		height: $(window).height() / 2
 	});
 
+	$('.slide li.slide-1').css({
+		width: $(window).width() / 2.5
+	});
+
+	$('.slide li.slide-2').css({
+		width: $(window).width() / 3.5
+	});
+
+	$('.slide li.slide-3, .slide li.slide-4').css({
+		width: $(window).width() / 3.2
+	});
+
 	$('.postImage').css({
 		height: $(window).height() / 1.05
 	});
@@ -61,7 +73,7 @@ $(document).ready(function(){
 	});
 });
 
-$(document).resize(function(){
+$(window).resize(function(){
 	js();
 });
 
