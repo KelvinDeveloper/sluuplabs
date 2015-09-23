@@ -30,11 +30,12 @@ function js(){
 	});
 
 	$('.postImage').css({
-		height: $(window).height() / 1.05
+		height: $(window).height() / 2
 	});
 
 	$('.postContent').css({
-		minHeight: $(window).height() / 1.05
+		minHeight: $(window).height() / 1.05,
+		marginTop: ( $(window).height() / 2 ) + 80
 	});
 }
 

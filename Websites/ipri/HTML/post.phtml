@@ -12,7 +12,8 @@ $idPost = $idPost[0];
 $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 ?>
 
-<div class="postImage" style="background-image:url('<?=$Post->image?>')"></div>
+<div style="position:relative;z-index:5">
+
 <div class="postContent">
 	<h1><span><?=$Post->title?></span></h1>
 
@@ -44,6 +45,12 @@ $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 	<?php } ?>
 
 </div>
+
+</div>
+
+<div class="postImage" style="background-image:url('<?=$Post->image?>')"></div>
+
+<br><br><br>
 
 <?php 
 // acresenta +1 nas visitas
