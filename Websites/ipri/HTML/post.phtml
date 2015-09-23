@@ -22,7 +22,22 @@ $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 		<?=$Post->conteudo?>
 	</div>
 
-	<?php if( $Post->coment == '1' ){ ?>
+	<?php 
+
+	if( !empty( $Post->galery ) ){
+		$Location = ROOT . $Post->galery . '/';
+		$Images = scandir( $Location );
+
+		foreach ( $Images as $item ){
+			if( $Function->is_image( $Location . $item ) == true ){
+				echo '<a href="' . $Post->galery . '/' . $item . '" data-lightbox="roadtrip" class="item-lightbox"><img src="' . $Post->galery . '/' . $item . '" width="150px" /></a>';
+			}
+		}
+	}
+
+
+
+	if( $Post->coment == '1' ){ ?>
 
 	<div class="fb-comments" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url); ?>" data-numposts="15" data-width="100%"></div>
 

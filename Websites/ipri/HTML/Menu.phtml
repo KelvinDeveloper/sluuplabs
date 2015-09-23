@@ -19,14 +19,14 @@
         <nav class="android-navigation mdl-navigation">
           <?php
           $Result = $Database->Fetch( 'assuntos', false, false, 'name ASC' );
-          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( empty( $Url[2] ) || $Url[2] == 'home' ? ' active' : '' ) . '" href="/home" title="' . Title . '"><i class="material-icons fL">&#xE88A;</i></a>';
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( empty( $Url[1] ) || $Url[1] == 'home' ? ' active' : '' ) . '" href="/home" title="' . Title . '"><i class="material-icons fL">&#xE88A;</i></a>';
 
-          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[2] == 'page' || $Url[2] == 'post' ? ' active' : '' ) . '" href="/page" title="Blog | ' . Title . '">Blog</a>';
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[1] == 'page' || $Url[1] == 'post' ? ' active' : '' ) . '" href="/page" title="Blog | ' . Title . '">Blog</a>';
 
-          // while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
-          //   $thisUrl = $v->id_assunto . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $v->name ) ) );
-          //   echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[2] == $thisUrl ? ' active' : '' ) . '" href="/page/' . $thisUrl . '" title="' . $v->name . ' | ' . Title . '">' . $v->name . '</a>';
-          // }
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[1] == 'pedido-de-oracao' ? ' active' : '' ) . '" href="/pedido-de-oracao" title="Pedido de Oração | ' . Title . '">Pedido de Oração</a>';
+
+          echo '<a class="mdl-navigation__link mdl-typography--text-uppercase openFunction' . ( $Url[1] == 'testemunho' ? ' active' : '' ) . '" href="/testemunho" title="Testemunho | ' . Title . '">Testemunho</a>';
+
           ?>
         </nav>
       </div>

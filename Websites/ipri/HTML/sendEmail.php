@@ -2,6 +2,15 @@
 
 if( !$_POST ){ exit; }
 
+if( $_GET['action'] == 'oracao' ){
+    $_GET['action'] = 'Pedido de Oração';
+}
+else if( $_GET['action'] == 'testemunho' ){
+    $_GET['action'] = 'Testemunho';
+} else {
+    $_GET['action'] = 'Mensagem';
+}
+
 include __DIR__ . '/phpmailer/class.phpmailer.php';
 
 $Conf['Email'] = array(
@@ -39,9 +48,10 @@ $mail->Password   = $Conf['Email']['Password'];
 $mail->CharSet    = $Conf['Email']['Charset'];
 $mail->IsHTML ( $Conf['Email']['HTML'] );
 $mail->SetFrom( $Conf['Email']['Email'], $_POST['nome'] );
-$mail->Subject    = 'Mensagem enviada por ipri.org.br';
+$mail->Subject    = $_GET['action'] . ' | enviado por ipri.org.br';
 $mail->Body       = $HTML;
-$mail->AddAddress( 'contato@jeriel.com.br' );
+// $mail->AddAddress( 'contato@jeriel.com.br' );
+$mail->AddAddress( 'kelvin.souza@tblmanager.com.br' );
 
 $send = $mail->Send();
 

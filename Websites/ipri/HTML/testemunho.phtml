@@ -1,0 +1,33 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+} ?>
+
+
+<div class="w80">
+
+	<h1><span>Testemunho</span></h1>
+
+	<div class="mdl-cell mdl-cell--6-col fL">
+		<?php 
+		$msg = 'Testemunho';
+		$action = '?action=testemunho';
+		include __DIR__ . '/blocks/contato.php'; ?>
+	</div>
+
+	<div class="mdl-cell mdl-cell--6-col fR">
+		<p>Registre aqui seu testemunho, conte-nos as grandezas que Deus tem feito em sua vida, isso edificará outras vidas...</p>
+	 	<p><i>"Grandes coisas fez o Senhor por nós, pelas quais estamos alegres. <b>(Salmos 126:3)</b>"</i></p>
+	</div>
+
+</div>
+
+<?php include __DIR__ . '/blocks/ultimas-postagens.php'; ?>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

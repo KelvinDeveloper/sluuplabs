@@ -118,9 +118,11 @@ $(document).on('click', '.openFunction', function(e){
 
 $(document).on('click', 'form[target="exec"] button[type="submit"]', function(){
 
-		var Valid = true;
+		$('.mdl-button').prop('disabled', true);
+		$('.mdl-spinner').show();
 
-		var Form = $(this).parents('form');
+		var Valid = true
+			Form = $(this).parents('form');
 
 		Form.find('input, select, textarea').prop('readonly', true).each(function(){
 			if( $(this).val() == '' ){
@@ -150,6 +152,8 @@ $(document).on('click', 'form[target="exec"] button[type="submit"]', function(){
 		        	} else {
 		        		Alert( false, json.message );
 		        	}
+
+		        	$('.mdl-spinner').hide();
 		        }
 		    });
 		} else {
@@ -157,6 +161,7 @@ $(document).on('click', 'form[target="exec"] button[type="submit"]', function(){
 		}
 
 		$('input, select, textarea').prop('readonly', false);
+		$('.mdl-button').prop('disabled', true);
 
 		return false;
 	});
