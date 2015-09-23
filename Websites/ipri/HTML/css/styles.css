@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,800);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:200,400,700,800);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
 
 @font-face {
   font-family: "And Black";
@@ -69,10 +70,11 @@ h2 a, h1 span{
 }
 
 p{
-  font-size: 18px;
-  font-weight: 400;
+  font-family: 'Raleway', sans-serif;
   text-align: justify;
-  line-height: 35px;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 26px;
 }
 
 .fL{
@@ -86,13 +88,17 @@ p{
   margin-left: 10px;
 }
 
+.mR{
+  margin-right: 21px;
+}
+
 ::-moz-selection {
-  background-color: #fff;
+  background-color: #2196f3;
   color: #fff;
 }
 
 ::selection {
-  background-color: #fff;
+  background-color: #2196f3;
   color: #fff;
 }
 
@@ -634,6 +640,10 @@ p{
   margin: 0 auto;
 }
 
+.w100{
+  width: 100%;
+}
+
 .slide{
   margin: 0;
   padding: 0;
@@ -642,11 +652,12 @@ p{
 .slide li{
   list-style: none;
   float: left;
-  width: 30%;
+  width: 29.5%;
   height: 100%;
   background-size: cover;
   background-position: center;
   cursor: pointer;
+  border: solid 3px #fff;
 
   -webkit-transition: all .5s;
   transition: all .5s;
@@ -680,8 +691,12 @@ p{
   width: 40%;
 }
 
+.slide li.slide-3{
+  border-bottom: none;
+}
+
 .slide li.slide-3, .slide li.slide-4{
-  height: 50%;
+  height: 49.6%
 }
 
 .mdl-navigation__link i{
@@ -794,4 +809,93 @@ p{
 
 .postContent .text{
   padding: 10px;
+}
+
+input {
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 30px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 46%;
+}
+
+textarea{
+  background-color: #fff;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 260px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 94%;
+}
+
+select{
+  background-color: #fff;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 41px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 47%;
+}
+
+input:focus, textarea:focus, select:focus{
+  border: solid 1px #2196f3;
+}
+
+button i {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+form {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+#infoStatus{
+  width: 500px;
+  height: 30px;
+  line-height: 30px;
+  left: 50%;
+  margin-left: -250px;
+  top: -70px;
+  position: fixed;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  opacity: .9;
+  z-index: 999;
+  font-family: 'Open Sans', sans-serif;
+
+  -webkit-transition: all 2s;
+  transition: all .2s;
+}
+#infoStatus:hover{
+  opacity: 1;
+}
+#infoStatus.true{
+  background-color: #8DC538;
+}
+#infoStatus.false{
+  background-color: #c0392b;
+}
+#infoStatus i{
+  float: left;
 }

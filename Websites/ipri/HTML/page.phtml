@@ -26,7 +26,7 @@ while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 		echo 
 		'<div class="mdl-card__actions mdl-card--border">
 			
-			<div class="fb-like fL" data-share="true" data-href="http://' . implode( '.', $Domain ) . '/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( $Post->title ) ) . '"></div>
+			<div class="fb-like fL facebook" data-share="true" data-href="http://' . implode( '.', $Domain ) . '/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( $Post->title ) ) . '"></div>
 
 	    	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect fR">
 	      		Ler...
@@ -36,15 +36,6 @@ while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 }
 
 ?>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=832889430108937";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 <?php 
 if( !$Function->isAjax() ){
