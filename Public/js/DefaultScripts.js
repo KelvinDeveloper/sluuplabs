@@ -199,8 +199,8 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
     }); 
     // tinymce
     Form.find('textarea.tinymce').each(function(){
-        if( $(this).val() != undefined && $(this).attr('name') != undefined  ){
-            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('name') + '#=#' + tinyMCE.get( $(this).attr('id') ).getContent();
+        if( $(this).val() != undefined ){
+            post  += ( post != '' ? '#&#' : '' ) + $(this).attr('id').replace('fld', '') + '#=#' + tinyMCE.get( $(this).attr('id') ).getContent();
         }
     });
 
