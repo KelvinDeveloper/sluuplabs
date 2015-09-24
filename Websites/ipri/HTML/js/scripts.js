@@ -35,7 +35,7 @@ function js(){
 
 	$('.postContent').css({
 		minHeight: $(window).height() / 1.05,
-		marginTop: ( $(window).height() / 2 ) + 80
+		marginTop: ( $(window).height() / 2 ) + 100
 	});
 }
 

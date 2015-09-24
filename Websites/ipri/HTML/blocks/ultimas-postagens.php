@@ -11,7 +11,7 @@
 	?>
 
 
-		<div class="card-image mdl-card mdl-shadow--2dp openFunction" style="background-image:url('<?=$Slide->image?>')" href="/post/<?php echo $Slide->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Slide->title ) ) ); ?>" title="<?=$Slide->title?>">
+		<div class="card-image mdl-card mdl-shadow--2dp openFunction" style="background-image:url('<?=$Slide->image?>')" href="/post/<?php echo $Slide->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Slide->title ) ) ); ?>" title="<?=$Slide->title . ' | ' . Title;?>">
 			<div class="mdl-card__title mdl-card--expand"></div>
 			<div class="mdl-card__actions">
 				<span class="card-image__filename"><?=$Slide->title?></span>

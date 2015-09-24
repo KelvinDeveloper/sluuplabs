@@ -50,7 +50,7 @@ $mail->IsHTML ( $Conf['Email']['HTML'] );
 $mail->SetFrom( $Conf['Email']['Email'], $_POST['nome'] );
 $mail->Subject    = $_GET['action'] . ' | enviado por ipri.org.br';
 $mail->Body       = $HTML;
-$mail->AddAddress( 'contato@jeriel.com.br' );
+$mail->AddAddress('contato@jeriel.com.br');
 
 $send = $mail->Send();
 

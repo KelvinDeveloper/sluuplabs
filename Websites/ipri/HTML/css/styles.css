@@ -646,7 +646,7 @@ p{
 }
 
 .content{
-  margin-top: 64px;
+  margin-top: 80px;
 }
 .w80{
   background-color: #fff;
@@ -772,14 +772,15 @@ p{
 
 .mdl-mini-footer__link-list{
   padding: 0px;
-  width: 400px;
+  width: 50%;
   margin: 0 auto;
   color: #fff;
+  text-align: center;
 }
 
 .mdl-mini-footer__link-list li{
   list-style: none;
-  margin: 10px;
+  /*margin: 10px;*/
 }
 
 .mdl-mini-footer__link-list .mdl-logo{
@@ -818,7 +819,7 @@ p{
   position: fixed;
   left: 50%;
   margin-left: -40%;
-  top: 80px;
+  top: 100px;
   border-radius: 5px 5px 0 0;
 }
 
@@ -947,4 +948,8 @@ form {
 .postContent .w80{
   width: 98% !important;
   background-color: transparent !important;
+}
+
+.mdl-layout__header-row{
+  height: 80px !important;
 }
