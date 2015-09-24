@@ -157,7 +157,7 @@ class autoSystem{
 			$HTML .= '</thead>';
 			$HTML .= '<tbody>';
 			
-				$Result = $Database->Fetch( $Array['bd'] );
+				$Result = $Database->Fetch( $Array['bd'], false, false, $Array['auto_increment'] . ' DESC' );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '" for="' . $Url[1] . '">';
 						
