@@ -36,7 +36,7 @@ $Post = $Database->Search( 'blog', false, "id_blog='" . $idPost . "'" );
 		}
 	}
 
-
+	include __DIR__ . '/blocks/ultimas-postagens.php';
 
 	if( $Post->coment == '1' ){ ?>
 

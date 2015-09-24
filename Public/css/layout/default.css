@@ -95,3 +95,10 @@ img.account-user{
 	top: 0;
 	left: 0;
 }
+
+.slp-loading{
+	position: absolute !important;
+	top: 20px !important;
+	right: 20px !important;
+	display: none !important;
+}

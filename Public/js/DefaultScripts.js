@@ -114,7 +114,7 @@ function editRegister( This ){
             var Url             = This.attr('href').split('/'),
                 DeleteIcon      = false,
                 Element         = $('[target="' + This.attr('for') + '"]');
-                console.log( Element, This );
+                
             if( Element.find('.header i.openThisWindow, .title i.openThisWindow').length > 0 ){
                 DeleteI = true;
             } else {
@@ -149,6 +149,9 @@ $(document).on("contextmenu", '.tableDefault tbody tr', function(e){
 /* Ends Grid */
 /* Post Form */
 $(document).on('click', '[target="defaultForm"] button[type="submit"]', function(){
+
+    $(this).prop('disabled', true);
+    $('.slp-loading').show();
 
     var 
         post = '',
@@ -212,11 +215,14 @@ $(document).on('click', '[target="defaultForm"] button[type="submit"]', function
         url:  $(this).parents('form').attr('action'),
         success: function(Page){
             if( Page.message != false ){
-                console.log( '[target="' + This.attr('for') + '"]', This );
+                
                 $('[target="' + This.attr('for') + '"] .content').load( Page.Location );
             } else {
                 alert('Erro ao salvar, contate o administrador');
             }
+         
+            $(this).prop('disabled', true);
+            $('.slp-loading').hide();
         }
     });
     return false;

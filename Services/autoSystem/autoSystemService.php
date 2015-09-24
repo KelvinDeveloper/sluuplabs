@@ -313,7 +313,7 @@ class autoSystem{
 				$HTML 	.= '<textarea id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></textarea>';
 				$Script .= '
 				editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . $Data['Width'] . '});
-				setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . $Value->$Field . '\') }, 300);';
+				setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . preg_replace( '/\s/',' ',$Value->$Field ) . '\') }, 300);';
 				break;
 
 			case 'select':
@@ -422,7 +422,7 @@ class autoSystem{
 
 		}
 
-		$HTML .= '</table> <br>';
+		$HTML .= '</table> <br><br><br>';
 
 		$ClassBtn = ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false );
 
@@ -467,6 +467,10 @@ class autoSystem{
 
 	function post( $Array ){
 		global $Database, $PDO, $Conf, $Domain, $Url;
+
+		if( !$_POST ){
+			$Return['message'] = false;
+		}
 
 		$Return = '';
 

@@ -70,3 +70,9 @@ form[target="defaultForm"] .field_files span {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
+.defaultForm button[type="submit"]{
+	position: absolute;
+	bottom: 40px;
+	right: 40px;
+}

@@ -504,6 +504,14 @@ p{
     bottom: 0;
   }
 
+  span.card-image__filename {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
   .android-card-container .mdl-card__actions a {
     border-top: none;
     line-height: 32px;
@@ -934,4 +942,9 @@ form {
 
 .item-lightbox img:hover{
   border: solid 1px #2196f3;
+}
+
+.postContent .w80{
+  width: 98% !important;
+  background-color: transparent !important;
 }
