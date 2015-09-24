@@ -93,12 +93,12 @@ p{
 }
 
 ::-moz-selection {
-  background-color: #2196f3;
+  background-color: #195fae;
   color: #fff;
 }
 
 ::selection {
-  background-color: #2196f3;
+  background-color: #195fae;
   color: #fff;
 }
 
@@ -632,7 +632,7 @@ p{
 /**/
 
 .android-header{
-  background-color: #2196f3 !important;
+  background-color: #195fae !important;
   position: fixed;
   top: 0;
   height: auto !important;
@@ -766,7 +766,7 @@ p{
 }
 
 .mdl-mini-footer__link-list a{
-  color: #2196f3;
+  color: #195fae;
   text-decoration: none;
 }
 
@@ -879,7 +879,7 @@ select{
 }
 
 input:focus, textarea:focus, select:focus{
-  border: solid 1px #2196f3;
+  border: solid 1px #195fae;
 }
 
 button i {
@@ -941,7 +941,7 @@ form {
 }
 
 .item-lightbox img:hover{
-  border: solid 1px #2196f3;
+  border: solid 1px #195fae;
 }
 
 .postContent .w80{
