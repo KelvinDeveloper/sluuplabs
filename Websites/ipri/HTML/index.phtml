@@ -8,7 +8,7 @@ if( !$Function->isAjax() ){
 
 	<?php
 	/* Slide */
-	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC, visitas DESC', false, 4 );
 	$Loop	= 1;
 	
 	echo '<ul class="slide">';
@@ -49,19 +49,6 @@ if( !$Function->isAjax() ){
         <p>Atualmente tem Igrejas da IPRI, nas cidades de: São Manuel e Macatuba, podendo expandir nosso Ministério para muitas cidades do nosso estado e nosso país.</p>
 
         <p>Cremos em Deus como Senhor de tudo, em Jesus Cristo como Salvador, na Bíblia que é a Palavra de Deus, como base para tudo, na ação do Espírito Santo consolador.</p>
-			
-
-		<div class="mdl-cell mdl-cell--6-col"></div>
-
-		<h2><a href="#">Entre em contato</a></h2>
-
-		<div class="mdl-cell mdl-cell--6-col">
-
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1839.6544431008615!2d-48.5767601!3d-22.7539154!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0xd4bdfb98d4dbfc9e!2sIgreja+Presbiteriana+Renovada+Internacional+Minist%C3%A9rio+Marlbo!5e0!3m2!1spt-BR!2sus!4v1442971125436" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-		</div>
-
-		<div class="mdl-cell mdl-cell--6-col"><?php include __DIR__ . '/blocks/contato.php'; ?></div>
 
 	</div>
 

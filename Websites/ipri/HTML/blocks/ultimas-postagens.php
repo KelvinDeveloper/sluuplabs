@@ -2,7 +2,7 @@
 	<div class="mdl-grid w80">
 
 	<h2>
-		<a href="#">Ultimas postagens</a>
+		<a href="#">Últimas postagens</a>
 	</h2>
 
 	<?php

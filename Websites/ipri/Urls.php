@@ -7,4 +7,5 @@ $Router = array(
 	'enviar-email'		=> 'HTML/sendEmail.php',
 	'pedido-de-oracao'	=> 'HTML/oracao.phtml',
 	'testemunho'		=> 'HTML/testemunho.phtml',
+	'contato'			=> 'HTML/contato.phtml',
 );
