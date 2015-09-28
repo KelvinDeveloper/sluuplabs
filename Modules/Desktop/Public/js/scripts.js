@@ -27,6 +27,7 @@ function openModule( Module ){
 		$('body')
 			.append('<div class="window" id="Module'  + Module + '" target="' + Module + '">' +
 						'<div class="header">' +
+							'<div class="drag">' + Module + '</div>' +
 							'<div class="options">' +
 								'<i class="material-icons close">clear</i>' +
 								'<i class="material-icons maximize">&#xE895;</i>' + 
@@ -39,23 +40,23 @@ function openModule( Module ){
 						'</div>' +
 					'</div>');
 			
-				$('body').on('click','i.material-icons.minimize', function(){
+				// $('body').on('click','i.material-icons.minimize', function(){
 
-				   var Module = $(this).parents('.window').attr('id'); // id do modulo 
+				//    var Module = $(this).parents('.window').attr('id'); // id do modulo 
 				   
-				  	$('#' + Module).hide() // esconde o modulo
-				  	$('body').append('<i class="material-icons minimizedIcons" id="'+ Module +'" style="left:50px;">&#xE87A;</i>');
-				  	leftMulti=leftMulti+1;
-				});
+				//   	$('#' + Module).hide() // esconde o modulo
+				//   	$('body').append('<i class="material-icons minimizedIcons" id="'+ Module +'" style="left:50px;">&#xE87A;</i>');
+				//   	leftMulti=leftMulti+1;
+				// });
 
-				$('body').on('click','i.material-icons.minimizedIcons', function(){
-				   $(this).hide();
-				   var Module = $(this).attr('id'); // id do modulo
-				   console.log("ID do modulo minimizado ",Module);
-				  	$('#' + Module).show() // esconde o modulo
-				  	//$('body').append('<i class="material-icons" style="left:30px;" id="upmin' + Module + '">&#xE87A;</i>');
+				// $('body').on('click','i.material-icons.minimizedIcons', function(){
+				//    $(this).hide();
+				//    var Module = $(this).attr('id'); // id do modulo
+				//    console.log("ID do modulo minimizado ",Module);
+				//   	$('#' + Module).show() // esconde o modulo
+				//   	//$('body').append('<i class="material-icons" style="left:30px;" id="upmin' + Module + '">&#xE87A;</i>');
 
-				});
+				// });
 
 				setInterval("upgradeMDL();", 100);
 
@@ -91,7 +92,7 @@ function openModule( Module ){
 		    	}, 600);
 
 				$('.window').draggable({
-					handle: '.header',
+					handle: '.drag',
 					containment: 'body',
 					scroll: false
 				});
@@ -269,8 +270,30 @@ $(document).ready(function(){
 		This.parents('.window').toggleClass('maximize');
 	}
 
+	function Minimize( This ){
+
+		var Info = $('.listModules [title="' + This.parents('.window').attr('target').replace('_', ' ') + '"]').data('info');
+
+		This.parents('.window').hide();
+
+		$('.lancador ul').append(
+			'<li title="' + Info.name + '" class="iconBar">' +
+			'<img src="' + Info.icon + '">' +
+			'</li>'
+		);
+	}
+
 	$(document).on('click', 'body .window .header i.maximize', function(){
 		Maximize( $(this) );
+	});
+
+	$(document).on('click', 'body .lancador .iconBar', function(){
+		$('#Module' + $(this).attr('title') ).show();
+		$(this).remove();
+	});
+
+	$(document).on('click', 'body .window .header i.minimize', function(){
+		Minimize( $(this) );
 	});
 
 	$(document).on('dblclick', 'body .window .header', function(){
