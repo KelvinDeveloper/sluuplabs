@@ -110,16 +110,19 @@ class autoSystem{
 	function grid( $Array ){
 		global $Database, $PDO, $Conf, $Domain, $Url;
 		
-		$HTML = '';
+		$HTML = '<br>';
 		$Script = '';
 
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
 				if( !isset( $Array['Grid']['Buttons']['Label']['New'] ) ){
-					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" for="' . $Url[1] . '">
-								<i class="material-icons">add</i>
+
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--colored" for="' . $Url[1] . '">
+								<i class="material-icons fL">add</i> Adicionar Registro
 							</a>';
+
 				} else {
+
 					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" for="' . $Url[1] . '">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
 				}
 			}
@@ -135,12 +138,12 @@ class autoSystem{
 
 				$SQLFields = $Database->Desc( $Array['bd'] );
 
-				$HTML .= '<td class="check"> 
-							<label for="CheckAll" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-							  <input type="checkbox" id="CheckAll" class="mdl-checkbox__input" />
-							</label>
+				// $HTML .= '<td class="check"> 
+				// 			<label for="CheckAll" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+				// 			  <input type="checkbox" id="CheckAll" class="mdl-checkbox__input" />
+				// 			</label>
 
-						</td>';
+				// 		</td>';
 
 				while ( $F = $SQLFields->fetch(PDO::FETCH_OBJ) ){
 					if( !in_array( $F->Field, $Array['Grid']['Hide'] ) ){
@@ -161,11 +164,11 @@ class autoSystem{
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '" for="' . $Url[1] . '">';
 						
-						$HTML .= '<td class="check"> 
-									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
-									  <input type="checkbox" id="checkbox-' . $Value->$Array['auto_increment'] . '" class="mdl-checkbox__input" checked />
-									</label>
-								</td>';
+						// $HTML .= '<td class="check"> 
+						// 			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
+						// 			  <input type="checkbox" id="checkbox-' . $Value->$Array['auto_increment'] . '" class="mdl-checkbox__input" checked />
+						// 			</label>
+						// 		</td>';
 
 					foreach ( $Fields as $Field => $Info ){
 
@@ -207,7 +210,7 @@ class autoSystem{
 								break;
 						}
 
-						$HTML .= '<td>' . $v . '</td>';
+						$HTML .= '<td>' . ( empty( $v ) ? '-' : $v ) . '</td>';
 					}
 
 					$HTML .= '

@@ -81,8 +81,8 @@ function openModule( Module ){
 				$('.window:not(.maximize)').resizable({
 					maxHeight: 	$(window).height(),
   					maxWidth: 	$(window).width(),
-  					minHeight: 	'300px',
-  					minWidth: 	'300px',
+  					minHeight: 	300,
+  					minWidth: 	300,
 				});
 		   	}
 		});
@@ -364,6 +364,7 @@ $('.eIcons li:not(#navPrev, #uploadifive)').rClick({
 			icon: '<i class="material-icons">&#xE254;</i>',
 			text: 'Renomear...',
 			exec: function(This){
+
 			}
 		},
 
@@ -376,6 +377,25 @@ $('.eIcons li:not(#navPrev, #uploadifive)').rClick({
 				if( Confirm == true ){
 					This.parent('li').remove();
 				}
+			}
+		},
+
+		properties: {
+			icon: '<i class="material-icons">&#xE88F;</i>',
+			text: 'Propriedades',
+			exec: function(This){
+				$.ajax({ 
+				    type: "POST",
+				    dataType: "json",
+				    cache: false,
+				    data: {
+				    	File: JSON.stringify( This.data('info') )
+				    },
+				    url: '/Explorer/Ajax/Properties', 
+				    success: function(Return){ 
+				    	
+				   	}
+				});
 			}
 		}
 	}

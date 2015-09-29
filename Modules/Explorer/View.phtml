@@ -43,7 +43,7 @@ $HTML .= '
 
 foreach( $Explorer->Start() as $Name => $Values ){
 
-	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\' ' . ( isset( $_GET['Location'] ) && $_GET['Location'] == $Values['Location'] ? ' class="rCliked"' : "" ) . '>';
+	$HTML .= '<li data-info=\'' . json_encode( $Values ) . '\' ' . ( isset( $_GET['Location'] ) && $_GET['Location'] == $Values['Location'] ? ' class="rCliked"' : "" ) . ' title="' . $Name . '">';
 	
 	if( $Values['Type'] == 'IMAGE' ){
 		$HTML .= 

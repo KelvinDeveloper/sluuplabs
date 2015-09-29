@@ -102,3 +102,11 @@ img.account-user{
 	right: 20px !important;
 	display: none !important;
 }
+
+.mdl-button i.fL{
+	margin-top: 5px;
+}
+
+.mdl-button--colored{
+	background-color: #0277bd !important;
+}
