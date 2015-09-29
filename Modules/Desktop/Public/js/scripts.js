@@ -39,24 +39,6 @@ function openModule( Module ){
 							'<div class="moduleLoader mdl-spinner mdl-js-spinner is-active"></div>' +
 						'</div>' +
 					'</div>');
-			
-				// $('body').on('click','i.material-icons.minimize', function(){
-
-				//    var Module = $(this).parents('.window').attr('id'); // id do modulo 
-				   
-				//   	$('#' + Module).hide() // esconde o modulo
-				//   	$('body').append('<i class="material-icons minimizedIcons" id="'+ Module +'" style="left:50px;">&#xE87A;</i>');
-				//   	leftMulti=leftMulti+1;
-				// });
-
-				// $('body').on('click','i.material-icons.minimizedIcons', function(){
-				//    $(this).hide();
-				//    var Module = $(this).attr('id'); // id do modulo
-				//    console.log("ID do modulo minimizado ",Module);
-				//   	$('#' + Module).show() // esconde o modulo
-				//   	//$('body').append('<i class="material-icons" style="left:30px;" id="upmin' + Module + '">&#xE87A;</i>');
-
-				// });
 
 				setInterval("upgradeMDL();", 100);
 
@@ -99,8 +81,8 @@ function openModule( Module ){
 				$('.window:not(.maximize)').resizable({
 					maxHeight: 	$(window).height(),
   					maxWidth: 	$(window).width(),
-  					minHeight: 	$(window).width() / 3,
-  					minWidth: 	$(window).height() / 3,
+  					minHeight: 	'300px',
+  					minWidth: 	'300px',
 				});
 		   	}
 		});
@@ -151,6 +133,10 @@ $(document).ready(function(){
 		reg( 'User', 'Wallpaper', $(this).find('img').attr('src') );
 	});
 	
+	$(document).on('click', '.window', function(){
+		$('.mainDesk').click();
+	});
+
 	$('#logout').click(function(){
 		$('#desktop').fadeOut();
 		$.ajax({ 
@@ -296,7 +282,7 @@ $(document).ready(function(){
 		Minimize( $(this) );
 	});
 
-	$(document).on('dblclick', 'body .window .header', function(){
+	$(document).on('dblclick', 'body .window .header .drag', function(){
 		Maximize( $(this).find('i.maximize') );
 	});
 

@@ -29,27 +29,26 @@ body {
 #desktop .account-user{
 	width: 58px;
 	height: 58px;
-	position: absolute;
-	right: 160px;
-	top: 15px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;
 	display: none;
 	cursor: default;
-	z-index: 50;
+	float: left;
+	padding: 10px;
+	margin-top: 4px;
+
 	transition: right .5s;
 	transition-delay: .3s;
 }
 
 #desktop .infoUser {
-	right: 11px;
-	position: absolute;
-	top: 30px;
-	z-index: 50;
+	color: #ecf0f1;
+	float: left;
+	padding: 20px;
+
 	transition: right .5s;
 	transition-delay: .3s;
-	color: #ecf0f1;
 }
 
 #desktop #logout i {
@@ -97,18 +96,11 @@ body {
 }
 
 .infoUsersBlock {
-
-	position: absolute;
 	background-color: rgba(36, 31, 31, 0.61);
     width: 100%;
     height: 11%;
     padding-bottom: 2%;
-    /* right: 0%; */
-}
-.infoUserLeft {
-	right: 41px;
-	position: absolute;
-	top: -4px;
+    padding-left: 10%;
 }
 
 #desktop .buscarApps {
@@ -148,6 +140,7 @@ body .window .header .drag{
     position: absolute;
     text-align: center;
     width: 85%;
+    cursor: default;
 }
 
 body .window .header{
@@ -171,6 +164,13 @@ body .window .header i{
 	text-align: center;
 	width: 26px;
 	background-color: #ccc;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+body .window .header i:hover{
+	opacity: .8;
 }
 
 body .window .header i.close{
@@ -181,6 +181,7 @@ body .window .header i.close{
 body .window .header i.maximize{
 
 	border-left: solid 1px rgba(2, 2, 2, 0.08);
+	border-right: solid 1px rgba(2, 2, 2, 0.08);
     -webkit-transition: transform .3s;
     -moz-transition: transform .3s;
     -ms-transition: transform .3s;
@@ -273,10 +274,8 @@ ul.rClickMenu li i {
 	top: 0;
 }
 #desktop .listModules{
-
-	padding-top: 30%;
 	margin: 0;
-	width: 100%;
+	width: 95%;
 }
 #desktop .listModules li{
 	border: 1px solid transparent;
@@ -363,7 +362,7 @@ body{
     left: 0;
     position: absolute;
     width: 100%;
-    z-index: 999;
+    z-index: 5;
 
 	background: -moz-linear-gradient(top, transparent 0%, rgba(3,3,3,0.5) 100%);
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(3,3,3,0.5)));
@@ -383,7 +382,16 @@ body{
 	float: left;
 	width: 52px;
 	height: 52px;
+	margin: 0 10px;
 	list-style: none;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+.lancador ul li:hover{
+	margin-top: -5px;
+	opacity: .8;
 }
 
 .lancador ul li img{
