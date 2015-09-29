@@ -283,7 +283,6 @@ ul.rClickMenu li i {
     cursor: default;
     float: left;
     list-style: outside none none;
-    margin: 10px auto;
     padding: 10px;
     text-align: center;
     transition: all 0.2s ease 0s;
