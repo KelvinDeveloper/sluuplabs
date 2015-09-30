@@ -1,4 +1,4 @@
-<button id="start" class="button"><i class="material-icons">apps</i></button>
+<button id="start" class="button"></button>
 <div class="lancador">
   <ul></ul>
 </div>
@@ -28,11 +28,37 @@
 
       <div class="infoUser"><b><?php echo $_SESSION['user']['Nome'] . '</b><br>' . $_SESSION['user']['Email'] ?></b></div>
     </div>
+
+    <ul class="nav">
+      
+      <li class="active" id="apps"><i class="material-icons">apps</i></li>
+      <div class="mdl-tooltip" for="apps">
+        Aplicativos
+      </div>
+      
+      <li id="work"><i class="material-icons">group_work</i></li>
+      <div class="mdl-tooltip" for="work">
+        Grupo de Trabalho
+      </div>
+
+      <li id="logout"><i class="material-icons">power_settings_new</i></li>
+      <div class="mdl-tooltip" for="logout">
+        Sair
+      </div>
+
+    </ul>
+
   </div>
 
-	<ul class="listModules demo-grid-ruler mdl-grid">
-		
-	</ul>
+	<div for="apps" class="tab" style="display:block">
+    <ul class="listModules demo-grid-ruler mdl-grid"></ul>
+  </div>
+
+  <div for="work" class="work tab">
+    <ul>
+      <li>Grupo Padrão</li>
+    </ul>
+  </div>
 
   
 </nav>
@@ -54,6 +80,14 @@ $("#searchApps").keyup(function(e){
     
   // }
 
+});
+
+$('.infoUsersBlock .nav li').click(function(){
+  $('.infoUsersBlock .nav li.active').removeClass('active');
+  $(this).addClass('active');
+
+  $('nav .tab').hide();
+  $('nav .tab[for="' + $(this).attr('id') + '"]').show();
 });
 
 </script>
