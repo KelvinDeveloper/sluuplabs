@@ -2,11 +2,11 @@
 	<div class="mdl-grid w80">
 
 	<h2>
-		<a href="#">Últimas postagens</a>
+		<a href="#">Mais visitadas</a>
 	</h2>
 
 	<?php
-	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'visitas DESC', false, 4 );
 	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
 	?>
 

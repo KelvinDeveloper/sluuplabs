@@ -69,11 +69,24 @@ h2 a, h1 span{
     color:  #f44336;
 }
 
+h3{
+  font-family: 'Droid Serif', serif;
+  font-size: 22px;
+  color:  #f44336;
+}
+
 p{
   font-family: 'Raleway', sans-serif;
   text-align: justify;
   font-size: 22px;
   font-weight: 300;
+  line-height: 26px;
+}
+
+.mdl-grid.qs{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 22px;
   line-height: 26px;
 }
 
