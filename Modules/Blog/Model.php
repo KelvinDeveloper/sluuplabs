@@ -70,10 +70,21 @@ $blog = $autoSystem->create(
 					'Lenght'	=>	11,
 
 				),
+
+				'register'	=>	array(
+					'Label'	=>	'Cadastrado',
+					'Type'	=>	'datetime',
+					'Hide'	=> 	true
+				),
+
+				'adduser'	=>	array(
+					'Type'	=>	'int',
+					'Hide'	=>	true
+				),
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',
-			'Hide'		=> array( 'id_blog', 'conteudo', 'coment' ),
+			'Hide'		=> array( 'id_blog', 'conteudo', 'coment', 'adduser' ),
 		),
 		'Form'	=> array(
 			'Title'	=> 'Postagem',
@@ -81,6 +92,10 @@ $blog = $autoSystem->create(
 				'Save'	=> array(
 					'Class'	=>	'btn btn-primary'
 				),
+			),
+			'Log'	=> array(
+				'Register'	=> true,
+				'AddUser'	=> true,
 			),
 		),
 	)

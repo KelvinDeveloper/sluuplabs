@@ -21,7 +21,7 @@ if( getenv("PARAM1") == 'DEV' ){
 }
 
 define( 'BD', 'labs' );
-define( 'Title', 'IPRI' );
+define( 'Title', 'Igreja Presbiteriana Renovada Internacional' );
 
 $Conf['Login']['Table'] = 'users';
 $Conf['InitUrl'] = 'home';

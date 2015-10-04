@@ -9,6 +9,9 @@ html, body{
 .fR{
 	float: right;
 }
+.dnone{
+	display: none;
+}
 button:focus, button{ 
     outline: none; 
 }

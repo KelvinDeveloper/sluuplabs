@@ -12,7 +12,7 @@ class Database{
 		if( !empty( $Database ) || !empty( $Table ) ){
 			$query = " SELECT ";
 			if( !empty( $Fields ) ){
-				$query .= str_replace( ';', '', str_replace( ' ', '', $Fields ) ) . " FROM ";
+				$query .= str_replace( ';', '', $Fields ) . " FROM ";
 			} else {
 				$query .= " * FROM ";
 			}
@@ -47,7 +47,7 @@ class Database{
 		if( !empty( $Database ) || !empty( $Table ) ){
 			$query = ' SELECT ';
 			if( !empty( $Fields ) ){
-				$query .= str_replace( ';', '', str_replace( ' ', '', $Fields ) );
+				$query .= str_replace( ';', '', $Fields );
 			} else {
 				$query .= ' * ';
 			}
