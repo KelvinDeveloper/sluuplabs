@@ -56,7 +56,15 @@
 
   <div for="work" class="work tab">
     <ul>
-      <li>Grupo Padrão</li>
+      <?php
+        $sqlWG = $Database->Fetch('work_groups', false, "user_create='" . $_SESSION['user']['id_user'] . "' OR user='" . $_SESSION['user']['id_user'] . "'");
+        while ( $WG = $sqlWG->fetch(PDO::FETCH_OBJ) ){
+      ?>
+      <li>
+        <?=$WG->name?> <i class="material-icons fR">done</i>
+        <i class="material-icons fR openModal" href="/Desktop/Ajax/WorkGroup/<?=$WG->id_work_group?>" title="<i class='material-icons fL'>&#xE869;</i> Gerenciar Grupo de Trabalho" style="font-size: 16px;margin-right: 15px;margin-top: 5px;">&#xE869;</i>
+      </li>
+      <?php } ?>
     </ul>
   </div>
 
@@ -68,6 +76,15 @@
 $("#searchApps").keyup(function(e){
   
   var query = RemoveAccents( $(this).val() );
+  
+
+  if( $('li#apps.active').length < 1 ){
+    $('.infoUsersBlock .nav li.active').removeClass('active');
+    $('li#apps').addClass('active');
+
+    $('nav .tab').hide();
+    $('nav .tab[for="apps"]').show();
+  }
 
   if( query == '' ){
     $(".listModules li").show();
@@ -75,10 +92,6 @@ $("#searchApps").keyup(function(e){
     $(".listModules li").hide();
     $('.listModules li[data-quest*="' + query.toLowerCase() + '"]').show();
   }
-
-  // if( e.keyCode == 13 ){
-    
-  // }
 
 });
 

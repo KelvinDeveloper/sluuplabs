@@ -454,6 +454,11 @@ nav .work li{
 	transition: all .2s;
 }
 
+nav .work li.rCliked{
+	background-color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.49);
+}
+
 nav .work li:hover{
 	border: 2px solid rgba(255, 255, 255, 0.49);
 }

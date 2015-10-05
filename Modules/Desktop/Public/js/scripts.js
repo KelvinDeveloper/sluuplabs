@@ -91,6 +91,14 @@ function openModule( Module ){
 
 $(document).ready(function(){
 
+	$('.work.tab li').mousedown(function(){
+		$(this).addClass('rCliked');
+	});
+
+	$('.work.tab li').mouseup(function(){
+		$(this).removeClass('rCliked');
+	});
+
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
 		$('#desktop .account-user').fadeIn(300);
@@ -283,7 +291,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('dblclick', 'body .window .header .drag', function(){
-		Maximize( $(this).find('i.maximize') );
+		Maximize( $(this).parent('.header').find('i.maximize') );
 	});
 
 	$('.menuRigthClick li').click(function(){
