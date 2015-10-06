@@ -16,21 +16,27 @@ class autoSystem{
 		}
 		else if(  $Url[2] == 'Salvar' ){
 
+			$new = false;
+
+			if( !is_numeric( $Url[3] ) ){
+				$new = true;
+			}
+
 			$Module = $Router[ $Domain[0] ][ $Url[1] ];
 			$Module = explode( '/', $Module );
 
-			@include ROOT . '/Modules/' . $Module[1] . '/Valid.php';
+			@include ROOT . '/Modules/' . $Module[1] . '/Validate.php';
 
 			$Json = '';
 			
 			if( function_exists('onStart') ){
-				onStart( $Array );
+				onStart( $Array, $new, $PDO->lastInsertId() );
 			}
 
 			echo json_encode( $this->post( $Array ) );
 
 			if( function_exists('onEnd') ){
-				onEnd( $Array );
+				onEnd( $Array, $new, $PDO->lastInsertId() );
 			}
 
 			exit;
@@ -254,7 +260,7 @@ class autoSystem{
 		$HTML = '<form action="/' . $Url[1] . '/Salvar/' . ( $new ? 'New' : $Url[2] ) . '" method="post" target="defaultForm">';
 
 		// Título
-		$HTML .= '<h1>';
+		$HTML .= '<h1> <span>';
 		
 		if( isset( $Array['Form']['Title'] ) ){
 
@@ -272,7 +278,7 @@ class autoSystem{
 
 		}
 		
-		$HTML .= '</h1>';
+		$HTML .= '</span></h1>';
 
 		$HTML .= '<table>';
 

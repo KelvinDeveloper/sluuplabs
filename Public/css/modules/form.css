@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
 .tableDefault .mdl-checkbox{
 	width: auto !important;
 }
@@ -41,6 +43,18 @@ form[target="defaultForm"] input{
 	height: 20px;
 	width: 20em;
 	padding: 5px;
+}
+
+form[target="defaultForm"] h1{
+    font-family: "Roboto",sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    width: 100%;
+}
+
+form[target="defaultForm"] h1 span{
+    border-left: 3px solid #0277bd;
+    padding-left: 15px;
 }
 
 form[target="defaultForm"] .field_files {

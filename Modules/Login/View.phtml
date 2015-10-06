@@ -8,7 +8,7 @@ include 'Model.php';
 
 	<div class="content">
 
-		<div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Folder'] . '/' . $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <br><br>
+		<div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <br><br>
 		<h1 class="nameUser">Olá, Kelvin Souza</h1>
 
 		<div class="bodyLogin">
@@ -41,7 +41,7 @@ include 'Model.php';
 <ul id="listHistoryUsers">
 	<li data-email="" data-bg="/img/icon/account-user.svg"><div class="bg-user" style="background-image: url('/img/icon/account-user.svg')"></div> <?php echo _('Adicionar conta') ?></li>
 	<?php foreach ( $_COOKIE['HistoryUsers'] as $id => $u ){ ?>
-	<li data-email="<?=$u['Email']?>" data-bg="<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>" data-wallpaper="<?php echo $u['Wallpaper'] ?>"><div class="bg-user" style="background-image: url('<?php echo ( !empty( $u['Image'] ) ? $u['Folder'] . '/' . $u['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <?=$u['Nome']?></li>
+	<li data-email="<?=$u['Email']?>" data-bg="<?php echo ( !empty( $u['Image'] ) ? $u['Image'] : '/img/icon/account-user.svg' ) ?>" data-wallpaper="<?php echo $u['Wallpaper'] ?>"><div class="bg-user" style="background-image: url('<?php echo ( !empty( $u['Image'] ) ? $u['Image'] : '/img/icon/account-user.svg' ) ?>')"></div> <?=$u['Nome']?></li>
 	<?php } ?>
 </ul>
 

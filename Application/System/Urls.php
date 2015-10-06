@@ -9,5 +9,6 @@ $Router['sluup'] = array(
 	'Projects'		=>	'Modules/Projects/View',
 	'Explorer'		=>	'Modules/Explorer/View',
 	'Blog'			=>	'Modules/Blog/View',
-	'Assuntos'		=>	'Modules/Assuntos/View'
+	'Assuntos'		=>	'Modules/Assuntos/View',
+	'Usuarios'		=>	'Modules/Usuarios/View',
 );

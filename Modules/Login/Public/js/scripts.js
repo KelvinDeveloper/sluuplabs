@@ -32,7 +32,7 @@ $(document).ready(function(){
 		    		window.history.pushState( date, false, Url );
 
 		    		$('#boxLogin .account-user').css({
-		    			'background-image': 'url(\'' + Return.user.Folder + '/' + Return.user.Image + '\')'
+		    			'background-image': 'url(\'' + Return.user.Image + '\')'
 		    		});
 		    		$('#boxLogin .bodyLogin').fadeOut(400);
 		    		setTimeout(function(){
