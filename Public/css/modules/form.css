@@ -45,11 +45,13 @@ form[target="defaultForm"] input{
 	padding: 5px;
 }
 
-form[target="defaultForm"] h1{
-    font-family: "Roboto",sans-serif;
-    font-size: 32px;
-    font-weight: 300;
-    width: 100%;
+h1{
+    font-family: "Roboto",sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 300 !important;
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
 }
 
 form[target="defaultForm"] h1 span{

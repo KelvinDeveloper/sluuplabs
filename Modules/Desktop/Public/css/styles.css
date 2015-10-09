@@ -470,3 +470,41 @@ nav .work li.active{
 nav .work li:focus{
 	background-color: #fff;
 }
+
+.mdl-layout-title input.edit{
+    background-color: transparent;
+    border: medium none;
+    color: #fff;
+    font-size: 22px;
+    height: 40px;
+}
+
+.listSUsers{
+	margin: 0;
+	padding-left: 0;
+	height: 400px;
+	overflow: auto;
+}
+
+.listSUsers li{
+	max-height: 50px;
+	width: 300px;
+	line-height: 50px;
+}
+
+.listSUsers li .img{
+	width: 45px;
+	height: 45px;
+	margin: auto 0;
+	background-size: cover;
+	display: inline-block;
+	border-radius: 50%;
+	float: left;
+}
+
+.listSUsers li span{
+	height: 50px;
+	line-height: 50px;
+	display: inline-block;
+	margin-left: 5px;
+}
