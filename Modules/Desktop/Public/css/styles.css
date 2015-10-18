@@ -439,6 +439,12 @@ nav .work{
 	margin-left: -10%;
 }
 
+nav .work ul{
+	padding: 0;
+	width: 95%;
+	margin: auto;
+}
+
 nav .work li{
 	list-style: none;
 	width: 85%;
