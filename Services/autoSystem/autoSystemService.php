@@ -7,7 +7,7 @@ class autoSystem{
 		$this->autobd( $Array );
 
 		// Grid
-		if( !isset( $Url[2] ) ){
+		if( !isset( $Url[2] ) || $Url[2] == 'Ajax' ){
 			return $this->grid( $Array );
 		}
 		// Form
@@ -16,23 +16,39 @@ class autoSystem{
 		}
 		else if(  $Url[2] == 'Salvar' ){
 
+			$new = false;
+
+			if( !is_numeric( $Url[3] ) ){
+				$new = true;
+			}
+
 			$Module = $Router[ $Domain[0] ][ $Url[1] ];
 			$Module = explode( '/', $Module );
 
-			@include ROOT . '/Modules/' . $Module[1] . '/Valid.php';
+			@include ROOT . '/Modules/' . $Module[1] . '/Validate.php';
 
 			$Json = '';
 			
 			if( function_exists('onStart') ){
-				onStart( $Array );
+				onStart( $Array, $new, $PDO->lastInsertId() );
 			}
 
 			echo json_encode( $this->post( $Array ) );
 
 			if( function_exists('onEnd') ){
-				onEnd( $Array );
+				onEnd( $Array, $new, $PDO->lastInsertId() );
 			}
+
+			exit;
 		}
+		else if( $Url[2] == 'Deletar' ){
+			if( $Database->Delete( $Array['bd'], $Array['auto_increment'] . '=' . $Url[3]  ) ){
+				$Return['message'] = true;
+				echo json_encode( $Return );
+			}
+			exit;
+		}
+
 	}
 
 	function autobd( $Array ){
@@ -55,16 +71,15 @@ class autoSystem{
 
 		foreach ( $Array['Fields'] as $k => $v ){
 			// Colum exist
+
+			$Type = $this->field_type( $v );
+
 			if( !isset( $Field[ $k ] ) ){
-				
-				$Type = $this->field_type( $v );
 
 				$PDO->exec( " ALTER TABLE `" . BD . "`.`" . $Array['bd'] . "` 
 				ADD COLUMN `" . $k . "` " . $Type . "  NULL " );
 			}
 			else if( $v['Type'] .'(' . $v['Lenght'] . ')' != $Field[ $k ]->Type ){
-
-				$Type = $this->field_type( $v );
 
 				$PDO->exec( " ALTER TABLE `" . BD . "`.`" . $Array['bd'] . "` 
 							CHANGE COLUMN `" . $k . "` `" . $k . "` " . $Type . " NULL DEFAULT NULL " );
@@ -76,6 +91,7 @@ class autoSystem{
 	function field_type( $v ){
 		switch ( $v['Type'] ){
 			case 'text':
+			case 'html':
 				$Type = 'TEXT';
 				break;
 			case 'int':
@@ -86,6 +102,9 @@ class autoSystem{
 				break;
 			case 'datetime':
 				$Type = 'DATETIME';
+			case 'file':
+			case 'files':
+				$Type = "VARCHAR(255)";
 				break;
 			default:
 				$Type = "VARCHAR(" . ( isset( $v['Lenght'] ) ? $v['Lenght']: 45 ) . ")";
@@ -97,16 +116,20 @@ class autoSystem{
 	function grid( $Array ){
 		global $Database, $PDO, $Conf, $Domain, $Url;
 		
-		$HTML = '';
+		$HTML = '<br>';
+		$Script = '';
 
 		if( $Array['Grid']['Buttons'] || !isset( $Array['Grid']['Buttons'] ) ){
 			if( $Array['Grid']['Buttons']['New'] !== false || !isset( $Array['Grid']['Buttons']['New'] ) ){
 				if( !isset( $Array['Grid']['Buttons']['Label']['New'] ) ){
-					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-								<i class="material-icons">add</i>
+
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--colored" for="' . $Url[1] . '">
+								<i class="material-icons fL">add</i> Adicionar Registro
 							</a>';
+
 				} else {
-					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
+
+					$HTML .= '<a href="/' . $Url[1] . '/Novo" class="openThisWindow mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" for="' . $Url[1] . '">' . $Array['Grid']['Buttons']['Label']['New'] . ' <i class="material-icons fR">add</i></a> <br><br>';
 				}
 			}
 		}
@@ -121,16 +144,19 @@ class autoSystem{
 
 				$SQLFields = $Database->Desc( $Array['bd'] );
 
-				$HTML .= '<td class="check"> 
-							<label for="CheckAll" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-							  <input type="checkbox" id="CheckAll" class="mdl-checkbox__input" />
-							</label>
+				// $HTML .= '<td class="check"> 
+				// 			<label for="CheckAll" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+				// 			  <input type="checkbox" id="CheckAll" class="mdl-checkbox__input" />
+				// 			</label>
 
-						</td>';
+				// 		</td>';
 
 				while ( $F = $SQLFields->fetch(PDO::FETCH_OBJ) ){
-					$HTML .= '<td>' . ucfirst( $F->Field ) . '</td>';
-					$Fields[ $F->Field ] = $F;
+					if( !in_array( $F->Field, $Array['Grid']['Hide'] ) ){
+
+						$HTML .= '<td>' . ( !empty( $Array['Fields'][ $F->Field ]['Label'] ) ? $Array['Fields'][ $F->Field ]['Label'] : ucfirst( $F->Field ) ) . '</td>';
+						$Fields[ $F->Field ] = $F;
+					}
 				}
 
 				$HTML .= '<td></td>';
@@ -140,19 +166,57 @@ class autoSystem{
 			$HTML .= '</thead>';
 			$HTML .= '<tbody>';
 			
-				$Result = $Database->Fetch( $Array['bd'] );
+				$Result = $Database->Fetch( $Array['bd'], false, false, $Array['auto_increment'] . ' DESC' );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
-					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '">';
+					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '" for="' . $Url[1] . '">';
 						
-						$HTML .= '<td class="check"> 
-									<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
-									  <input type="checkbox" id="checkbox-' . $Value->$Array['auto_increment'] . '" class="mdl-checkbox__input" checked />
-									</label>
-								</td>';
+						// $HTML .= '<td class="check"> 
+						// 			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-' . $Value->$Array['auto_increment'] . '">
+						// 			  <input type="checkbox" id="checkbox-' . $Value->$Array['auto_increment'] . '" class="mdl-checkbox__input" checked />
+						// 			</label>
+						// 		</td>';
 
 					foreach ( $Fields as $Field => $Info ){
 
-						$HTML .= '<td>' . $Value->$Field . '</td>';
+						$v = $Value->$Field;
+
+						switch ( $Array['Fields'][ $Field ]['Type'] ){
+							case 'select':
+								if( isset( $Array['Fields'][ $Field ]['Query'] ) ){
+									$R = $PDO->query( $Array['Fields'][ $Field ]['Query'] );
+									while( $v = $R->fetch(PDO::FETCH_OBJ) ){
+										$Array['Fields'][ $Field ]['Options'][ $v->$Array['Fields'][ $Field ]['Key'] ] = $v->$Array['Fields'][ $Field ]['Value'];
+									}
+								}
+
+								$v = $Array['Fields'][ $Field ]['Options'][ $Value->$Field ];
+								break;
+							case 'file':
+								if( $Array['Fields'][ $Field ]['Options']['Types'] == 'IMAGE' ){
+									$v = '<div class="image" style="background-image:url(\'' . $v . '\')"></div>';
+								}
+								break;
+
+							case 'files':
+
+								if( $Array['Fields'][ $Field ]['Options']['Types'] == 'IMAGE' ){
+
+									$Dir = scandir( ROOT . $v );
+									$path = $v;
+									$v = '<ul class="multi_files" data-value="' . $path . '">';
+									$m = 5;
+										foreach ( $Dir as $value ){
+											if( $value != '.' && $value != '..' ){
+												$v .= '<li style="background-image:url(\'' . $path . '/' . $value . '\');left:' . $m . 'px"></li>';
+												$m = $m + 5;
+											}
+										}
+									$v .= '</ul>';
+								}
+								break;
+						}
+
+						$HTML .= '<td>' . ( empty( $v ) ? '-' : $v ) . '</td>';
 					}
 
 					$HTML .= '
@@ -165,7 +229,7 @@ class autoSystem{
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 						    for="' . $Value->$Array['auto_increment'] . '-menu">
 						  <li class="mdl-menu__item" onclick="editRegister( $(this).parents(\'tr\') )"><i class="material-icons">&#xE254;</i> ' . _('Editar') . '</li>
-						  <li class="mdl-menu__item"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
+						  <li class="mdl-menu__item item_delete"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
 						</ul>
 					</td>';
 
@@ -196,7 +260,7 @@ class autoSystem{
 		$HTML = '<form action="/' . $Url[1] . '/Salvar/' . ( $new ? 'New' : $Url[2] ) . '" method="post" target="defaultForm">';
 
 		// Título
-		$HTML .= '<h1>';
+		$HTML .= '<h1> <span>';
 		
 		if( isset( $Array['Form']['Title'] ) ){
 
@@ -214,31 +278,33 @@ class autoSystem{
 
 		}
 		
-		$HTML .= '</h1>';
+		$HTML .= '</span></h1>';
 
 		$HTML .= '<table>';
 
 		foreach ( $Array['Fields'] as $Field => $Data ){
 
-			$HTML .= '<tr><td>';
+			if( !$Data['Hide'] ){
 
-			$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ( isset( $Data['Label'] ) ? $Data['Label'] : ucfirst( $Field ) ) . ' </label>';
+				$HTML .= '<tr><td valign="top">';
 
-			$HTML .= '</td><td>';
+				$HTML .= '<label for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">' . ( isset( $Data['Label'] ) ? $Data['Label'] : ucfirst( $Field ) ) . ' </label>';
 
-			switch ( $Data['Type'] ) {
-				
-				case 'text':
-					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
-					break;
+				$HTML .= '</td><td valign="top">';
 
-			case 'hidden':
-					$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
-					break;
+				switch ( $Data['Type'] ) {
+					
+					case 'text':
+						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						break;
 
-			case 'rand':
-					$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . ( empty( $Value->$Field ) ? rand() : $Value->$Field ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
-					break;
+				case 'hidden':
+						$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						break;
+
+				case 'rand':
+						$HTML .= '<input type="hidden" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . ( empty( $Value->$Field ) ? rand() : $Value->$Field ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						break;
 
 				case 'password':
 					if( $Data['Security'] === true && $Url[2] != 'Criar-Usuario' ){
@@ -254,17 +320,25 @@ class autoSystem{
 					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
 					break;
 
-				case 'HTML':
-					$HTML .= '<textarea maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" id="content" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Value->$Field . '</textarea>';
-					$EditorHTML = true;
+				case 'html':
+					$HTML 	.= '<textarea id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></textarea>';
+					$Script .= '
+					editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . $Data['Width'] . '});
+					setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . preg_replace( '/\s/',' ',$Value->$Field ) . '\') }, 500);';
 					break;
 
 				case 'select':
-					$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+					$HTML .= '<select name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : '' ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 
-					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
-					
-						$HTML .= '<option value="' . $Value . '" ' . ( $Value == $Value->$Field ? 'selected="selected"' : false ) . '>' . $Content . '</option>';
+					if( isset( $Data['Query'] ) ){
+						$Result = $PDO->query( $Data['Query'] );
+						while( $v = $Result->fetch(PDO::FETCH_OBJ) ){
+							$Data['Options'][ $v->$Data['Key'] ] = $v->$Data['Value'];
+						}
+					}
+
+					foreach ( $Data['Options'] as $k => $v ) {
+						$HTML .= '<option value="' . $k . '" ' . ( $k == $Value->$Field ? 'selected="selected"' : '' ) . '>' . $v . '</option>';
 
 					}
 
@@ -304,69 +378,144 @@ class autoSystem{
 
 					break;
 
-				case 'radio':
+					case 'radio':
 
-					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
+						foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
+						
+							$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . ' tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
+							$HTML .= '<br>';
+
+						}
+						break;
+
+					case 'checkbox':
+
+						foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
+						
+							$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Content . '</label>';
+							$HTML .= '<br>';
+
+						}
+						break;
+
+					case 'file':
+						$HTML 	.= '
+						<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden" value="' . $Value->$Field . '">
+						
+						<div for="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="field_files" title="' . $Value->$Field . '">
+							<span class="name_file">' . ( !empty( $Value->$Field ) ? $Value->$Field : 'Nenhum arquivo selecionado' ) . '</span>
+						</div>
+
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored openModal" title="<i class=\'material-icons fL mR\'>&#xE02E;</i> Selecionar arquivo" data-parent="#Module' . $Url[1] . '" href="/Explorer?navPrev=true&type=' . $Array['Fields'][ $Field ]['Options']['Types'] . '&for=fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '">Selecionar arquivo</button>';
+						break;
+
+					case 'files':
+
+						if( $new ){
+							$Folder = $this->tmp( $Array );
+						} else {
+							$Folder = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $Url[2];
+						}
+						
+						$HTML .= '<div class="multi_files" id="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></div>
+									<input id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" name="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" type="hidden" value="' . ( $new ? $Folder : $Value->$Field ) . '">';
+						$Script .= '$(\'#' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\').load(\'/Explorer?Dir=' . $Folder . '\')';
+
+						break;
+
+					default:
 					
-						$HTML .= '<input type="radio" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . ' tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"> <label for="fld' . $Content . '">' . $Content . '</label>';
-						$HTML .= '<br>';
+						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						break;
+				}
 
-					}
-					break;
-
-				case 'checkbox':
-
-					foreach ( $thisForm['Fields'][ $Field ]['Options'] as $Value => $Content ) {
-					
-						$HTML .= '<input type="checkbox" name="' . $Field . '" value="' . $Value . '" id="fld' . $Content . '" ' . ( $Value == $Value->$Field ? 'checked="checked"' : false ) . '> <label for="fld' . $Content . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">' . $Content . '</label>';
-						$HTML .= '<br>';
-
-					}
-					break;
-
-				default:
-				
-					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
-					break;
+				$HTML .= '</td></tr>';
 			}
-
-			$HTML .= '</td></tr>';
-
 		}
 
-		$HTML .= '</table> <br>';
+		$HTML .= '</table> <br><br><br>';
 
 		$ClassBtn = ( isset( $Array['Form']['Buttons']['Save']['Class'] ) ? $Array['Form']['Buttons']['Save']['Class'] : false );
 
 		if( $Array['Form']['Buttons'] !== false ){
 			if( !isset( $Array['Form']['Buttons']['Save']['Name'] ) ){
 				$HTML .= '
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . '" type="submit">
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ' . $ClassBtn . ' fR" type="submit" for="' . $Url[1] . '">
 				  <i class="material-icons">&#xE161;</i>
 				</button>';
 			} else {
-				$HTML .= '<button type="submit" class="' . $ClassBtn . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
+				$HTML .= '<button type="submit" class="' . $ClassBtn . '" for="' . $Url[1] . '">' . $Array['Form']['Buttons']['Save']['Name'] . '</button>';
 			}
 		}
 
 		$HTML .= '</form>';
 
+		$HTML .= '<script>' . $Script . '</script>';
+
 		return $HTML;
+	}
+
+	function tmp( $Array ){
+		global $Url;
+
+		$time = time();
+		if( mkdir( ROOT . '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time ) ){
+			return '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time;
+		} else {
+			return false;
+		}
+	}
+
+	function move( $Array, $move ){
+
+		global $PDO, $Database;
+
+		foreach( $move as $old => $values ){
+			rename( ROOT . $old, ROOT . $values['new'] );
+			$Database->Update( $Array['bd'], $values['Field'] . "='" . $values['new'] . "'", $Array['auto_increment'] . '=' . $values['Id']  );
+		}
 	}
 
 	function post( $Array ){
 		global $Database, $PDO, $Conf, $Domain, $Url;
+
+		if( !$_POST ){
+			$Return['message'] = false;
+		}
 
 		$Return = '';
 
 		$new = true;
 		$Query = '';
 
+		if( isset( $_POST['post'] ) ){
+			$post = explode( '#&#', $_POST['post'] );
+			unset( $_POST );
+			foreach ( $post as $thisPost ) {
+				$value = explode( '#=#', $thisPost );
+				if(
+					$value[0] != 'onUpdate'  &&
+					$value[0] != 'alterSess'
+				)
+				$_POST[ $value[0] ] = $value[1];
+			}
+		}
+
+
 		if( is_numeric( $Url[3] ) ){
 			$new = false;
 		}
 
 		if( $new ){
+
+			if( $Array['Form']['Log']['Register'] == true ){
+				$_POST['register']	=	date('Y-m-d i:h:s');
+			}
+
+			if( $Array['Form']['Log']['AddUser'] == true ){
+				$_POST['adduser']	= $_SESSION['user']['id_user'];
+			}
+
 			// Insert
 			$Query .= " INSERT INTO " . BD . "." . $Array['bd'] . "( ";
 
@@ -388,16 +537,38 @@ class autoSystem{
 			$Query .= " UPDATE " . BD . "." . $Array['bd'] . " SET ";
 			
 			foreach( $Array['Fields'] as $Field => $Data ){
-				
-				$Query .= $Field . " = '" . $_POST[ $Field ] . "', ";
+				if( $Field != 'register' && $Field != 'AddUser' ){
+					$Query .= $Field . " = '" . $_POST[ $Field ] . "', ";
+				}
 			}
 
 			$Query = substr( $Query, 0, -2 ) . ' WHERE ' . $Array['auto_increment'] . " = " . $Url['3'];
 		}
 
 		$PDO->exec( $Query );
+
+		if( $new ){
+
+			$move = false;
+
+			foreach( $Array['Fields'] as $Field => $Data ){
+
+				if( $Data['Type'] == 'files' ){
+					$tmp = $Database->Search( $Array['bd'], $Field, $Array['auto_increment'] . '=' . $PDO->lastInsertId() );
+					$move[ $tmp->$Field ]['new'] = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $PDO->lastInsertId();
+					$move[ $tmp->$Field ]['Field'] = $Field;
+					$move[ $tmp->$Field ]['Id'] = $PDO->lastInsertId();
+				}
+			}
+
+			if( $move != false ){
+				$this->move( $Array, $move );
+			}
+		}
+
 		$Return['new']      = $new;
 		$Return['message']  = $PDO->errorInfo();
+		$Return['Location'] = '/' . $Url[1];
 
 		return $Return;
 	}

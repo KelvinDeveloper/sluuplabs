@@ -1,0 +1,33 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+} ?>
+
+
+<div class="w80">
+
+	<h1><span>Pedido de Oração</span></h1>
+
+	<div class="mdl-cell mdl-cell--6-col fL">
+		<?php 
+		$msg = 'Pedido de Oração';
+		$action = '?action=oracao';
+		include __DIR__ . '/blocks/contato.php'; ?>
+	</div>
+
+	<div class="mdl-cell mdl-cell--6-col fR">
+		<p>Registre aqui seu pedido de oração, ele será passado aos intercessores e apresentado na Igreja.</p>
+	 	<p><i>"A oração feita por um justo pode muito em seus efeitos. <b>(Tiago 5:16)</b>"</i></p>
+	</div>
+
+</div>
+
+<?php include __DIR__ . '/blocks/ultimas-postagens.php'; ?>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

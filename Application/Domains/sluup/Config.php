@@ -25,3 +25,4 @@ define( 'Title', 'Sluup Labs' );
 
 $Conf['Login']['Table'] = 'users';
 $Conf['InitUrl'] = '/Desktop';
+$Conf['Type'] 	 = 1; // Sistema

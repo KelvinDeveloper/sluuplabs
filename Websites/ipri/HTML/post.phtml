@@ -1,0 +1,72 @@
+<?php 
+
+if( !$Function->isAjax() ){
+  include ROOT . '/' . $Path . 'Head.phtml';
+  include ROOT . '/' . $Path . 'Menu.phtml';
+  echo '<div class="content">';
+}
+
+$idPost = explode( '-', $Url[2] );
+$idPost = $idPost[0];
+
+$Post = $Database->Search( 'blog', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "id_blog='" . $idPost . "'" );
+?>
+
+<div style="position:relative;z-index:5">
+
+<div class="postContent">
+	<h1><span><?=$Post->title?></span></h1>
+
+	<div class="fb-like mL" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url)?>"></div><br><br>
+
+	<i class="material-icons fL" style="margin-right: 5px;">&#xE8F4;</i> <span class="fL"><?php echo( empty( $Post->visitas ) ? 0 : $Post->visitas ); ?> visita(s)</span>
+
+	<i class="material-icons fL" style="margin-left: 10px;">&#xE616;</i> <span class="fL"><?=$Post->Date?></span>
+
+	<br><br>
+
+	<div class="text">
+		<?=$Post->conteudo?>
+	</div>
+
+	<?php 
+
+	if( !empty( $Post->galery ) ){
+		$Location = ROOT . $Post->galery . '/';
+		$Images = scandir( $Location );
+
+		foreach ( $Images as $item ){
+			if( $Function->is_image( $Location . $item ) == true ){
+				echo '<a href="' . $Post->galery . '/' . $item . '" data-lightbox="roadtrip" class="item-lightbox"><img src="' . $Post->galery . '/' . $item . '" width="150px" /></a>';
+			}
+		}
+	}
+
+	include __DIR__ . '/blocks/ultimas-postagens.php';
+
+	if( $Post->coment == '1' ){ ?>
+
+	<div class="fb-comments" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url); ?>" data-numposts="15" data-width="100%"></div>
+
+	<?php } ?>
+
+</div>
+
+</div>
+
+<div class="postImage" style="background-image:url('<?=$Post->image?>')"></div>
+
+<br><br><br>
+
+<?php 
+// acresenta +1 nas visitas
+if( !isset( $_SESSION['view'][ $Post->id_blog ] ) ){
+	$Count = $Post->visitas + 1;
+	$Database->Update('blog', "visitas='" . $Count . "'", "id_blog='" . $Post->id_blog . "'");
+	$_SESSION['view'][ $Post->id_blog ] = true;
+}
+
+if( !$Function->isAjax() ){
+  echo '</div>';
+  include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

@@ -6,7 +6,7 @@ while ( $Module = $Modules->read() ){
 		$Info = parse_ini_file( ROOT . '/Modules/' . $Module . '/Info.ini' );
 		if( $Info['ListStart'] == true ){
 			$ListModules[ $Module ] = array(
-				'name'	=> $Info,
+				'name'	=> $Module,
 				'info'	=> $Info,
 				'icon'	=> ( file_exists( ROOT . '/Modules/' . $Module . '/Icon.ico' ) ? '/Modules/' . $Module . '/Icon.ico' : '/Public/img/icon/Icon.ico' )
 			);

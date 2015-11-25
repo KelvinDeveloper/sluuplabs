@@ -39,7 +39,25 @@ else if( $Url[2] === 'Ajax' && ( $Function->isAjax() || getenv("PARAM1") == 'DEV
 else if( $Url[1] === 'app' ){ 
 	include ROOT . '/app/' . $Url[2] . '/' . $Url[3] . '/View.phtml';
 }
-else {
+else if( $Url[1] === 'Upload' && !empty( $_POST ) ){
+	
+	$Services->Run('Explorer');
+	$Services->Run('Upload');
+}
+else if( $Conf['Type'] == 2 ){
+	// Website
+	include ROOT . '/Websites/' . $Domain[0] . '/Urls.php';
+	$File = ROOT . '/Websites/' . $Domain[0] . '/' . $Router[ ( empty( $Url[1] ) ?  $Conf['InitUrl'] : $Url[1] ) ];
+	$Path = '/Websites/' . $Domain[0] . '/HTML/';
+
+	if( file_exists( $File ) ){
+		include $File;
+	} else {
+		echo 'Url inixistente';
+	}
+
+} else {
+
 	// Verifica se usuario está logado para ler os registros
 	$Services->Run('Login');
 	if( $Login->Verific() ){
@@ -67,4 +85,5 @@ else {
 		}
 	}
 }
+
 ob_end_flush();

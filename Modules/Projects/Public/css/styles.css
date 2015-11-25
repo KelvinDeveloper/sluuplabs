@@ -1,3 +1,84 @@
+/* new */
+#ModuleProjects .mdl-layout__container{
+	left: 0;
+}
+
+#ModuleProjects .mdl-navigation{
+	padding-top: 0 !important;
+}
+
+#p-pages{
+	overflow: auto;
+	width: 100%;
+}
+
+#p-pages li{
+	height: 40px;
+	line-height: 40px;
+	cursor: default;
+}
+
+#p-pages li:hover, #p-pages li.active{
+	background-color: #e0e0e0;
+}
+
+#p-pages .edit input{
+	font-family: 'Raleway', sans-serif !important;
+	width: 90%;
+	height: 25px;
+	font-size: 18px;
+}
+
+#bodyContent{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+#bodyContent .item{
+	min-width: 200px;
+	width: 300px;
+	min-height: 100px;
+	border: solid 1px transparent;
+	border-radius: 2px;
+}
+
+#bodyContent .item .item-header{
+	margin-top: -30px;
+	position: absolute;
+	background-color: #3498db;
+	border-radius: 2px;
+	width: 97.6%;
+	height: 25px;
+	line-height: 25px;
+	padding: 3px;
+	color: #fff;
+	border: solid 1px #3498db;
+	opacity: .8;
+	cursor: move;
+	display: none;
+}
+
+#bodyContent .item .item-header i{
+	font-size: 22px;
+}
+
+#bodyContent .item:hover{
+	border: dashed 1px #ccc;
+	background-color: #e1f5fe;
+}
+
+#bodyContent .item.active{
+	border: dashed 1px #ccc;
+	background-color: #b3e5fc;
+}
+
+/* ends new */
+
+#pNavImage, .page-content{
+	height: 100%;
+}
+
 h1{
 	font-family: 'Raleway', sans-serif !important;
 	font-size: 26px !important;
@@ -46,20 +127,16 @@ h1{
 	border-radius: 2px;
 	top: 9%;
 	left: 6%;
+	z-index: 10;
 }
 
 #stage{
-	width: 76%;
-	height: 80%;
-	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
-	left: 23%;
-	position: absolute;
-	top: 9%;
-	border-radius: 2px;
-	border: solid 2px transparent;
-
-	-webkit-transition: all 2s;
-	transition: all .2s;
+	width: 1000px;
+	height: 100%;
+	border-left: dashed 1px #ccc;
+	border-right: dashed 1px #ccc;
+	margin: 5px auto;
+	position: relative;
 }
 
 #stage.drop{
@@ -77,6 +154,11 @@ h1.stageTitle{
 	display: none;
 }
 
+.menuSelect{
+	position: absolute;
+	z-index: 10;
+}
+
 .select ul li{
 	font-family: 'Raleway', sans-serif !important;
 	font-size: 22px;
@@ -87,13 +169,7 @@ h1.stageTitle{
 
 .select ul li.active{
 	font-weight: bold;
-}
-
-.select ul li .edit input{
-	font-family: 'Raleway', sans-serif !important;
-	width: 90%;
-	height: 29px;
-	font-size: 18px;
+	color: #7D9FEF;
 }
 
 #s-home{
@@ -150,14 +226,66 @@ li.pBlock div{
 	display: inline-block;
 }
 
-#stage .grid #grid-1{
+.grid div{
+	min-height: 80px;
+	border: solid 1px #ccc;
+	float: left;
 
+	-webkit-transition: border .1s;
+	transition: border .1s;
+}
+.grid div:hover{
+	border: solid 1px #3498db;
 }
 
-#stage .grid.grid-2 div{
-	width: 48%;
-	padding: 1%;
-	min-height: 50px;
-	float: left;
-	background-color: #F8F9F9;
+#addBlock{
+    left: 50%;
+    margin-left: -23px;
+    position: relative;
+    top: 10px;
+}
+
+/**/
+.grid.grid-1 div{
+	width: 99%;
+}
+
+.grid.grid-2 div{
+	width: 49%;
+}
+
+.grid.grid-3 div{
+	width: 32%;
+}
+
+.grid.grid-4 div{
+	width: 24.4%;
+}
+
+.grid.grid-5 div:first-child{
+	width: 69%;
+}
+.grid.grid-5 div:last-child{
+	width: 29%;
+}
+
+.grid.grid-6 div:first-child{
+	width: 29%;
+}
+.grid.grid-6 div:last-child{
+	width: 69%;
+}
+
+/**/
+
+.item-content{
+	width: 64%;
+	float: right;
+}
+
+.btn-save-modal{
+	position: absolute;
+	bottom: 35px;
+	right: 10px;
+	z-index: 10;
 }

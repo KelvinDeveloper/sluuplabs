@@ -24,13 +24,14 @@ function openModule( Module ){
 	} else {
 
 		var Info = $('.listModules [data-name="' + Module + '"]').data('info');
-
 		$('body')
-			.append('<div class="window" id="Module'  + Module + '">' +
+			.append('<div class="window" id="Module'  + Module + '" target="' + Module + '">' +
 						'<div class="header">' +
+							'<div class="drag">' + Module + '</div>' +
 							'<div class="options">' +
 								'<i class="material-icons close">clear</i>' +
 								'<i class="material-icons maximize">&#xE895;</i>' + 
+								'<i class="material-icons minimize">&#xE15B;</i>' + 
 							'</div>' +
 						'</div>'  +
 						'<div class="content">' +
@@ -73,15 +74,15 @@ function openModule( Module ){
 		    	}, 600);
 
 				$('.window').draggable({
-					handle: '.header',
+					handle: '.drag',
 					containment: 'body',
 					scroll: false
 				});
 				$('.window:not(.maximize)').resizable({
 					maxHeight: 	$(window).height(),
   					maxWidth: 	$(window).width(),
-  					minHeight: 	$(window).width() / 3,
-  					minWidth: 	$(window).height() / 3,
+  					minHeight: 	300,
+  					minWidth: 	300,
 				});
 		   	}
 		});
@@ -89,6 +90,14 @@ function openModule( Module ){
 }
 
 $(document).ready(function(){
+
+	$('.work.tab li').mousedown(function(){
+		$(this).addClass('rCliked');
+	});
+
+	$('.work.tab li').mouseup(function(){
+		$(this).removeClass('rCliked');
+	});
 
 	$('#desktop').fadeIn(200);
 	setTimeout(function(){
@@ -132,6 +141,10 @@ $(document).ready(function(){
 		reg( 'User', 'Wallpaper', $(this).find('img').attr('src') );
 	});
 	
+	$(document).on('click', '.window', function(){
+		$('.mainDesk').click();
+	});
+
 	$('#logout').click(function(){
 		$('#desktop').fadeOut();
 		$.ajax({ 
@@ -251,12 +264,34 @@ $(document).ready(function(){
 		This.parents('.window').toggleClass('maximize');
 	}
 
+	function Minimize( This ){
+
+		var Info = $('.listModules [title="' + This.parents('.window').attr('target').replace('_', ' ') + '"]').data('info');
+
+		This.parents('.window').hide();
+
+		$('.lancador ul').append(
+			'<li title="' + Info.name + '" class="iconBar">' +
+			'<img src="' + Info.icon + '">' +
+			'</li>'
+		);
+	}
+
 	$(document).on('click', 'body .window .header i.maximize', function(){
 		Maximize( $(this) );
 	});
 
-	$(document).on('dblclick', 'body .window .header', function(){
-		Maximize( $(this).find('i.maximize') );
+	$(document).on('click', 'body .lancador .iconBar', function(){
+		$('#Module' + $(this).attr('title') ).show();
+		$(this).remove();
+	});
+
+	$(document).on('click', 'body .window .header i.minimize', function(){
+		Minimize( $(this) );
+	});
+
+	$(document).on('dblclick', 'body .window .header .drag', function(){
+		Maximize( $(this).parent('.header').find('i.maximize') );
 	});
 
 	$('.menuRigthClick li').click(function(){
@@ -305,3 +340,97 @@ $(document).ready(function(){
 	});
 	
 });
+
+$('.eIcons li:not(#navPrev, #uploadifive)').rClick({
+
+	id: 'eIcons',
+
+	Menu: {
+
+		download: {
+			icon: '<i class="material-icons">&#xE2C0;</i>',
+			text: 'Baixar',
+			exec: function(This){
+			}
+		},
+
+		copy: {
+			icon: '<i class="material-icons">&#xE14D;</i>',
+			text: 'Copiar',
+			exec: function(This){
+			}
+		},
+
+		cut: {
+			icon: '<i class="material-icons">&#xE14E;</i>',
+			text: 'Recortar',
+			exec: function(This){
+			}
+		},
+
+		rename: {
+			icon: '<i class="material-icons">&#xE254;</i>',
+			text: 'Renomear...',
+			exec: function(This){
+
+			}
+		},
+
+		delete: {
+			icon: '<i class="material-icons">&#xE872;</i>',
+			text: 'Excluir',
+			exec: function(This){
+				var Confirm = confirm('Tem certeza que deseja excluir este item permanentemente?');
+
+				if( Confirm == true ){
+					This.parent('li').remove();
+				}
+			}
+		},
+
+		properties: {
+			icon: '<i class="material-icons">&#xE88F;</i>',
+			text: 'Propriedades',
+			exec: function(This){
+				$.ajax({ 
+				    type: "POST",
+				    dataType: "json",
+				    cache: false,
+				    data: {
+				    	File: JSON.stringify( This.data('info') )
+				    },
+				    url: '/Explorer/Ajax/Properties', 
+				    success: function(Return){ 
+				    	
+				   	}
+				});
+			}
+		}
+	}
+});
+
+$('#explorerContent').rClick({
+
+	id: 'ModuleExplorer',
+	Menu: {
+
+		paste: {
+			icon: '<i class="material-icons">&#xE14F;</i>',
+			text: 'Colar',
+			exec: function(This){
+
+			}
+		},
+
+		newFolder: {
+			icon: '<i class="material-icons">&#xE2C7;</i>',
+			text: 'Criar pasta',
+			exec: function(This){
+
+			}
+		}
+	}
+
+});
+
+/* Ends rClick */

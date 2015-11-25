@@ -1,5 +1,7 @@
-
-<button id="start" class="button"><i class="material-icons">apps</i></button>
+<button id="start" class="button"></button>
+<div class="lancador">
+  <ul></ul>
+</div>
 
 
 <nav id="openStart">
@@ -22,15 +24,51 @@
 
   <div class="infoUsersBlock">
     <div class="infoUserLeft">
-      <div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Folder'] . '/' . $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div>
+      <div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div>
 
       <div class="infoUser"><b><?php echo $_SESSION['user']['Nome'] . '</b><br>' . $_SESSION['user']['Email'] ?></b></div>
     </div>
+
+    <ul class="nav">
+      
+      <li class="active" id="apps"><i class="material-icons">apps</i></li>
+      <div class="mdl-tooltip" for="apps">
+        Aplicativos
+      </div>
+      
+      <li id="work"><i class="material-icons">group_work</i></li>
+      <div class="mdl-tooltip" for="work">
+        Grupo de Trabalho
+      </div>
+
+      <li id="logout"><i class="material-icons">power_settings_new</i></li>
+      <div class="mdl-tooltip" for="logout">
+        Sair
+      </div>
+
+    </ul>
+
   </div>
 
-	<ul class="listModules demo-grid-ruler mdl-grid">
-		
-	</ul>
+	<div for="apps" class="tab" style="display:block">
+    <ul class="listModules demo-grid-ruler mdl-grid"></ul>
+  </div>
+
+  <div for="work" class="work tab">
+    <ul>
+      <?php
+        $sqlWG = $Database->Fetch('work_groups', false, "user_create='" . $_SESSION['user']['id_user'] . "' OR user='" . $_SESSION['user']['id_user'] . "'");
+        while ( $WG = $sqlWG->fetch(PDO::FETCH_OBJ) ){
+      ?>
+      <li>
+        <span class="titleGroup"><?=$WG->name?></span> <i class="material-icons fR">done</i>
+        <i class="material-icons fR openModal" href="/Desktop/Ajax/WorkGroup/<?=$WG->id_work_group?>" title="<i class='material-icons fL'>&#xE869;</i> Gerenciar Grupo de Trabalho" style="font-size: 16px;margin-right: 15px;margin-top: 5px;" data-size="large">&#xE869;</i>
+      </li>
+      <?php } ?>
+    </ul>
+  </div>
+
+  
 </nav>
 
 <script type="text/javascript">
@@ -38,6 +76,15 @@
 $("#searchApps").keyup(function(e){
   
   var query = RemoveAccents( $(this).val() );
+  
+
+  if( $('li#apps.active').length < 1 ){
+    $('.infoUsersBlock .nav li.active').removeClass('active');
+    $('li#apps').addClass('active');
+
+    $('nav .tab').hide();
+    $('nav .tab[for="apps"]').show();
+  }
 
   if( query == '' ){
     $(".listModules li").show();
@@ -46,10 +93,14 @@ $("#searchApps").keyup(function(e){
     $('.listModules li[data-quest*="' + query.toLowerCase() + '"]').show();
   }
 
-  // if( e.keyCode == 13 ){
-    
-  // }
+});
 
+$('.infoUsersBlock .nav li').click(function(){
+  $('.infoUsersBlock .nav li.active').removeClass('active');
+  $(this).addClass('active');
+
+  $('nav .tab').hide();
+  $('nav .tab[for="' + $(this).attr('id') + '"]').show();
 });
 
 </script>

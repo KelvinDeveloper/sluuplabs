@@ -13,6 +13,8 @@
 
 				if( event.button == 2 ){
 
+					$('.rCliked').removeClass('rCliked');
+
 					This = $(this);
 
 					$(this).addClass('rCliked');

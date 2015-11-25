@@ -28,7 +28,7 @@ if( $Array ){
 		$Array['HeaderMenu']	= 'Default';
 
 		$Index['Title'] = 'Home';
-		$Index['Url']	= '/index';
+		$Index['Url']	= 'index';
 
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Config.pjc', $Array );
 		$Function->GenerateIni( $Location . $Array['nome_projeto'] . '/Pages/1_index.pjc', $Index );

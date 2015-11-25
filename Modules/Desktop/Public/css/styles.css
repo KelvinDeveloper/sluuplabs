@@ -1,4 +1,3 @@
-
 body {
 	overflow: hidden;
 	background-color: rgba(25, 118, 210, 0.94);
@@ -30,33 +29,26 @@ body {
 #desktop .account-user{
 	width: 58px;
 	height: 58px;
-	position: absolute;
-	right: 160px;
-	top: 15px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;
 	display: none;
 	cursor: default;
-	z-index: 50;
+	float: left;
+	padding: 10px;
+	margin-top: 4px;
+
 	transition: right .5s;
 	transition-delay: .3s;
 }
 
 #desktop .infoUser {
-	right: 11px;
-	position: absolute;
-	top: 30px;
-	z-index: 50;
+	color: #ecf0f1;
+	float: left;
+	padding: 20px;
+
 	transition: right .5s;
 	transition-delay: .3s;
-	color: #ecf0f1;
-}
-
-#desktop #logout i {
-	font-size: 58px;
-	margin-right: 10px;
-	cursor: default;
 }
 
 #desktop #logout {
@@ -67,6 +59,11 @@ body {
 #desktop #start {
 	position: absolute;
 	background-color: #fff;
+	background-image: url('/Public/img/icon/lab-icon.png');
+	background-size: 100%;
+	background-position: center;
+	width: 52px;
+	height: 52px;
 	border-radius: 50%;
 	padding: 10px;
 	border: none;
@@ -74,6 +71,7 @@ body {
 	left: 15px;
 	cursor: default;
 	z-index: 99999;
+
 	transition: background .2s;
 }
 
@@ -83,13 +81,13 @@ body {
 
 #desktop #openStart{
 	width: 20%;
-	height: 100%;   
+    height: 100%;
     position: absolute;
     z-index: 10;
     top: 0px;
     left: -99999px;
     margin: 0px;
-	padding-right: 2%;
+    /* padding-right: 2%; */
     background-color: rgba(36, 39, 63, 0.6);
     color: #FFF;
     overflow-y: auto;
@@ -98,16 +96,11 @@ body {
 }
 
 .infoUsersBlock {
-
-	position: absolute;
 	background-color: rgba(36, 31, 31, 0.61);
-	padding: 14% 50%;
-	right: 0%;
-}
-.infoUserLeft {
-	right: 41px;
-	position: absolute;
-	top: -4px;
+    width: 100%;
+    height: 22%;
+    padding-bottom: 2%;
+    padding-left: 10%;
 }
 
 #desktop .buscarApps {
@@ -115,6 +108,7 @@ body {
 	left: 72px;
 	bottom: 0px;
 	position: absolute;
+	margin-right: 10%;
 
 }
 #desktop .buscarApps input {
@@ -138,26 +132,56 @@ body .window{
 	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
 	position: absolute !important;
 }
+
+body .window .header .drag{
+    height: 26px;
+    line-height: 26px;
+    margin-left: 6%;
+    position: absolute;
+    text-align: center;
+    width: 85%;
+    cursor: default;
+}
+
 body .window .header{
 	display: none;
-	height: 35px;
+	height: 26px;
 	margin: -15px;
-	margin-bottom: -16px;
-	padding: 10px;
+	margin-bottom: 5px;
+	background-color: rgba(2, 2, 2, 0.08);
 }
 
 body .window .header .options i{
 	float: right;
-	font-size: 26px;
+	font-size: 18px;
 	cursor: default;
 }
 
-body .window .header i.close{	
-	color: #c0392b;
+body .window .header i{
+	display: inline-block;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	width: 26px;
+	background-color: #ccc;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+body .window .header i:hover{
+	opacity: .8;
+}
+
+body .window .header i.close{
+	background-color: #c0392b;
+	color: #fff;
 }
 
 body .window .header i.maximize{
 
+	border-left: solid 1px rgba(2, 2, 2, 0.08);
+	border-right: solid 1px rgba(2, 2, 2, 0.08);
     -webkit-transition: transform .3s;
     -moz-transition: transform .3s;
     -ms-transition: transform .3s;
@@ -175,13 +199,17 @@ body .window .header i.maximize.active{
 }
 
 body .window .header i.openThisWindow {
-	cursor: pointer;
+	cursor: default;
 }
 /*#desktop .menuRigthClick{
 	position: absolute;
 	display: none;
 	top: 0;
 }*/
+body .window .content{
+	overflow: auto;
+	height: 98%;
+}
 ul.rClickMenu {
 	list-style: none;
 	background-color: #fff;
@@ -212,6 +240,7 @@ ul.rClickMenu li:hover {
 }
 ul.rClickMenu li i {
 	float: left;
+	margin-right: 5px;
 }
 #desktop #menu-desk-bottom{
 	position: absolute;
@@ -245,10 +274,8 @@ ul.rClickMenu li i {
 	top: 0;
 }
 #desktop .listModules{
-
-	padding-top: 30%;
 	margin: 0;
-	width: 100%;
+	width: 95%;
 }
 #desktop .listModules li{
 	border: 1px solid transparent;
@@ -256,7 +283,6 @@ ul.rClickMenu li i {
     cursor: default;
     float: left;
     list-style: outside none none;
-    margin: 10px auto;
     padding: 10px;
     text-align: center;
     transition: all 0.2s ease 0s;
@@ -307,4 +333,184 @@ body{
 	left: 50%;
 	top: 60%;
 	margin-left: -16px;
+}
+
+/* TERMINAL STYLE */
+.terminal input{
+	outline: none;
+}
+
+/*STYLE DOS ICONES */
+.minimizedIcons {
+	position: absolute;
+	background-color: #000;
+	border-radius: 50%;
+	padding: 10px;
+	border: none;
+	bottom: 15px;
+	cursor: default;
+	z-index: 99999;
+	transition: background .2s;
+	float: left;
+}
+
+.lancador{
+    bottom: 0;
+    display: inline-block;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+
+	background: -moz-linear-gradient(top, transparent 0%, rgba(3,3,3,0.5) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(3,3,3,0.5)));
+	background: -webkit-linear-gradient(top, transparent 0%, rgba(3,3,3,0.5) 100%);
+	background: -o-linear-gradient(top, transparent0%, rgba(3,3,3,0.5) 100%);
+	background: -ms-linear-gradient(top, transparent 0%, rgba(3,3,3,0.5) 100%);
+	background: linear-gradient(to bottom, transparent 0%, rgba(3,3,3,0.5) 100%);
+}
+
+.lancador ul{
+	height: 52px;
+	margin-left: 75px;
+	padding: 0;
+}
+
+.lancador ul li{
+	float: left;
+	width: 52px;
+	height: 52px;
+	margin: 0 10px;
+	list-style: none;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+.lancador ul li:hover{
+	margin-top: -5px;
+	opacity: .8;
+}
+
+.lancador ul li img{
+	width: 52px;
+	height: 52px;	
+}
+
+.infoUsersBlock .nav{
+	width: 100%;
+	display: inline-block;
+	padding: 0;
+	margin: 20px 0 20px -10%;
+}
+
+.infoUsersBlock .nav li{
+	list-style: none;
+	margin: 10px;
+	width: 25%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 28px;
+	text-align: center;
+	border-bottom: solid 2px transparent;
+	float: left;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+
+.infoUsersBlock .nav li:hover{
+	border-bottom: 2px solid rgba(255, 255, 255, 0.49);
+}
+
+.infoUsersBlock .nav li.active{
+	border-bottom: solid 2px #fff;
+}
+
+nav .tab{
+	display: none;
+}
+
+nav .work{
+	padding: 0;
+	margin: 0;
+	margin-left: -10%;
+}
+
+nav .work ul{
+	padding: 0;
+	width: 95%;
+	margin: auto;
+}
+
+nav .work li{
+	list-style: none;
+	width: 85%;
+	height: 35px;
+	line-height: 35px;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: rgba(36, 31, 31, 0.61);
+	border: solid 2px transparent;
+	cursor: default;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+nav .work li.rCliked{
+	background-color: #fff;
+	border: 2px solid rgba(255, 255, 255, 0.49);
+}
+
+nav .work li:hover{
+	border: 2px solid rgba(255, 255, 255, 0.49);
+}
+
+nav .work li.active{
+	border: 2px solid #fff;
+}
+
+nav .work li:focus{
+	background-color: #fff;
+}
+
+.mdl-layout-title input.edit{
+    background-color: transparent;
+    border: medium none;
+    color: #fff;
+    font-size: 22px;
+    height: 40px;
+}
+
+.listSUsers{
+	margin: 0;
+	padding-left: 0;
+	height: 400px;
+	overflow: auto;
+}
+
+.listSUsers li{
+	max-height: 50px;
+	width: 300px;
+	line-height: 50px;
+}
+
+.listSUsers li .img{
+	width: 45px;
+	height: 45px;
+	margin: auto 0;
+	background-size: cover;
+	display: inline-block;
+	border-radius: 50%;
+	float: left;
+}
+
+.listSUsers li span{
+	height: 50px;
+	line-height: 50px;
+	display: inline-block;
+	margin-left: 5px;
 }

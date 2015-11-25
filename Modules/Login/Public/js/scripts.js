@@ -5,9 +5,12 @@ var cssBoxLogin = function(){
 
 $(document).ready(function(){
 
+
 	$('#boxLogin').fadeIn(200);
 
 	$('#boxLogin button[type="submit"]').click(function(){
+
+		$('#Logar').attr('disabled', true);
 
 		$('.defaultLoader').show();
 
@@ -23,12 +26,13 @@ $(document).ready(function(){
 		    success: function(Return){ 
 		    	if( Return.status == false ){
 		    		Alert( Return.status, '<i class="material-icons">report_problem</i> ' + Return.message );
+		    		$('#Logar').attr('disabled', false);
 		    	} else if( Return.status == true ){
 
 		    		window.history.pushState( date, false, Url );
 
 		    		$('#boxLogin .account-user').css({
-		    			'background-image': 'url(\'' + Return.user.Folder + '/' + Return.user.Image + '\')'
+		    			'background-image': 'url(\'' + Return.user.Image + '\')'
 		    		});
 		    		$('#boxLogin .bodyLogin').fadeOut(400);
 		    		setTimeout(function(){

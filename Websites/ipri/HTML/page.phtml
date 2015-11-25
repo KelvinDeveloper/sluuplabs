@@ -1,0 +1,45 @@
+<?php 
+
+if( !$Function->isAjax() ){
+  include ROOT . '/' . $Path . 'Head.phtml';
+  include ROOT . '/' . $Path . 'Menu.phtml';
+  echo '<div class="content">';
+}
+
+$Assunto = explode( '-', $Url[2] );
+$Assunto = $Assunto[0];
+
+?>
+
+<h1><span>Blog</span></h1>
+
+<?php
+
+$Result = $Database->Fetch( 'blog', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "publish = '1'" , 'id_blog DESC' );
+while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
+	echo '<div class="post card-wide mdl-card mdl-shadow--2dp openFunction" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Post->title ) ) ) . '" title="' . addslashes( $Post->title ) . ' | ' . Title . '">';
+		echo '<div class="mdl-card__title" style="background-image:url(\'' . $Post->image . '\')">';
+		echo '<span class="mdl-card__title-text">' . $Post->title . '</span>';
+		echo '</div>';
+		echo 
+		'<div class="mdl-card__actions mdl-card--border">
+			
+			<div class="fb-like fL facebook" data-share="true" data-href="http://' . implode( '.', $Domain ) . '/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( $Post->title ) ) . '"></div>
+			<div class="views">
+			<i class="material-icons fL" style="margin-right: 5px;">&#xE8F4;</i> <span class="fL">' . ( empty( $Post->visitas ) ? 0 : $Post->visitas ) . ' visita(s)</span>
+			<i class="material-icons fL" style="margin-left: 10px;">&#xE616;</i> <span class="fL">' . $Post->Date . '
+			</span></div>
+	    	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect fR">
+	      		Ler...
+	    	</a>
+	  	</div>';
+	echo '</div>';
+}
+
+?>
+
+<?php 
+if( !$Function->isAjax() ){
+  echo '</div>';
+  include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

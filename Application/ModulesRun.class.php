@@ -40,7 +40,9 @@ class Modules{
 				$Translate,
 				/* autoSystem */
 				$autoSystem,
-				$reg;
+				$reg,
+				/* Explorer */
+				$Explorer;
 
 		/* Se for protegido, manda para Login */
 		$Services->Run('Login');
@@ -53,7 +55,6 @@ class Modules{
 			header( 'Location: ' . $_SESSION['HeaderURL'] );
 		}
 		
-
 		/* Verifica se existe a view */
 		if(	file_exists( ROOT . '/Modules/' . $Module . '/' . $View . '.phtml' ) ){
 
@@ -61,7 +62,6 @@ class Modules{
 			if( file_exists( ROOT . '/Modules/' . $Module . '/reg.ini' ) ){
 				$reg_module = parse_ini_file( ROOT . '/Modules/' . $Modules . '/reg.ini' );
 			}
-
 			/* Carregar HEAD HTML */
 			if( !$Function->isAjax() ){
 				include ROOT . '/Public/Theme/Default/Head.phtml';

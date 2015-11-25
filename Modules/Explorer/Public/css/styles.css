@@ -1,0 +1,83 @@
+.content, #explorerContent{
+	height: 100%;
+}
+
+.eIcons{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+
+.eIcons li{
+	list-style: none;
+	float: left;
+	padding: 5px;
+	width: 62px;
+	text-align: center;
+	cursor: default;
+	border-radius: 2px;
+	margin: 5px 8px;
+}
+
+.eIcons li:hover{
+	opacity: .8
+}
+
+.eIcons li span{
+	display: block;
+	height: 33px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	width: 62px;
+	line-height: 16px;
+	position: relative;
+}
+
+.eIcons li span:hover{
+	background-color: #fff;
+}
+.eIcons li .mdl-progress{
+	width: 62px;
+	margin-top: -6px;
+	position: absolute;
+}
+
+.eIcons li i{
+	font-size: 55px;
+}
+
+.eIcons li .uploadifive-button i{
+	font-size: 36px !important;
+	margin-left: -5px;
+}
+
+.eIcons li button{
+	height: 62px;
+	width: 62px;
+}
+
+.eIcon{
+	width: 56px;
+	height: 56px;
+	display: inline-block;
+	background-size: cover;
+	border-radius: 2px;
+}
+.eIcons .rCliked{
+	background-color: rgb(224, 224, 224);
+}
+
+.openFile{
+    background-color: #ccc;
+    bottom: 0;
+    left: 0;
+    padding: 11px;
+    position: absolute;
+    width: 97%;
+}
+.uploadifive-button.mdl-button input{
+	height: 57px;
+}

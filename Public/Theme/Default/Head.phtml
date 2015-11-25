@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="SluupApp">
 <head>
 	<title><?php echo ( !empty( $Conf['ModelInfo']['Title'] ) ? $Conf['ModelInfo']['Title'] . ' | ' . Title : Title ); ?></title>
+	<meta charset="UTF-8">
 	<script type="text/javascript">
 	var Url = '<?php echo $_SESSION['HeaderURL'] ?>';
 		date = new Date();
@@ -17,8 +18,14 @@
 	<script type="text/javascript" src="/Public/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/Public/js/rClick.js"></script>
 	<script type="text/javascript" src="/Public/js/jquery.ruler.js"></script>
+	<script type="text/javascript" src="/Public/js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="/Public/js/jquery.uploadifive.min.js"></script>
+	<script type="text/javascript" src="/Application/AngularController/main-controller.js"></script>
+	
+
 	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 	<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
 </head>
-<body>
-<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate progress-demo defaultLoader"></div>
+<body ng-controller="MainController">
+<div class="mdl-spinner mdl-js-spinner is-active slp-loading"></div>

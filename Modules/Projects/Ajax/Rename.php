@@ -33,52 +33,61 @@ if( !in_array( $filename . '.pjc', $AllPages ) ){
 		$Return['Message'] = 'Erro ao abrir arquivo';
 	}
 
+	$pUrl = $Function->RemoveAccents( $_POST['title'] );
+	$pUrl = str_replace( array( '.', ' ', '_' ), '-', $pUrl );
+
+	$nName = $Quant . '_' . $pUrl . '.pjc';
+
 	foreach ( $Open as $k => $v ){
 
 		if( $k == 'Title' ){
 			$New[ $k ] =  $_POST['title'];
 		}
 		else if( $k == 'Url' ){
-
-			$pUrl = $Function->RemoveAccents( $_POST['title'] );
-			$pUrl = str_replace( array( '.', ' ', '_' ), '-', $pUrl );
-
 			$New[ $k ] = $pUrl;
-
+		} 
+		else if( $k == 'File' ){
+			$New[ $k ] = $nName;
 		} else {
 			$New[ $k ] = $v;
 		}
 
 	}
 
-	$pUrl = $Quant . '_' . $pUrl . '.pjc';
+	rename( str_replace( '/Pages/', '/', $Location ) . 'Itens/' . $Open['Url'] , str_replace( '/Pages/', '/', $Location ) . 'Itens/' . $pUrl );
 
 	if( !unlink( $Location . $_POST['page'] ) ){
 		$Return['Status'] = false;
 		$Return['Message'] = 'Erro ao deletar arquivo antigo';
 	}
 
-	if( !$Function->GenerateIni( $Location . $pUrl, $New ) ){
+	if( !$Function->GenerateIni( $Location . $nName, $New ) ){
 		$Return['Status'] = false;
 		$Return['Message'] = 'Erro ao gerar arquivo';
+	}
+
+	foreach( $New as $key => $value ){
+		$Return[ $key ] = $value;
 	}
 
 } 
 
 else if( $filename . '.pjc' == $Old ){
+
+	$Open = parse_ini_file( $Location . $_POST['page'] );
+
 	$Return['Status'] = true;
 	$pUrl = $Consult[ $filename . '.pjc' ];
+
+	foreach( $Open as $key => $value ){
+		$Return[ $key ] = $value;
+	}
 
 } else {
 
 	$Return['Status'] = false;
 	$Return['Message'] = 'Já existe uma página com este título';
 
-}
-
-if( $Return['Status'] == true ){
-	$Return['File']  = $pUrl;
-	$Return['Title'] = $_POST['title'];
 }
 
 echo json_encode( $Return );

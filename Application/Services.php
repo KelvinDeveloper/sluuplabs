@@ -69,10 +69,20 @@ $ManagerService = array(
 	'autoSystem'	=> array(
 		'Dir'		=> 'autoSystem/autoSystem'
 	),
+
 	'Terminal'	=> array(
 		'Dir'		=> 'Terminal/Terminal'
 	),
+
 	'Projects'	=> array(
 		'Dir'		=> 'Projects/Projects'
+	),
+	
+	'Explorer'	=> array(
+		'Dir'		=> 'Explorer/Explorer'
+	),
+
+	'Upload'	=> array(
+		'Dir'		=> 'Upload/Upload'
 	),
 ); // Ends

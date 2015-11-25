@@ -37,7 +37,9 @@ class Services {
 				/* Terminal */
 				$Terminal,
 				/* Projects */
-				$Projects
+				$Projects,
+				/* Explorer */
+				$Explorer
 				;
 
 		$thisService = $ManagerService[ $Service ];

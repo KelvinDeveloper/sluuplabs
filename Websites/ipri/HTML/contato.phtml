@@ -1,0 +1,29 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+} ?>
+
+
+<div class="w80">
+
+	<h1><span>Entre em contato</span></h1>
+
+	<div class="mdl-cell mdl-cell--6-col fL">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1839.6544431008615!2d-48.5767601!3d-22.7539154!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0xd4bdfb98d4dbfc9e!2sIgreja+Presbiteriana+Renovada+Internacional+Minist%C3%A9rio+Marlbo!5e0!3m2!1spt-BR!2sus!4v1442971125436" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>
+
+	<div class="mdl-cell mdl-cell--6-col fR">
+		<?php include __DIR__ . '/blocks/contato.php'; ?>
+	</div>
+
+</div>
+
+<?php include __DIR__ . '/blocks/ultimas-postagens.php'; ?>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

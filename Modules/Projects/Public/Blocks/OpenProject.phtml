@@ -4,6 +4,11 @@
 
 $Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/Projects/' ;
 
+if( !file_exists( $Location ) ){
+	mkdir( $Location );
+	chmod( $Location, 0777 );
+}
+
 $Projects = dir( $Location );
 
 echo '<h1>Selecione o projeto...</h1>';
