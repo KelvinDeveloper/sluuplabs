@@ -464,11 +464,12 @@ $(document).on('click', '#modal .close', function(){
 function editorHTML( Array ){
 
     var editorHTML = new tinymce.Editor( Array.Element, {
-                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern autoresize "],
-                toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify " ],
+                plugins: [ "autolink charmap emoticons hr insertdatetime link lists paste table textcolor textpattern autoresize code"],
+                toolbar: [ "undo redo | bold italic underline fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify | table | code" ],
                 insertdatetime_formats: ["%d/%m/%Y", "%Y-%m-%d", "%H:%M", "%H:%M:%S"],
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-                menubar: "edit insert format table",
+                menubar: false,
+                // menubar: "edit insert format table",
 
                 language  : 'pt_BR',
                 selector  : '.tinymce',
