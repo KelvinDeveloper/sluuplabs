@@ -52,6 +52,12 @@ $Usuarios = array(
 			'Type'	=>	'phone'
 		),
 
+		'Password'	=> array(
+			'Label'	=>	'Senha',
+			'Type'	=>	'password',
+			'Lenght'	=>	255
+		),
+
 		'wg'	=>	array(
 			'Type'	=>	'hidden'
 		),

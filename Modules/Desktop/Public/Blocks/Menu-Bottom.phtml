@@ -26,7 +26,7 @@
     <div class="infoUserLeft">
       <div class="account-user" style="background-image: url('<?php echo ( $_COOKIE['ActiveUserLogin'] && $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] ? $_COOKIE['HistoryUsers'][ $_COOKIE['ActiveUserLogin'] ]['Image'] : '/img/icon/account-user.svg' ) ?>')"></div>
 
-      <div class="infoUser"><b><?php echo $_SESSION['user']['Nome'] . '</b><br>' . $_SESSION['user']['Email'] ?></b></div>
+      <div class="infoUser"><b><?php echo $_SESSION['user']['Nome'] . '</b><!--br>' . $_SESSION['user']['Email'] ?></b--></div>
     </div>
 
     <ul class="nav">
@@ -57,14 +57,27 @@
   <div for="work" class="work tab">
     <ul>
       <?php
-        $sqlWG = $Database->Fetch('work_groups', false, "user_create='" . $_SESSION['user']['id_user'] . "' OR user='" . $_SESSION['user']['id_user'] . "'");
+        
+        $sqlWG = " SELECT d.*, p.name as parent_name FROM " . BD . ".work_groups d
+
+        LEFT JOIN " . BD . ".work_groups p
+        ON d.ide_work_group = p.id_work_group
+
+        WHERE d.user_create='" . $_SESSION['user']['id_user'] . "' OR d.user='" . $_SESSION['user']['id_user'] . "'";
+
+        $sqlWG = $PDO->query( $sqlWG );
+
         while ( $WG = $sqlWG->fetch(PDO::FETCH_OBJ) ){
       ?>
       <li>
-        <span class="titleGroup"><?=$WG->name?></span> <i class="material-icons fR">done</i>
+        <?php if( !empty( $WG->name ) ){ ?>
+        <span class="titleGroup"><?=$WG->name;?></span> <i class="material-icons fR">done</i>
         <i class="material-icons fR openModal" href="/Desktop/Ajax/WorkGroup/<?=$WG->id_work_group?>" title="<i class='material-icons fL'>&#xE869;</i> Gerenciar Grupo de Trabalho" style="font-size: 16px;margin-right: 15px;margin-top: 5px;" data-size="large">&#xE869;</i>
       </li>
-      <?php } ?>
+      <?php } else { ?>
+      <span class="titleGroup"><?=$WG->parent_name;?> <i>(Compartilhado)</i></span> <i class="material-icons fR">done</i>
+      <?php }
+      } ?>
     </ul>
   </div>
 

@@ -485,17 +485,78 @@ nav .work li:focus{
     height: 40px;
 }
 
-.listSUsers{
+.listUsersSaved{
 	margin: 0;
-	padding-left: 0;
-	height: 400px;
-	overflow: auto;
+	padding: 0;
+}
+
+.listUsersSaved li{
+	width: 100px;
+	height: 130px;
+	border-radius: 2px;
+	box-shadow: 0 0 5px #999;
+	margin: 5px 10px;
+	list-style: none;
+	position: relative;
+	overflow: hidden;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+.listUsersSaved li:hover{
+	box-shadow: 0 0 10px #666;	
+}
+
+.listUsersSaved li span.name{
+	position: absolute;
+	bottom: 0;
+	padding: 5px;
+	text-align: center;
+	background-color: #ccc;
+	width: 95%;
+	display: inline-block;
+}
+
+.listUsersSaved li span.img{
+	width: 80px;
+	height: 80px;
+	margin: auto 0;
+	background-size: cover;
+	display: inline-block;
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	margin-left: -40px;
+	top: 5px;
+	background-image: url('/Public/img/icon/account-user.svg');
+	background-color: #2e8ece;
+}
+
+.listSUsers{
+    background-color: #fff;
+    box-shadow: 0 0 5px #999;
+    height: 130px;
+    margin: -25px 0 0;
+    overflow: auto;
+    padding: 5px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+
+	-webkit-transition: all .2s;
+	transition: all .2s;
 }
 
 .listSUsers li{
 	max-height: 50px;
 	width: 300px;
 	line-height: 50px;
+	border-bottom: solid 1px #ccc;
+	cursor: pointer;
+}
+.listSUsers li:hover{
+	background-color: #ccc;
 }
 
 .listSUsers li .img{
@@ -506,6 +567,8 @@ nav .work li:focus{
 	display: inline-block;
 	border-radius: 50%;
 	float: left;
+	background-image: url('/Public/img/icon/account-user.svg');
+	background-color: #2e8ece;
 }
 
 .listSUsers li span{

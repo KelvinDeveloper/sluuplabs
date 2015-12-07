@@ -310,7 +310,7 @@ class autoSystem{
 					if( $Data['Security'] === true && $Url[2] != 'Criar-Usuario' ){
 						$HTML .= '<input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="Senha Atual" name="Atual' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fldAtual' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"><br>';
 					}
-					$HTML .= '<input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+					$HTML .= '<input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					if( $Data['Security'] === true ){
 						$HTML .= '<br><input type="password" maxlength="' . $Data['Lenght'] . '" placeholder="Repetir ' . ( $Url[2] != 'Criar-Usuario' ? 'Nova Senha' : 'Senha' ) . '" name="ReNova' . $Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fldReNova' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '"><br>';
 					}
@@ -488,8 +488,13 @@ class autoSystem{
 		$new = true;
 		$Query = '';
 
+		if( is_numeric( $Url[3] ) ){
+			$new = false;
+		}
+
 		if( isset( $_POST['post'] ) ){
 			$post = explode( '#&#', $_POST['post'] );
+			$save = true;
 			unset( $_POST );
 			foreach ( $post as $thisPost ) {
 				$value = explode( '#=#', $thisPost );
@@ -497,13 +502,22 @@ class autoSystem{
 					$value[0] != 'onUpdate'  &&
 					$value[0] != 'alterSess'
 				)
-				$_POST[ $value[0] ] = $value[1];
+
+				switch( $Array['Fields'][ $value[0] ]['Type'] ){
+					
+					case 'password':
+						if( empty( $value[1] ) ){
+							$save = false;
+						} else {
+							$value[1] = md5( $value[1] );
+						}
+						break;
+				}
+
+				if( $save ){
+					$_POST[ $value[0] ] = $value[1];
+				}
 			}
-		}
-
-
-		if( is_numeric( $Url[3] ) ){
-			$new = false;
 		}
 
 		if( $new ){
@@ -538,6 +552,7 @@ class autoSystem{
 			
 			foreach( $Array['Fields'] as $Field => $Data ){
 				if( $Field != 'register' && $Field != 'AddUser' ){
+					if( $Data['Type'] != 'password' || ( $Data['Type'] == 'password' && !empty( $_POST[ $Field ] ) ) )
 					$Query .= $Field . " = '" . $_POST[ $Field ] . "', ";
 				}
 			}
