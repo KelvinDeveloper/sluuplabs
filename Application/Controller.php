@@ -20,6 +20,13 @@ include ROOT . '/Application/ModulesRun.class.php';
 /* Inicia a classe de modulos */
 $Modules = new Modules();
 /* Redireciona para outro módulo */
+/* Altera grupo de trabalho */
+if( $Url[1] === 'AlterGroup' ){
+	if( $Database->Search( 'work_groups', false, " ( id_work_group = '" . $Url[2] . "' || ide_work_group = '" . $Url[2] . "' ) && ( user_create = " . $_SESSION['user']['id_user'] . " OR user = " . $_SESSION['user']['id_user'] . ' ) ', 'user_create DESC', false, 1 ) ){
+		$_SESSION['user']['Path'] = $Url[2];
+	}
+	unset( $Url );
+}
 if( $Url[1] == 'Cron' ){ // Arquivos de Cron
 	include ROOT . '/Application/System/Cron/' . str_replace( '.cron', '.php', $Url[2] );
 }
@@ -55,7 +62,6 @@ else if( $Conf['Type'] == 2 ){
 	} else {
 		echo 'Url inixistente';
 	}
-
 } else {
 
 	// Verifica se usuario está logado para ler os registros
@@ -85,5 +91,4 @@ else if( $Conf['Type'] == 2 ){
 		}
 	}
 }
-
 ob_end_flush();

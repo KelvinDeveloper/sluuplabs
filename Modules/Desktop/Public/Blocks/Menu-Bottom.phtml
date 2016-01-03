@@ -69,13 +69,21 @@
 
         while ( $WG = $sqlWG->fetch(PDO::FETCH_OBJ) ){
       ?>
-      <li>
+      <li class="openModal" 
+          data-size="small"
+          title="Alterar Grupo de Trabalho"
+          href="/Desktop/Ajax/AlterWorkGroup/<?=( $WG->user_create == $_SESSION['user']['id_user'] ? $WG->id_work_group : $WG->ide_work_group );?>">
         <?php if( !empty( $WG->name ) ){ ?>
-        <span class="titleGroup"><?=$WG->name;?></span> <i class="material-icons fR">done</i>
+
+        <span class="titleGroup"><?=$WG->name;?></span> 
+
+        <?php if( $_SESSION['user']['Path'] == $WG->id_work_group ){ ?><i class="material-icons fR">done</i><?php } ?>
+
         <i class="material-icons fR openModal" href="/Desktop/Ajax/WorkGroup/<?=$WG->id_work_group?>" title="<i class='material-icons fL'>&#xE869;</i> Gerenciar Grupo de Trabalho" style="font-size: 16px;margin-right: 15px;margin-top: 5px;" data-size="large">&#xE869;</i>
       </li>
       <?php } else { ?>
-      <span class="titleGroup"><?=$WG->parent_name;?> <i>(Compartilhado)</i></span> <i class="material-icons fR">done</i>
+      <span class="titleGroup"><?=$WG->parent_name;?> <i>(Compartilhado)</i></span> 
+      <?php if( $_SESSION['user']['Path'] == $WG->ide_work_group ){ ?><i class="material-icons fR">done</i><?php } ?>
       <?php }
       } ?>
     </ul>

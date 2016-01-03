@@ -32,6 +32,7 @@ class Database{
 			$List = $PDO->query( $query );
 			return $List->fetch(PDO::FETCH_OBJ);
 		} else {
+
 			return 'ERROR SYNTAX';
 			exit;
 		}
