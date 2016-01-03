@@ -492,7 +492,7 @@ $(document).on('dblclick', '.eIcons:visible li', function(){
     switch( JSON.Type ){
 
         case 'FOLDER':
-            $('.eIcons').parent('div').load( ( $('.eIcons').data('location') + $(this).find('span').text() + '?' + $('.eIcons').data('filtro') ) );
+            $('.eIcons').parent('div').load( '/' + ( $('.eIcons').data('location') + $(this).find('span').text() + '?' + $('.eIcons').data('filtro') ) );
             break;
     }
 
@@ -521,7 +521,7 @@ $(document).on('click', '#navPrev', function(){
         }
     };
 
-    $('.eIcons').parent('div').load( NewUrl + '?' + $('.eIcons').data('filtro') );
+    $('.eIcons').parent('div').load( '/' + NewUrl + '?' + $('.eIcons').data('filtro') );
 });
 
 $(document).on('click', '#explorerContent', function(){

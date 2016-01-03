@@ -70,7 +70,6 @@
         while ( $WG = $sqlWG->fetch(PDO::FETCH_OBJ) ){
       ?>
       <li class="openModal" 
-          data-size="small"
           title="Alterar Grupo de Trabalho"
           href="/Desktop/Ajax/AlterWorkGroup/<?=( $WG->user_create == $_SESSION['user']['id_user'] ? $WG->id_work_group : $WG->ide_work_group );?>">
         <?php if( !empty( $WG->name ) ){ ?>

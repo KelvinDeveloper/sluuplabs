@@ -166,7 +166,7 @@ class autoSystem{
 			$HTML .= '</thead>';
 			$HTML .= '<tbody>';
 			
-				$Result = $Database->Fetch( $Array['bd'], false, false, $Array['auto_increment'] . ' DESC' );
+				$Result = $Database->Fetch( $Array['bd'] . ( isset( $Array['Where'] ) ? ' ' . $Array['Where'] : '' ), false, false, $Array['auto_increment'] . ' DESC' );
 				while ( $Value = $Result->fetch(PDO::FETCH_OBJ) ){
 					$HTML .= '<tr href="/' . $Url[1] . '/' . $Value->$Array['auto_increment'] . '" data-module="' . $Url[1] . '" data-id="' . $Value->$Array['auto_increment'] . '" for="' . $Url[1] . '">';
 						
@@ -221,13 +221,13 @@ class autoSystem{
 
 					$HTML .= '
 					<td>
-						<button id="' . $Value->$Array['auto_increment'] . '-menu"
+						<button id="' . $Array['auto_increment'] . $Value->$Array['auto_increment'] . '-menu"
 						        class="mdl-button mdl-js-button mdl-button--icon">
 						  <i class="material-icons">more_vert</i>
 						</button>
 
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-						    for="' . $Value->$Array['auto_increment'] . '-menu">
+						    for="' . $Array['auto_increment'] . $Value->$Array['auto_increment'] . '-menu">
 						  <li class="mdl-menu__item" onclick="editRegister( $(this).parents(\'tr\') )"><i class="material-icons">&#xE254;</i> ' . _('Editar') . '</li>
 						  <li class="mdl-menu__item item_delete"><i class="material-icons">&#xE872;</i> ' . _('Excluir') . '</li>
 						</ul>
@@ -336,7 +336,7 @@ class autoSystem{
 							$Data['Options'][ $v->$Data['Key'] ] = $v->$Data['Value'];
 						}
 					}
-
+					$HTML .= '<option>Selecione</option>';
 					foreach ( $Data['Options'] as $k => $v ) {
 						$HTML .= '<option value="' . $k . '" ' . ( $k == $Value->$Field ? 'selected="selected"' : '' ) . '>' . $v . '</option>';
 
@@ -411,10 +411,15 @@ class autoSystem{
 
 					case 'files':
 
+						if(! file_exists( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] ) ){
+							mkdir( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] );
+							chmod( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1], 0777 );
+						}
+
 						if( $new ){
 							$Folder = $this->tmp( $Array );
 						} else {
-							$Folder = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $Url[2];
+							$Folder = '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] . '/' . $Url[2];
 						}
 						
 						$HTML .= '<div class="multi_files" id="' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></div>
@@ -564,15 +569,23 @@ class autoSystem{
 
 		if( $new ){
 
+			$id = $PDO->lastInsertId();
+
 			$move = false;
 
 			foreach( $Array['Fields'] as $Field => $Data ){
 
 				if( $Data['Type'] == 'files' ){
-					$tmp = $Database->Search( $Array['bd'], $Field, $Array['auto_increment'] . '=' . $PDO->lastInsertId() );
-					$move[ $tmp->$Field ]['new'] = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $PDO->lastInsertId();
+
+					if(! file_exists( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] . '/' . $id ) ){
+						mkdir( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] . '/' . $id );
+						chmod( ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] . '/' . $id, 0777 );
+					}
+
+					$tmp = $Database->Search( $Array['bd'], $Field, $Array['auto_increment'] . '=' . $id );
+					$move[ $tmp->$Field ]['new'] = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $id;
 					$move[ $tmp->$Field ]['Field'] = $Field;
-					$move[ $tmp->$Field ]['Id'] = $PDO->lastInsertId();
+					$move[ $tmp->$Field ]['Id'] = $id;
 				}
 			}
 

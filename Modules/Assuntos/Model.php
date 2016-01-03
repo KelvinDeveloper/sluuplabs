@@ -5,7 +5,7 @@ $Services->Run('autoSystem');
 $assuntos = $autoSystem->create(
 	array(
 
-		'bd'				=>	'assuntos',
+		'bd'				=>	'assuntos_' . $_SESSION['user']['Path'],
 		'auto_increment'	=>	'id_assunto',
 
 		'Fields'	=> array(
@@ -19,6 +19,7 @@ $assuntos = $autoSystem->create(
 
 		'Grid'	=> array(
 			'Width'		=> '100%',
+			'Hide'		=> array('id_assunto')
 		),
 
 		'Form'	=>	array(
