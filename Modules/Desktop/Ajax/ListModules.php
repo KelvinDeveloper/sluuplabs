@@ -7,7 +7,8 @@ while ( $Module = $Modules->read() ){
 		$Info = parse_ini_file( ROOT . '/Modules/' . $Module . '/Info.ini' );
 		if( $Info['ListStart'] == true ){
 
-			if( $Module != 'Usuarios' || $Create->user_create === $_SESSION['user']['id_user'] ){
+			if( ( $Module != 'Usuarios' || $Create->user_create === $_SESSION['user']['id_user'] ) &&
+				( $Module != 'Terminal' || $Module == 'Terminal' && $_SESSION['user']['id_user'] == '1' ) ){
 
 				$ListModules[ $Module ] = array(
 					'name'	=> $Module,
