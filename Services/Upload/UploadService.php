@@ -34,10 +34,10 @@ class Upload extends Explorer{
 			}
 		}
 
-	if( strstr( $_POST['Location'], '/tmp/' ) || strstr( $_POST['Location'], '/Application/Users/' ) ){
+	if( strstr( $_POST['Location'], '/tmp/' ) || strstr( $_POST['Location'], '/Application/Groups/' ) ){
 		$TargetFile = ROOT . $_POST['Location'] . $FileName;
 	} else {
-		$TargetFile = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . $_POST['Location'] . $FileName;
+		$TargetFile = ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . $_POST['Location'] . $FileName;
 	}
 
 	$Location = explode( 'sluup', $TargetFile );

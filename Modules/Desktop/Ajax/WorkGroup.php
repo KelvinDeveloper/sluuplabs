@@ -18,12 +18,35 @@
     <div class="page-content">
     
       <label for="sUser"><h1>Adicionar um usuário ao grupo de trabalho:</h1> </label> <br>
-      <div class="mdl-textfield mdl-js-textfield">
+      <div class="mdl-textfield mdl-js-textfield" style="margin: -50px 0 0;">
         <input class="mdl-textfield__input" type="text" id="sUser" />
-        <label class="mdl-textfield__label" for="sUser">Nome ou email do usuário</label>
+        <label class="mdl-textfield__label" for="sUser">Buscar por nome ou email do usuário</label>
       </div>
 
-      <ul class="listSUsers"></ul>
+      <ul class="listSUsers" data-id="<?=$WP->id_work_group?>"></ul>
+
+      <h1>Usuários adicionados:</h1>
+
+      <ul class="listUsersSaved" data-id="<?=$WP->id_work_group?>">
+        <?php 
+          $Users = " SELECT u.* FROM " . BD . ".work_groups w
+
+                    LEFT JOIN " . BD . ".users u
+                    ON w.user = u.id_user
+
+                    WHERE ide_work_group = " . $WP->id_work_group;
+
+          $Users = $PDO->query( $Users );
+          while( $User = $Users->fetch(PDO::FETCH_OBJ) ){
+            echo '<li data-id="' . $User->id_user . '">
+                    <span class="img" ' . ( !empty( $User->ImagePerfil ) ? 'style="background-image: url(\'' . $User->ImagePerfil . "');\"" : '' ) . '></span>
+                    <span class="name">' . $User->Nome . '</span>
+                  </li>';
+          }
+        ?>
+      </ul>
+
+      <br><br><br>
 
     </div>
   </main>
@@ -54,6 +77,14 @@
     });
   });
 
+  function showUsers(){
+    if( $('.listSUsers li').length > 0 ){
+      $('.listSUsers').show();
+    } else {
+      $('.listSUsers').hide();
+    }
+  }
+
   $('#sUser').keyup(function(){
     $.ajax({ 
       type: "POST",
@@ -69,11 +100,22 @@
 
         if( json.Status == true ){
           $.each(json.users, function(id, Data) {
-            $('.listSUsers').append( '<li><div class="img" style="background-image:url(\'' + Data.ImagePerfil + '\')"></div> <span class="name">' + Data.Nome + '</span></li>' );
+            var bg = ( Data.ImagePerfil != null ? ' style="background-image:url(\'' + Data.ImagePerfil + '\')"' : '' );
+            $('.listSUsers').append( '<li data-id="' + Data.id_user + '"><div class="img"' + bg + '></div> <span class="name">' + Data.Nome + '</span></li>' );
           });
         }
+        showUsers();
       }
     });
+  });
+
+  $('#sUser').focus(function(e){
+    e.stopPropagation();
+    showUsers();
+  });
+
+  $(document).click(function(){
+    $('.listSUsers').hide();
   });
 
   $('.mdl-layout-title .edit').keyup(function(e){

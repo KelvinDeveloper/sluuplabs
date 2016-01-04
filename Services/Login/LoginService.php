@@ -11,6 +11,12 @@ class Login{
 
 	}
 
+	function getGroup( $id ){
+
+		global $Database;
+		return $Database->Search( 'work_groups', false, " user_create = " . $id . " OR user = " . $id, 'user_create DESC', false, 1 );
+	}
+
 	function Logar( $Email, $Password ){
 
 		global $Database, $PDO, $Conf, $Domain;
@@ -39,12 +45,15 @@ class Login{
 			return json_encode( $Return );
 		}
 
+		$WG = $this->getGroup( $User->id_user );
+
 		$_SESSION['user'] = array(
 			'id_user' 		=> $User->id_user,
 			'Nome'			=> $User->Nome,
 			'Email'			=> $User->Email,
 			'Image'			=> $User->ImagePerfil,
-			'Folder'		=> '/Application/Users/' . $User->id_user
+			'Folder'		=> '/Application/Users/' . $User->id_user,
+			'Path'			=> ( $WG->user_create == $User->id_user ? $WG->id_work_group : $WG->ide_work_group ),
 		);
 
 	    foreach ( $_SESSION['user']  as $k => $v ) {

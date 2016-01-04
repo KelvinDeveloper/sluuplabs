@@ -4,7 +4,7 @@ $Services->Run('autoSystem');
 
 $blog = $autoSystem->create(
 	array(
-		'bd'				=> 'blog',
+		'bd'				=> 'blog_' . $_SESSION['user']['Path'],
 		'auto_increment'	=> 'id_blog',
 		'Fields'	=> 
 			array(
@@ -33,7 +33,7 @@ $blog = $autoSystem->create(
 				'assunto'	=> array(
 					'Label'	=> 'Assunto',
 					'Type'	=> 'select',
-					'Query'	=> 'SELECT * FROM ' . BD . '.assuntos',
+					'Query'	=> 'SELECT * FROM ' . BD . '.assuntos_' . $_SESSION['user']['Path'],
 					'Key'	=> 'id_assunto',
 					'Value'	=> 'name'
 				),

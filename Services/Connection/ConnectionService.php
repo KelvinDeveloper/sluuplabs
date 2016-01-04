@@ -29,9 +29,11 @@ class Database{
 			if( !empty( $Limit ) ){
 				$query .= ' LIMIT ' . $Limit;
 			}
+			// echo $query;
 			$List = $PDO->query( $query );
 			return $List->fetch(PDO::FETCH_OBJ);
 		} else {
+
 			return 'ERROR SYNTAX';
 			exit;
 		}

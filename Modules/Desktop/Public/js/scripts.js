@@ -433,4 +433,74 @@ $('#explorerContent').rClick({
 
 });
 
+$('.listUsersSaved li').rClick({
+	id: 'listUsersSavedrClick',
+	Menu: {
+
+		delete: {
+			icon: '<i class="material-icons">&#xE872;</i>',
+			text: 'Deletar',
+			exec: function(This){
+				var Confirm = confirm('Tem certeza que deseja deletar esse usuário do Grupo de Trabalho?');
+				if( Confirm ){
+
+					var id_wg   = This.parents('.listUsersSaved').data('id'),
+						id_user = This.data('id');
+
+					$.ajax({
+						type: 'POST',
+						dataType: 'json',
+						url: '/Desktop/Ajax/DeleteUser',
+						data: {
+							id:   id_wg,
+							user: id_user
+						},
+						success: function(json){
+
+							if( json.Status === true ){
+
+							}
+						}
+					});
+					This.remove();
+				}
+			}
+		}
+	}
+});
 /* Ends rClick */
+/* Workgroup */
+$(document).on('click', '.listSUsers li', function(e){
+
+	e.stopPropagation();
+	
+	var id_wg     = $(this).parents('.listSUsers').data('id'),
+		id_user   = $(this).data('id'),
+		nome_user = $(this).text(),
+		styles    = $(this).find('.img').attr('style');
+
+	$(this).parents('.listSUsers').html('').hide();
+	$('#sUser').val('');
+
+	$.ajax({
+		type: 'POST',
+		dataType: 'json',
+		url: '/Desktop/Ajax/SaveUser',
+		data: {
+			id:   id_wg,
+			user: id_user
+		},
+		success: function(json){
+
+			if( json.Status === true ){
+
+				$('.listUsersSaved').append('<li data-id="' + id_user + '">' +
+                    '<span class="img" style="' + styles + '"></span>' +
+                    '<span class="name">' + nome_user + '</span>' +
+                  '</li>');
+
+			}
+		}
+	});
+});
+/* ends Workgroup */

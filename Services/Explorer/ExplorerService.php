@@ -21,8 +21,8 @@ class Explorer{
 			$Location = ROOT . $_GET['Dir'] . '/';
 			$FileLocation = $_GET['Dir'] . '/';
 		} else {
-			$Location = ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
-			$FileLocation = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $LUrl;
+			$Location = ROOT . '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $LUrl;
+			$FileLocation = '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $LUrl;
 		}
 
 		$Dir = scandir( $Location );
