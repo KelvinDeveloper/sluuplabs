@@ -1,6 +1,7 @@
 <?php
 $Modules = dir( ROOT . '/Modules/' );
-$Create = $Database->Search('work_groups', 'user_create', "id_work_group = " . $_SESSION['user']['Path']);
+$Create  = $Database->Search('work_groups', 'user_create', "id_work_group = " . $_SESSION['user']['Path']);
+$uConfig = parse_ini_file( ROOT . '/Application/Users/' . $_SESSION['user']['id_user'] . '/reg.ini', true);
 
 while ( $Module = $Modules->read() ){
 	if( file_exists( ROOT . '/Modules/' . $Module . '/Info.ini' ) ){
@@ -10,11 +11,14 @@ while ( $Module = $Modules->read() ){
 			if( ( $Module != 'Usuarios' || $Create->user_create === $_SESSION['user']['id_user'] ) &&
 				( $Module != 'Terminal' || $Module == 'Terminal' && $_SESSION['user']['id_user'] == '1' ) ){
 
-				$ListModules[ $Module ] = array(
-					'name'	=> $Module,
-					'info'	=> $Info,
-					'icon'	=> ( file_exists( ROOT . '/Modules/' . $Module . '/Icon.ico' ) ? '/Modules/' . $Module . '/Icon.ico' : '/Public/img/icon/Icon.ico' )
-				);
+				if( $uConfig['Modules'][ $Module ] || $_SESSION['user']['id_user'] == 1 ){
+
+					$ListModules[ $Module ] = array(
+						'name'	=> $Module,
+						'info'	=> $Info,
+						'icon'	=> ( file_exists( ROOT . '/Modules/' . $Module . '/Icon.ico' ) ? '/Modules/' . $Module . '/Icon.ico' : '/Public/img/icon/Icon.ico' )
+					);
+				}
 			}
 		}
 	}
