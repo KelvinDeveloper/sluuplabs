@@ -11,4 +11,5 @@ $Router['sluup'] = array(
 	'Blog'			=>	'Modules/Blog/View',
 	'Assuntos'		=>	'Modules/Assuntos/View',
 	'Usuarios'		=>	'Modules/Usuarios/View',
+	'Versiculos'	=>	'Modules/Versiculos/View',
 );

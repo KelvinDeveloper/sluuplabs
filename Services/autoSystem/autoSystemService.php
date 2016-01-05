@@ -323,7 +323,7 @@ class autoSystem{
 				case 'html':
 					$HTML 	.= '<textarea id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .' tinymce" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '"></textarea>';
 					$Script .= '
-					editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . $Data['Width'] . '});
+					editorHTML({Element: \'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '\', Width: ' . ( isset( $Data['Width'] ) ? $Data['Width'] : '\'100%\'' ) . '});
 					setTimeout(function(){ tinyMCE.get(\'' . 'fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) .  '\').setContent(\'' . preg_replace( '/\s/',' ',$Value->$Field ) . '\') }, 500);';
 					break;
 
