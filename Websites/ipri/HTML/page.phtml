@@ -15,7 +15,7 @@ $Assunto = $Assunto[0];
 
 <?php
 
-$Result = $Database->Fetch( 'blog', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "publish = '1'" , 'id_blog DESC' );
+$Result = $Database->Fetch( 'blog_2', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "publish = '1'" , 'id_blog DESC' );
 while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 	echo '<div class="post card-wide mdl-card mdl-shadow--2dp openFunction" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Post->title ) ) ) . '" title="' . addslashes( $Post->title ) . ' | ' . Title . '">';
 		echo '<div class="mdl-card__title" style="background-image:url(\'' . $Post->image . '\')">';

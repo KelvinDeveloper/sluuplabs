@@ -9,7 +9,7 @@ if( !$Function->isAjax() ){
 $idPost = explode( '-', $Url[2] );
 $idPost = $idPost[0];
 
-$Post = $Database->Search( 'blog', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "id_blog='" . $idPost . "'" );
+$Post = $Database->Search( 'blog_2', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "id_blog='" . $idPost . "'" );
 ?>
 
 <div style="position:relative;z-index:5">

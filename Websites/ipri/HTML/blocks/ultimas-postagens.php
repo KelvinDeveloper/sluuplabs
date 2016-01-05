@@ -6,7 +6,7 @@
 	</h2>
 
 	<?php
-	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'visitas DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog_2', false, "publish='1'", 'visitas DESC', false, 4 );
 	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
 	?>
 
