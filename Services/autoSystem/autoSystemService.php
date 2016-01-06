@@ -428,8 +428,36 @@ class autoSystem{
 
 						break;
 
+					case 'cpf':
+						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						$Script .= '$("#fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '").mask("999.999.999-99");';
+						break;
+
+					case 'phone':
+						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						$Script .= "$('#fld" . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . "').focusout(function(){
+								    var phone, element;
+								    element = $(this);
+								    element.unmask();
+								    phone = element.val().replace(/\D/g, '');
+								    if(phone.length > 10) {
+								        element.mask('(99) 99999-999?9');
+								    } else {
+								        element.mask('(99) 9999-9999?9');
+								    }
+								}).trigger('focusout');";
+						break;
+
+					case 'money':
+					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+					$Script .= "$('#fld" . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . "').priceFormat({
+								    prefix: 'R$ ',
+								    centsSeparator: ',',
+								    thousandsSeparator: '.'
+								});";
+						break;
+
 					default:
-					
 						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 						break;
 				}
