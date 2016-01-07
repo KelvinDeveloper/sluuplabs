@@ -1,0 +1,1010 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:200,400,700,800);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
+
+@font-face {
+  font-family: "And Black";
+  src: url("myfont-webfont.eot?#iefix") format('embedded-opentype'),
+       url("fonts/and_black.woff") format('woff'),
+       url("fonts/and_black.ttf") format('truetype');
+}
+
+html{
+  background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry2.png");
+}
+
+body {
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.35);
+  position: absolute;
+  top: 0;
+  font-family: "Open Sans",sans-serif;
+  overflow-x: hidden;
+}
+
+/* Disable ugly boxes around images in IE10 */
+a img{
+  border: 0px;
+}
+
+h2, h1{
+  font-family: 'Droid Serif', serif;
+  font-size: 26px;
+  width: 100%;
+  border-top: solid 1px #ccc;
+  text-align: center;
+}
+
+h1{
+  font-size: 36px;
+}
+
+.postContent h1{
+  border: none;
+  font-size: 42px;
+}
+
+h2 a, h1 span{
+    border-top: 3px solid #f44336;
+    color: inherit;
+    display: inline-block;
+    margin-top: -1px;
+    padding: 10px 10px 0;
+    text-decoration: none;
+    color:  #f44336;
+}
+
+h3{
+  font-family: 'Droid Serif', serif;
+  font-size: 22px;
+  color:  #f44336;
+}
+
+p{
+  font-family: 'Raleway', sans-serif;
+  text-align: justify;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 26px;
+}
+
+.mdl-grid.qs{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26px;
+}
+
+.fL{
+  float: left;
+}
+.fR{
+  float: right;
+}
+
+.mL{
+  margin-left: 10px;
+}
+
+.mR{
+  margin-right: 21px;
+}
+
+::-moz-selection {
+  background-color: #195fae;
+  color: #fff;
+}
+
+::selection {
+  background-color: #195fae;
+  color: #fff;
+}
+
+.android-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.android-header .mdl-menu__container {
+  z-index: 999;
+  margin: 0 !important;
+}
+
+
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+.android-fab {
+  position: absolute;
+  right: 20%;
+  bottom: -26px;
+  z-index: 3;
+  background: #64ffda !important;
+  color: black !important;
+}
+
+.android-mobile-title {
+  display: none !important;
+}
+
+
+.android-logo-image {
+  height: 60px;
+  width: 60px;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease 0s;
+}
+
+.android-logo-image:hover{
+  opacity: .8;
+}
+
+.android-header {
+  overflow: visible;
+  background-color: white;
+  z-index: 999;
+}
+
+  .android-header .material-icons {
+    color: #fff !important;
+  }
+
+  .android-header .mdl-layout__drawer-button {
+    background: transparent;
+    color: #fff;
+  }
+
+  .android-header .mdl-navigation__link {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .android-navigation-container {
+    /* Simple hack to make the overflow happen to the left instead... */
+    direction: rtl;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
+    width: 500px;
+    -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .android-navigation {
+    /* ... and now make sure the content is actually LTR */
+    direction: ltr;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 800px;
+  }
+
+  .android-search-box.is-focused ~ .android-navigation-container {
+    opacity: 0;
+    width: 100px;
+  }
+
+
+  .android-navigation .mdl-navigation__link {
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid transparent;
+  }
+
+    .android-navigation .mdl-navigation__link:hover, .android-navigation .mdl-navigation__link.active {
+      border-bottom: 4px solid #fff;
+    }
+
+  .android-search-box {
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+        -ms-flex-order: 2;
+            order: 2;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .android-more-button {
+    -webkit-box-ordinal-group: 4;
+    -webkit-order: 3;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+
+
+.android-drawer {
+  border-right: none;
+}
+
+  .android-drawer-separator {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+  }
+
+  .android-drawer .mdl-navigation__link.mdl-navigation__link {
+    font-size: 14px;
+    color: #757575;
+  }
+
+  .android-drawer span.mdl-navigation__link.mdl-navigation__link {
+    color: #8bc34a;
+  }
+
+  .android-drawer .mdl-layout-title {
+    position: relative;
+    background: #6ab344;
+    height: 160px;
+  }
+
+    .android-drawer .android-logo-image {
+      position: absolute;
+      bottom: 16px;
+    }
+
+.android-be-together-section {
+  position: relative;
+  height: 800px;
+  width: auto;
+  background-color: #f3f3f3;
+  background: url('images/slide01.jpg') center 30% no-repeat;
+  background-size: cover;
+}
+
+.android-font {
+  font-family: 'And Black', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 300;
+}
+
+.android-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+.android-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+.android-create-character {
+  font-size: 21px;
+  padding-top: 400px;
+}
+
+  .android-create-character a {
+    text-decoration: none;
+    color: #767777;
+    font-weight: 300;
+  }
+
+.android-screen-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.android-screens {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.android-screen {
+  text-align: center;
+}
+
+.android-screen .android-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+.android-image-link {
+  text-decoration: none;
+}
+
+.android-wear {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+  .android-wear .android-screen-image {
+    width: 40%;
+    z-index: 1;
+  }
+
+
+.android-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+  .android-phone .android-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.android-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+  .android-tablet .android-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+  .android-tablet .android-link {
+    display: block;
+    z-index: 2;
+  }
+
+
+.android-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+  .android-tv .android-screen-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.android-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+  .android-auto .android-screen-image {
+    display: block;
+    height: 300px;
+    z-index: 1;
+  }
+
+
+.android-wear-section {
+  position: relative;
+  background: url('images/wear.png') center top no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+.android-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+.android-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+  .android-wear-band-text p {
+    padding-top: 8px;
+  }
+
+.android-link {
+  text-decoration: none;
+  color: #8bc34a !important;
+}
+
+  .android-link:hover {
+    color: #7cb342 !important;
+  }
+
+  .android-link .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+.android-alt-link {
+  text-decoration: none;
+  color: #64ffda !important;
+  font-size: 16px;
+}
+
+  .android-alt-link:hover {
+    color: #00bfa5 !important;
+  }
+
+  .android-alt-link .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+.android-customized-section {
+  text-align: center;
+}
+
+.android-customized-section-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+  .android-customized-section-text p {
+    padding-top: 16px;
+  }
+
+.android-customized-section-image {
+  background: url('images/devices.jpg') center top no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+
+.android-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .android-more-section .android-section-title {
+    margin-left: 12px;
+    padding-bottom: 24px;
+  }
+
+.android-card-container {
+}
+
+  .android-card-container .mdl-card__media {
+    overflow: hidden;
+    background: transparent;
+  }
+
+    .android-card-container .mdl-card__media img {
+      width: 100%;
+    }
+
+  .android-card-container .mdl-card__title {
+    background: transparent;
+    height: auto;
+  }
+
+  .android-card-container .mdl-card__title-text {
+    color: black;
+    height: auto;
+  }
+
+  .android-card-container .mdl-card__supporting-text {
+    height: auto;
+    color: black;
+    padding-bottom: 48px;
+  }
+
+  .android-card-container .mdl-card__actions {
+    position: absolute;
+    bottom: 0;
+  }
+
+  span.card-image__filename {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .android-card-container .mdl-card__actions a {
+    border-top: none;
+    line-height: 32px;
+    font-size: 16px;
+  }
+
+.android-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+  .android-footer a:hover {
+    color: #8bc34a;
+  }
+
+  .android-footer .mdl-mega-footer--top-section::after {
+    border-bottom: none;
+  }
+
+  .android-footer .mdl-mega-footer--middle-section::after {
+    border-bottom: none;
+  }
+
+  .android-footer .mdl-mega-footer--bottom-section {
+    position: relative;
+  }
+
+  .android-footer .mdl-mega-footer--bottom-section a {
+    margin-right: 2em;
+  }
+
+  .android-footer .mdl-mega-footer--right-section a .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+
+.android-link-menu:hover {
+  cursor: pointer;
+}
+
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  .android-navigation-container {
+    display: none;
+  }
+
+  .android-title {
+    display: none !important;
+  }
+
+  .android-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .android-search-box.is-focused ~ .android-mobile-title {
+    opacity: 0;
+  }
+
+  .android-more-button {
+    display: none;
+  }
+
+  .android-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+
+  .android-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+
+  .android-be-together-section {
+    height: 350px;
+  }
+
+  .android-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+
+  .android-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+
+  .android-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+
+  .android-create-character img {
+    height: 12px;
+  }
+
+  .android-fab {
+    display: none;
+  }
+
+  .android-wear-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .android-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
+
+
+/**/
+
+.android-header{
+  background-color: #195fae !important;
+  position: fixed;
+  top: 0;
+  height: auto !important;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.mdl-layout__container, .mdl-layout{
+  height: auto !important;
+}
+
+.content{
+  margin-top: 80px;
+}
+.w80{
+  background-color: #fff;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.w100{
+  width: 100%;
+}
+
+.slide{
+  margin: 0;
+  padding: 0;
+  width: 102%;
+}
+
+.slide li{
+  list-style: none;
+  float: left;
+  width: 29.5%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  border: solid 0.2em #fff;
+
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.slide li:hover{
+  opacity: .8;
+}
+
+.slide li span{
+  font-family: "Open Sans",sans-serif;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+  font-size: 1.55em;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+.slide li.slide-1{
+  width: 40%;
+  border-right: none;
+}
+
+.slide li.slide-2{
+  border-right: none;
+}
+
+.slide li.slide-3{
+  border-bottom: none;
+}
+
+.slide li.slide-3, .slide li.slide-4{
+  height: 49.6%;
+  border-right: none;
+}
+
+.mdl-navigation__link i{
+  margin-top: 22px;
+}
+
+.card-image.mdl-card{
+  width: 256px;
+  height: 256px;
+  background-size: cover;
+  background-position: center;
+  margin: 10px auto;
+  cursor: pointer;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.card-image.mdl-card{
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.card-image.mdl-card:hover{
+  opacity: .8;
+}
+
+.card-image > .mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.card-image__filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mdl-mini-footer{
+  width: 100%;
+  position: relative;
+  z-index: 999;
+}
+
+.mdl-mini-footer__left-section{
+  width: 98%;
+}
+
+.mdl-mini-footer__link-list a{
+  color: #195fae;
+  text-decoration: none;
+}
+
+.mdl-mini-footer__link-list{
+  padding: 0px;
+  width: 50%;
+  margin: 0 auto;
+  color: #fff;
+  text-align: center;
+}
+
+.mdl-mini-footer__link-list li{
+  list-style: none;
+  /*margin: 10px;*/
+}
+
+.mdl-mini-footer__link-list .mdl-logo{
+  margin: 10px !important;
+}
+
+.card-wide.mdl-card {
+  width: 60%;
+  cursor: pointer;
+
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  margin: 30px 5%;
+}
+
+.card-wide.mdl-card:hover {
+  opacity: .8;
+}
+
+.card-wide > .mdl-card__title {
+  color: #fff;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.postImage{
+  width: 70%;
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  left: 1%;
+  top: 100px;
+  border-radius: 5px 5px 0 0;
+}
+
+.postContent{
+  background-color: #fff;
+  width: 70%;
+  margin-left: 1%;
+  /*left: 50%;*/
+  /*position: relative;*/
+  z-index: 10;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, .3);
+}
+
+.postContent .text{
+  padding: 10px;
+}
+
+input {
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 30px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 45%;
+}
+
+textarea{
+  background-color: #fff;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 260px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 94%;
+}
+
+select{
+  background-color: #fff;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 18px;
+  height: 41px;
+  margin: 5px;
+  outline: 0 none;
+  padding: 5px;
+  transition: all 0.5s ease 0s;
+  width: 47%;
+}
+
+input:focus, textarea:focus, select:focus{
+  border: solid 1px #195fae;
+}
+
+button i {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+form {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+#infoStatus{
+  width: 500px;
+  height: 30px;
+  line-height: 30px;
+  left: 50%;
+  margin-left: -250px;
+  top: -70px;
+  position: fixed;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  opacity: .9;
+  z-index: 999;
+  font-family: 'Open Sans', sans-serif;
+
+  -webkit-transition: all 2s;
+  transition: all .2s;
+}
+#infoStatus:hover{
+  opacity: 1;
+}
+#infoStatus.true{
+  background-color: #8DC538;
+}
+#infoStatus.false{
+  background-color: #c0392b;
+}
+#infoStatus i{
+  float: left;
+}
+
+.mdl-spinner{
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  display: none;
+}
+
+.item-lightbox img{
+  padding: 10px;
+  margin-left: 5px;
+  border-radius: 3px;
+  border: solid 1px #ccc;
+}
+
+.item-lightbox img:hover{
+  border: solid 1px #195fae;
+}
+
+.postContent .w80{
+  width: 98% !important;
+  background-color: transparent !important;
+}
+
+.mdl-layout__header-row{
+  height: 80px !important;
+}
+
+.menu-themes{
+  position: absolute;
+  right: 5%;
+  top: 150px;
+  background-color: #fff;
+}
+
+.menu-themes li{
+  list-style: none;
+  font-size: 22px;
+  padding: 10px;
+  font-weight: 100;
+}
+
+.menu-themes li a{
+  color: #2980b9;
+  text-decoration: none;
+  padding-left: 15px;
+  border-left: 3px solid transparent;
+
+}
+
+.menu-themes li a:hover{
+  border-left: 3px solid #3498db;
+}
+
+.menu-themes li a.active{
+  color: #c0392b;
+  border-left: 3px solid #c0392b;
+}
+
+.errorTheme{
+  height: 60px;
+  line-height: 60px;
+  padding: 5px;
+  width: 70%;
+  margin: 5%;
+  display: inline-block;
+  background-color: #c0392b;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 18px;
+}
