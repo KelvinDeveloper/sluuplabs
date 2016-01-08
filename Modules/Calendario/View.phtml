@@ -1,0 +1,61 @@
+<?php include 'CalendarBase.php'; ?>
+
+<div class="calendar-header">
+	<select>
+		<?php foreach ($Month as $k => $v){ ?>
+		<option value="<?=$k?>"><?=$v?></option>
+		<?php } ?>
+	</select>
+	<input value="<?=date('Y')?>" maxlength="4">
+</div>
+
+<table class="calendar">
+	
+	<?php
+
+	$Calendar = '';
+	$CalendarHeader = false;
+
+	for ($i = 0; $i <= 5; $i++) { 
+
+		if(! $CalendarHeader ){
+
+			$Calendar .= '<tr>';
+
+			for ($i3 = 0; $i3 <= 6 ; $i3++) { 
+
+				$Calendar .= '<th>' . $Week[ $i3 ] . '</th>';
+			}
+			$Calendar .= '</tr>';
+			$CalendarHeader = true;
+		}
+
+		$Calendar .= '<tr data-week="' . $i . '">'; 
+		$DayWeek = 0;
+
+		for ($i2 = 0; $i2 <= 6 ; $i2++) { 
+
+			$Calendar .= '<td data-day-week="' . $DayWeek . '" class="openModal" data-size="large" data-parent="#ModuleCalendario" for="CreateCalendar">';
+			$Calendar .= '<span class="day"></span>';
+
+			$Calendar .= '</td>';
+
+			$DayWeek++;
+		}
+
+		$Calendar .= '</tr>';
+	}
+
+	echo $Calendar;
+
+	?>
+
+</table>
+
+<link href="/Modules/Calendario/Public/css/styles.css" rel="stylesheet">
+<script type="text/javascript">
+<?php
+echo "var CalendarDateNow = '" . date('Y-m-d') . "';";
+?>
+</script>
+<script type="text/javascript" src="/Modules/Calendario/Public/js/scripts.js"></script>

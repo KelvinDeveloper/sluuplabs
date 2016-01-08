@@ -448,6 +448,11 @@ class autoSystem{
 								}).trigger('focusout');";
 						break;
 
+					case 'simpleHour':
+						$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
+						$Script .= '$("#fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '").mask("99:99");';
+						break;
+
 					case 'money':
 					$HTML .= '<input type="text" maxlength="' . $Data['Lenght'] . '" placeholder="' . ( isset( $Data['Placeholder'] ) ? ucfirst( $Data['Placeholder'] ) : ucfirst( $Field ) ) . '" name="' . $Field . '" value="' . $Value->$Field . '" class="' . ( isset( $Data['Class'] ) ? $Data['Class'] : false ) .'" id="fld' . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . '" tabindex="' . ( isset( $Data['Tabindex'] ) ? $Data['Tabindex'] : false ) . '">';
 					$Script .= "$('#fld" . ( empty( $Data['ID'] ) ? $Field : $Data['ID'] ) . "').priceFormat({
