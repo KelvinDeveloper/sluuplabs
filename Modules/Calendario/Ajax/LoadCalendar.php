@@ -4,6 +4,32 @@ if( empty( $Url[4] ) ){
 	$Url[4] = date('Y-m');
 }
 
+if( $_POST['Option'] == 'Previous' ){
+	// 2016-01
+	$Date = explode( '-', $Url[4] );
+
+	if( $Date[1] == '01' ){
+
+		$Url[4] = ( $Date[0] - 1 ) . '-12';
+	} else {
+
+		$Url[4] = $Date[0] . '-' . ( $Date[1] - 1 );
+	}
+}
+
+else if ( $_POST['Option'] == 'Last' ){
+
+	$Date = explode( '-', $Url[4] );
+
+	if( $Date[1] == '12' ){
+
+		$Url[4] = ( $Date[0] + 1 ) . '-1';
+	} else {
+
+		$Url[4] = $Date[0] . '-' . ( $Date[1] + 1 );
+	}
+}
+
 /* Quantidade de dias do mês */
 $Date = explode( '-', $Url[4] );
 $Days = cal_days_in_month(CAL_GREGORIAN, $Date[1], $Date[0]);
