@@ -386,12 +386,16 @@ function Modal ( This ){
         Parent      = ( This.data('parent')     != undefined ? This.data('parent')      : 'body'    ),
         Title       = ( This.attr('title')      != undefined ? This.attr('title')       : false     ),
         Target      = ( This.attr('for')        != undefined ? This.attr('for')         : ''        ),
+        thisModal   = $('.modal').length + 1,
 
         HTML = '';
+        if( $(Parent).length == 0 ){
+            Parent = '[target="' + This.data('parent').replace('#Module', '') + '"]';
+        }
 
-    $('#modal, .shadowModal').remove();
+    // $('#modal, .shadowModal').remove();
 
-    HTML += '<div class="modal ' + Size + '" id="modal" target="' + Target + '">';
+    HTML += '<div class="modal ' + Size + '" id="modal' + thisModal + '" target="' + Target + '">';
 
         HTML += '<div class="title">' + ( Title != false ? Title : '' ) + ' <i class="material-icons close fR mL">&#xE14C;</i></div>';
         HTML += '<div class="content"></div>';
@@ -403,7 +407,7 @@ function Modal ( This ){
     switch( Size ){
 
         case 'large' :
-            $('#modal').css({
+            $('#modal' + thisModal).css({
                 width: ( $(window).width() / 2 ),
                 height: ( $(window).height() / 1.5 ),
                 marginLeft: - ( $(window).width() / 2 ) / 2,
@@ -412,7 +416,7 @@ function Modal ( This ){
             break;
 
         case 'medium' :
-            $('#modal').css({
+            $('#modal' + thisModal).css({
                 width: ( $(window).width() / 3 ),
                 height: ( $(window).height() / 2.5 ),
                 marginLeft: - ( $(window).width() / 3 ) / 2,
@@ -421,7 +425,7 @@ function Modal ( This ){
             break;
 
         case 'small' :
-            $('#modal').css({
+            $('#modal' + thisModal).css({
                 width: ( $(window).width() / 4 ),
                 height: ( $(window).height() / 3.5 ),
                 marginLeft: - ( $(window).width() / 4 ) / 2,
@@ -432,7 +436,7 @@ function Modal ( This ){
 
 
     if( Draggable == true ){
-        $('#modal').draggable({
+        $('#modal' + thisModal).draggable({
             handle: ( Title != false ? '.title' : false ),
             containment: Parent,
             scroll: false
@@ -443,7 +447,7 @@ function Modal ( This ){
         $(Parent).append('<div class="shadowModal"></div>');
     }
 
-    $('#modal .content').load( Url );
+    $('#modal' + thisModal + ' .content').load( Url );
 
     return false;
 }
@@ -453,8 +457,8 @@ $(document).on('click', '.openModal', function(){
     return false;
 });
 
-$(document).on('click', '#modal .close', function(){
-    $(this).parents('#modal').remove();
+$(document).on('click', '.modal .close', function(){
+    $(this).parent('.title').parent('.modal').remove();
     $('.shadowModal').remove();
     return false;
 });

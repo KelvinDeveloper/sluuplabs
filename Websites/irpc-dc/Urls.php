@@ -8,4 +8,6 @@ $Router = array(
 	'pedido-de-oracao'	=> 'HTML/oracao.phtml',
 	'testemunho'		=> 'HTML/testemunho.phtml',
 	'contato'			=> 'HTML/contato.phtml',
+	'agenda'			=> 'HTML/agenda.phtml',
+	'evento'			=>	'HTML/evento.phtml',
 );

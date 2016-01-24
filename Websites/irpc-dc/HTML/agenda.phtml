@@ -1,0 +1,47 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+} ?>
+
+<div class="w80">
+
+<h1><span>Agenda</span></h1>
+
+<?php
+$Result = $Database->Fetch( 'calendar_4' );
+while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
+
+	$Date = explode( '-', $Post->date );
+	$Date = $Date[2] . '/' . $Date[1] . '/' . $Date[0];
+?>
+
+<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+	
+	<div class="mdl-card__title" <?php if( !empty( $Post->image ) ){ ?>style="background-image:url('<?=$Post->image?>')" <?php } ?>>
+		<h2 class="mdl-card__title-text"><?=$Post->title?></h2>
+	</div>
+	
+	<div class="mdl-card__supporting-text">
+		Quando: <?=$Date?> <br>
+		Das <?=$Post->hour_ini?> às <?=$Post->hour_end?> <br>
+		<?=$Post->endereco?>
+	</div>
+	
+	<div class="mdl-card__actions mdl-card--border">
+		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect openFunction" href="/evento/<?=$Post->id_calendar?>/<?=$Post->title?>">
+  		Saiba mais <i class="material-icons fR">arrow_forward</i>
+		</a>
+	</div>
+
+</div>
+
+<?php } ?>
+</div>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

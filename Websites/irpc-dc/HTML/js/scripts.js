@@ -159,6 +159,7 @@ $(document).on('click', 'form[target="exec"] button[type="submit"]', function(){
 		        		Alert( false, json.message );
 		        	}
 
+		        	$('.mdl-button').prop('disabled', false);
 		        	$('.mdl-spinner').hide();
 		        }
 		    });

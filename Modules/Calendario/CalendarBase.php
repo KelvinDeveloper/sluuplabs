@@ -48,6 +48,20 @@ $ModuleCalendar = $autoSystem->create(
 					'Lenght'	=>	100
 				),
 
+				'image'		=> array(
+					'Label'		=> 'Imagem de capa',
+					'Type'		=> 'file',
+					'Options'	=> array(
+						'Types'	=> 'IMAGE'
+					),
+				),
+
+				'content'	=>	array(
+					'Label'		=>	'Conteúdo da postagem',
+					'Type'		=>	'html',
+					'Width'		=>  '$(this).parents(\'.window\').width() + \'px\' '
+				),
+
 				'type'	=>	array(
 					'Label'		=>	'Tipo',
 					'Placeholder'		=>	'Tipo',
@@ -78,6 +92,15 @@ $ModuleCalendar = $autoSystem->create(
 					'Lenght'	=>	5
 				),
 
+				'coment'	=> array(
+					'Label'	=> 'Habilitar Comentários',
+					'Type'	=> 'select',
+					'Options'	=> array(
+						1	=> 'Sim',
+						2	=> 'Não'
+					),
+				),
+
 				'date'		=>	array(
 					'Type'		=>	'varchar',
 					'Lenght'	=>	10,
@@ -86,7 +109,7 @@ $ModuleCalendar = $autoSystem->create(
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',
-			'Hide'		=>	array('id_calendar', 'date')
+			'Hide'		=>	array('id_calendar', 'date', 'content')
 		),
 		'Form'	=> array(
 			// 'Title'	=> array(

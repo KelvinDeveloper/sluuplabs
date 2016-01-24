@@ -32,8 +32,6 @@ $HTML = '';
 $HTML .= 'Mensagem enviada: ' . date('m/d/Y às h:i:s')     . '<br>';
 $HTML .= 'Nome:     ' . $_POST['nome']     . '<br>';
 $HTML .= 'Email:    ' . $_POST['email']    . '<br>';
-$HTML .= 'Cidade:   ' . $_POST['cidade']   . '<br>';
-$HTML .= 'Estado:   ' . $_POST['estado']   . '<br>';
 $HTML .= 'Mensagem: ' . $_POST['mensagem'] . '<br>';
 
 $mail = new PHPMailer();
@@ -50,7 +48,7 @@ $mail->IsHTML ( $Conf['Email']['HTML'] );
 $mail->SetFrom( $Conf['Email']['Email'], $_POST['nome'] );
 $mail->Subject    = $_GET['action'] . ' | enviado por ipri.org.br';
 $mail->Body       = $HTML;
-$mail->AddAddress('contato@jeriel.com.br');
+$mail->AddAddress('kelvin.souza@tblmanager.com.br');
 
 $send = $mail->Send();
 
