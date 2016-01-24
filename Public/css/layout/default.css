@@ -60,7 +60,7 @@ img.account-user{
 .material-icons{
 	cursor: default;
 }
-#modal{
+.modal{
 	z-index: 999;
 	background-color: rgb(255, 255, 255);
 	position: fixed;
@@ -73,17 +73,18 @@ img.account-user{
 	z-index: 100;
 }
 
-#modal .title{
+.modal .title{
 	padding: 3px;
 	cursor: default;
 }
 
-#modal i.close{
+.modal i.close{
 	color: #C0392B;
 }
 
-#modal .content{
+.modal .content{
 	padding: 3px;
+	height: auto !important;
 }
 
 .mdl-navigation__link.active{

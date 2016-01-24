@@ -136,7 +136,7 @@ $('#upload-<?=$timestamp?>').uploadifive({
 		overflow: 'auto'
 	});
 
-	$('#modal .content').append('<div class="openFile">' + 
+	$('.modal[target="fileUpload"] .content').append('<div class="openFile">' + 
 		'<button class="fR mdl-button mdl-js-button mdl-button--raised mdl-button--colored open">Abrir</button>' + 
 		'</div>');
 
@@ -147,7 +147,7 @@ $('#upload-<?=$timestamp?>').uploadifive({
 		if( toJSON && toJSON.Type != 'FOLDER' ){
 			$('#<?=$_GET['for']?>').val( toJSON.Location );
 			$('[for="<?=$_GET['for']?>"] span').text( toJSON.Location ).parent('div').attr( 'title', toJSON.Location );
-			$('#modal, .shadowModal').remove();
+			$(this).parent('.content').parent('.modal').remove();
 		} else {
 			alert('Selecione um arquivo válido');
 		}

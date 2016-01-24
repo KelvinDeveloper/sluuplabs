@@ -48,6 +48,23 @@ $ModuleCalendar = $autoSystem->create(
 					'Lenght'	=>	100
 				),
 
+<<<<<<< HEAD
+=======
+				'image'		=> array(
+					'Label'		=> 'Imagem de capa',
+					'Type'		=> 'file',
+					'Options'	=> array(
+						'Types'	=> 'IMAGE'
+					),
+				),
+
+				'content'	=>	array(
+					'Label'		=>	'Conteúdo da postagem',
+					'Type'		=>	'html',
+					'Width'		=>  '$(this).parents(\'.window\').width() + \'px\' '
+				),
+
+>>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 				'type'	=>	array(
 					'Label'		=>	'Tipo',
 					'Placeholder'		=>	'Tipo',
@@ -78,6 +95,18 @@ $ModuleCalendar = $autoSystem->create(
 					'Lenght'	=>	5
 				),
 
+<<<<<<< HEAD
+=======
+				'coment'	=> array(
+					'Label'	=> 'Habilitar Comentários',
+					'Type'	=> 'select',
+					'Options'	=> array(
+						1	=> 'Sim',
+						2	=> 'Não'
+					),
+				),
+
+>>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 				'date'		=>	array(
 					'Type'		=>	'varchar',
 					'Lenght'	=>	10,
@@ -86,7 +115,11 @@ $ModuleCalendar = $autoSystem->create(
 			),
 		'Grid'	=> array(
 			'Width'		=> '100%',
+<<<<<<< HEAD
 			'Hide'		=>	array('id_calendar', 'date')
+=======
+			'Hide'		=>	array('id_calendar', 'date', 'content')
+>>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 		),
 		'Form'	=> array(
 			// 'Title'	=> array(

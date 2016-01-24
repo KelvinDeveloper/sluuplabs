@@ -1,12 +1,27 @@
 <?php include 'CalendarBase.php'; ?>
 
 <div class="calendar-header">
+<<<<<<< HEAD
 	<select>
 		<?php foreach ($Month as $k => $v){ ?>
 		<option value="<?=$k?>"><?=$v?></option>
 		<?php } ?>
 	</select>
 	<input value="<?=date('Y')?>" maxlength="4">
+=======
+	
+	<i class="material-icons calendarLast">arrow_back</i>
+
+	<select>
+		<?php foreach ($Month as $k => $v){ ?>
+		<option value="<?=str_pad( $k, 2, 0, STR_PAD_LEFT )?>"><?=$v?></option>
+		<?php } ?>
+	</select>
+	<input value="<?=date('Y')?>" maxlength="4"> 
+
+	<i class="material-icons calendarPrevious">arrow_forward</i>
+
+>>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 </div>
 
 <table class="calendar">
@@ -35,8 +50,14 @@
 
 		for ($i2 = 0; $i2 <= 6 ; $i2++) { 
 
+<<<<<<< HEAD
 			$Calendar .= '<td data-day-week="' . $DayWeek . '" class="openModal" data-size="large" data-parent="#ModuleCalendario" for="CreateCalendar">';
 			$Calendar .= '<span class="day"></span>';
+=======
+			$Calendar .= '<td data-day-week="' . $DayWeek . '" class="openModal" title="Registros" data-size="large" data-parent="#ModuleCalendario" for="CreateCalendar">';
+			$Calendar .= '<span class="day"></span>';
+			$Calendar .= '<span class="events"></span>';
+>>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 
 			$Calendar .= '</td>';
 

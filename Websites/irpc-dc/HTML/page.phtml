@@ -18,7 +18,7 @@ $Assunto = $Assunto[0];
 
 <?php
 
-$Result = $Database->Fetch( 'blog_2', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date" . ( isset( $Url[2] ) ? " AND assunto = " . $Url[2] : '' ), "publish = '1'" , 'id_blog DESC' );
+$Result = $Database->Fetch( 'blog_4', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date" . ( isset( $Url[2] ) ? " AND assunto = " . $Url[2] : '' ), "publish = '1'" , 'id_blog DESC' );
 if( $Result ){
 
 	while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
