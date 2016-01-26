@@ -1,0 +1,53 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+}
+
+$Album = $Database->Search( 'album_4', false, 'id_album=' . $Url[2] );
+
+?>
+<div class="w80 album">
+
+<?php
+
+if(! $Album ){ ?>
+
+<div class="errorTheme"><i class="material-icons">error_outline</i> OOOOPS!... Essa página não existe!</div>
+
+<?php } else { ?>
+
+<h1><span><?=$Album->title?></span></h1>
+
+<div class="fb-like mL" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url)?>"></div><br><br>
+
+<p><?=$Album->Descrição?></p>
+
+<?php
+foreach ( scandir( ROOT . '/' . $Album->galery ) as $Background ) {
+	
+	if( $Background != '.' && $Background != '..' ){
+?>
+
+<div class="card-image mdl-card mdl-shadow--2dp openFunction fL" style="background-image:url('<?=$Album->galery . '/' . $Background;?>')">
+</div>
+
+<?php 	
+		}
+	}
+
+	if( $Album->coment == '1' ){ ?>
+
+	<br><br><div class="fb-comments" data-href="http://<?=implode('.', $Domain) . '/' . implode('/', $Url); ?>" data-numposts="15" data-width="100%"></div>
+<?php
+	}
+
+} ?>
+</div>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>

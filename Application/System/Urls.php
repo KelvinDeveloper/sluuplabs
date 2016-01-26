@@ -15,4 +15,5 @@ $Router['sluup'] = array(
 	'Parceiros' 	=>	'Modules/Parceiros/View',
 	'Calendario' 	=>	'Modules/Calendario/View',
 	'CreateCalendar'=>	'Modules/CreateCalendar/View',
+	'Album'			=>	'Modules/Album/View',
 );

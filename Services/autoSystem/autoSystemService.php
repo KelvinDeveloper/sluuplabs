@@ -498,6 +498,7 @@ class autoSystem{
 
 		$time = time();
 		if( mkdir( ROOT . '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time ) ){
+			chmod( '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time, 0777 );
 			return '/Application/Temp/' . $_SESSION['user']['id_user'] . '/tmp/' . $time;
 		} else {
 			return false;
@@ -616,7 +617,7 @@ class autoSystem{
 					}
 
 					$tmp = $Database->Search( $Array['bd'], $Field, $Array['auto_increment'] . '=' . $id );
-					$move[ $tmp->$Field ]['new'] = '/Application/Users/' . $_SESSION['user']['id_user'] . '/' . $Url[1] . '/' . $id;
+					$move[ $tmp->$Field ]['new'] = '/Application/Groups/' . $_SESSION['user']['Path'] . '/' . $Url[1] . '/' . $id;
 					$move[ $tmp->$Field ]['Field'] = $Field;
 					$move[ $tmp->$Field ]['Id'] = $id;
 				}

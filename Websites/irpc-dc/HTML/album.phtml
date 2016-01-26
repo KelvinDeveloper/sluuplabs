@@ -1,0 +1,43 @@
+<?php 
+if( !$Function->isAjax() ){
+	include ROOT . '/' . $Path . 'Head.phtml';
+	include ROOT . '/' . $Path . 'Menu.phtml';
+	echo '<div class="content">';
+} ?>
+
+
+<div class="w80">
+
+	<h1><span>Galeria de Fotos</span></h1>
+
+<?php
+$Result = $Database->Fetch( 'album_4' );
+while( $Album = $Result->fetch(PDO::FETCH_OBJ) ){ 
+
+$Backgrounds = scandir( ROOT . $Album->galery );
+$RandBackground = '';
+
+foreach ( $Backgrounds as $Background ) {
+	
+	if( $Background != '.' && $Background != '..' && !empty( $Background ) )
+		$RandBackground[] = $Background;
+}
+
+?>
+
+<div class="card-image mdl-card mdl-shadow--2dp openFunction" style="background-image:url('<?=$Album->galery . '/' . $RandBackground[ rand(0, count( $RandBackground ) -1 ) ];?>')" href="/galeria/<?=$Album->id_album?>">
+  <div class="mdl-card__title mdl-card--expand"></div>
+  <div class="mdl-card__actions">
+    <span class="card-image__filename"><?=$Album->title?></span>
+  </div>
+</div>
+
+<?php } ?>
+
+</div>
+
+<?php
+if( !$Function->isAjax() ){
+	echo '</div>';
+	include ROOT . '/' . $Path . 'Footer.phtml';
+} ?>
