@@ -18,8 +18,8 @@ $Assunto = $Assunto[0];
 
 <?php
 
-$Result = $Database->Fetch( 'blog_4', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date" . ( isset( $Url[2] ) ? " AND assunto = " . $Url[2] : '' ), "publish = '1'" , 'id_blog DESC' );
-if( $Result ){
+$Result = $Database->Fetch( 'blog_4', "*, DATE_FORMAT(register, '%d/%m/%Y') as Date", "publish = '1'" . ( isset( $Url[2] ) ? " AND assunto = " . $Url[2] : '' ) , 'id_blog DESC' );
+if( $Result->rowCount() > 0 ){
 
 	while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 		echo '<div class="post card-wide mdl-card mdl-shadow--2dp openFunction" href="/post/' . $Post->id_blog . '-' . strtolower( $Function->RemoveAccents( str_replace( ' ', '-', $Post->title ) ) ) . '" title="' . addslashes( $Post->title ) . ' | ' . Title . '">';

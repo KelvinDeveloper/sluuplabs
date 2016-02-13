@@ -4,19 +4,12 @@ function Clear(){
 	var Element = $('table.calendar');
 
 	Element.find('td').attr('href', '');
-<<<<<<< HEAD
-	Element.find('td span.day').html('');
-}
-
-function Change( Date ){
-=======
 	Element.find('td').attr('data-reference', '');
 	Element.find('td').attr('data-value', '');
 	Element.find('td span.day').html('');
 }
 
 function Change( Date, Option ){
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 	
 	$('td.now').removeClass('now');
 	Clear();
@@ -25,29 +18,13 @@ function Change( Date, Option ){
 		type: 'POST',
 		dataType: 'json',
 		url: '/Calendario/Ajax/LoadCalendar/' + ( Date == undefined ? '' : Date ),
-<<<<<<< HEAD
-=======
 		data: {
 			Option: ( Option != undefined ? Option : '' ),
 		},
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 		success: function( json ){
 
 			var Element = '';
 
-<<<<<<< HEAD
-			$.each(json.Days, function( k, v ) {
-
-				Element = $('table.calendar tr[data-week="' + v.Week + '"] td[data-day-week="' + v.DayWeek + '"]');
-				Element.attr('href', '/CreateCalendar?date=' + json.Year + '-' + json.Month + '-' + k);
-				Element.find('span.day').html( k );
-				setTimeout(function(){
-					$('[href="/CreateCalendar?date=' + CalendarDateNow + '"]').addClass('now');
-				}, 100);
-			});
-		}
-	});
-=======
 			switch( Option ){
 
 				case 'Previous':
@@ -130,8 +107,6 @@ function LoadValues(){
 			});
 		}
 	});
-
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 }
 
 $('.calendar-header input').keyup(function(){
@@ -145,8 +120,6 @@ $('.calendar-header select').change(function(){
 	Change( $('.calendar-header input').val() + '-' + $(this).val() );
 });
 
-<<<<<<< HEAD
-=======
 $('i.calendarLast').click(function(){
 	var DateFormat = $('table.calendar td.opacity:first').attr('data-reference'),
 		Date = DateFormat.split('-');
@@ -167,7 +140,6 @@ $('i.calendarPrevious').click(function(){
 	Change( DateFormat );
 });
 
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 $(document).ready(function(){
 	Change();
 });

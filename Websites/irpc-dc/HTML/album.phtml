@@ -3,7 +3,9 @@ if( !$Function->isAjax() ){
 	include ROOT . '/' . $Path . 'Head.phtml';
 	include ROOT . '/' . $Path . 'Menu.phtml';
 	echo '<div class="content">';
-} ?>
+}
+
+include __DIR__ . '/blocks/menu-album.php'; ?>
 
 
 <div class="w80">

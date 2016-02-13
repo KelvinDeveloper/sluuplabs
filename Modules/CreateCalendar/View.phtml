@@ -6,7 +6,7 @@ echo $ModuleCalendar;
 ?>
 
 <script type="text/javascript">
-	var Element = $('#modal[target="CreateCalendar"] [for="CreateCalendar"]');
+	var Element = $('[target="CreateCalendar"] [for="CreateCalendar"]');
 
 	if( Element.attr('href').indexOf('?date=') < 0 ){
 		Element.attr( 'href', Element.attr('href') + '?date=<?=$_GET['date']?>' );
@@ -16,11 +16,8 @@ echo $ModuleCalendar;
 		$('#flddate').val('<?=$_GET['date']?>').hide();
 		$('[for="flddate"]').hide();
 	});
-<<<<<<< HEAD
-=======
 
 	$('i.close').click(function(){
 		Change();
 	});
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 </script>

@@ -11,5 +11,6 @@ $Router = array(
 	'agenda'			=> 'HTML/agenda.phtml',
 	'evento'			=>	'HTML/evento.phtml',
 	'galeria-de-fotos'	=>	'HTML/album.phtml',
+	'galeria-de-videos'	=>	'HTML/videos.phtml',
 	'galeria'			=>	'HTML/select-album.phtml',
 );

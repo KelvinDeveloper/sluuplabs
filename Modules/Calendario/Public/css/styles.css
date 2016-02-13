@@ -24,10 +24,7 @@
 table.calendar{
 	width: 100%;
 	height: 100%;
-<<<<<<< HEAD
-=======
 	table-layout: fixed;
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 }
 
 table.calendar th{
@@ -41,14 +38,11 @@ table.calendar td{
 	padding: 10px;
 	cursor: pointer;
 	position: relative;
-<<<<<<< HEAD
-=======
 	border: solid 1px #ccc;
 }
 
 table.calendar td.opacity{
 	opacity: .4;
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 }
 
 table.calendar td.now{
@@ -62,8 +56,6 @@ table.calendar td span.day{
 	left: 5px;
 }
 
-<<<<<<< HEAD
-=======
 table.calendar td span.events{
 	position: absolute;
 	height: 20px;
@@ -79,7 +71,6 @@ table.calendar td span.events{
 	padding-left: 10px;
 }
 
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 table.calendar td[data-day-week='6'], table.calendar td[data-day-week='0']{
 	background-color: #3498db;
 	color: #fff;
@@ -89,12 +80,9 @@ table.calendar td:hover{
 	background-color: #bdc3c7;
 	box-shadow: 0 0 10px #ccc;
 	color: #333;
-<<<<<<< HEAD
-=======
 }
 
 i.calendarLast, i.calendarPrevious{
 	color: #2980b9;
 	cursor: pointer;
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 }

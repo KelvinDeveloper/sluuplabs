@@ -10,7 +10,7 @@ if( !$Function->isAjax() ){
 <h1><span>Agenda</span></h1>
 
 <?php
-$Result = $Database->Fetch( 'calendar_4' );
+$Result = $Database->Fetch( 'calendar_4', false, false, 'date DESC' );
 while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 
 	$Date = explode( '-', $Post->date );
@@ -30,7 +30,7 @@ while( $Post = $Result->fetch(PDO::FETCH_OBJ) ){
 	</div>
 	
 	<div class="mdl-card__actions mdl-card--border">
-		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect openFunction" href="/evento/<?=$Post->id_calendar?>/<?=$Post->title?>">
+		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect openFunction" href="/evento/<?=$Post->id_calendar?>/<?=urlencode( $Post->title )?>">
   		Saiba mais <i class="material-icons fR">arrow_forward</i>
 		</a>
 	</div>

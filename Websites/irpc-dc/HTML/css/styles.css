@@ -26,6 +26,7 @@
 
 html{
   background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry2.png");
+  overflow-x: hidden;
 }
 
 body {
@@ -744,9 +745,20 @@ p{
   background-position: center;
   margin: 10px auto;
   cursor: pointer;
+  float: left;
+  margin: 10px;
 
   -webkit-transition: all .5s;
   transition: all .5s;
+}
+
+.card-image.mdl-card i{
+  color: #fff;
+  font-size: 86px;
+  left: 50%;
+  line-height: 200px;
+  margin-left: -43px;
+  position: absolute;
 }
 
 .card-image.mdl-card{
@@ -1082,4 +1094,34 @@ form {
 
 .album .card-image{
   margin: 5px;
+}
+
+.modal-video{
+  display: none;
+  width: 70%;
+  max-height: 80%;
+  overflow: auto;
+  position: fixed;
+  background-color: #fff;
+  top: 5%;
+  left: 50%;
+  margin-left: -35%;
+  z-index: 999;
+  box-shadow: 0 0 10px #333;
+  padding: 10px;
+}
+
+.modal-video .close-video{
+  float: right;
+  cursor: pointer;
+}
+
+.modal-video .title-video{
+  font-size: 22px;
+  font-family: "Raleway",sans-serif;
+}
+
+.modal-video .description-video, .modal-video .description-video p{
+  font-size: 16px !important;
+  line-height: normal !important;
 }

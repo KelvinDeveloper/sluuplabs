@@ -8,7 +8,7 @@ if( !$Function->isAjax() ){
 
 	<?php
 	/* Slide */
-	$Result = $Database->Fetch( 'blog', false, "publish='1'", 'id_blog DESC, visitas DESC', false, 4 );
+	$Result = $Database->Fetch( 'blog_4', false, "publish='1'", 'id_blog DESC, visitas DESC', false, 4 );
 	$Loop	= 1;
 	
 	echo '<ul class="slide">';

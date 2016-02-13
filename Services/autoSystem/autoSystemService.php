@@ -488,6 +488,10 @@ class autoSystem{
 
 		$HTML .= '</form>';
 
+		if( isset( $Array['Form']['Scripts'] ) ){
+			$Script .= $Array['Form']['Scripts'];
+		}
+
 		$HTML .= '<script>' . $Script . '</script>';
 
 		return $HTML;
@@ -581,7 +585,7 @@ class autoSystem{
 
 			foreach( $Array['Fields'] as $Field => $Data ){
 				
-				$Query .= "'" . $_POST[ $Field ] . "',";
+				$Query .= "'" . addslashes( $_POST[ $Field ] ) . "',";
 			}
 
 			$Query = substr( $Query, 0, -1 ) . ' ) ';
@@ -630,6 +634,7 @@ class autoSystem{
 
 		$Return['new']      = $new;
 		$Return['message']  = $PDO->errorInfo();
+		$Return['query']	= $Query;
 		$Return['Location'] = '/' . $Url[1];
 
 		return $Return;

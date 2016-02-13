@@ -4,8 +4,6 @@ if( empty( $Url[4] ) ){
 	$Url[4] = date('Y-m');
 }
 
-<<<<<<< HEAD
-=======
 if( $_POST['Option'] == 'Previous' ){
 	// 2016-01
 	$Date = explode( '-', $Url[4] );
@@ -32,7 +30,6 @@ else if ( $_POST['Option'] == 'Last' ){
 	}
 }
 
->>>>>>> 5d75ff354167666740941dca0472e5c004b8feaa
 /* Quantidade de dias do mês */
 $Date = explode( '-', $Url[4] );
 $Days = cal_days_in_month(CAL_GREGORIAN, $Date[1], $Date[0]);

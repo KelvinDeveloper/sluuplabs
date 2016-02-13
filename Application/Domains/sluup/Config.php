@@ -23,6 +23,9 @@ if( getenv("PARAM1") == 'DEV' ){
 define( 'BD', 'labs' );
 define( 'Title', 'Sluup Labs' );
 
+/* Keys */
+define( 'YOUTUBE_KEY', 'AIzaSyDzvK5MbfxFcsheWG3A7nbAVqZR_jgs6gg' );
+
 $Conf['Login']['Table'] = 'users';
 $Conf['InitUrl'] = '/Desktop';
 $Conf['Type'] 	 = 1; // Sistema

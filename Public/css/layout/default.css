@@ -71,6 +71,7 @@ img.account-user{
 	border-radius: 2px;
 	overflow: hidden;
 	z-index: 100;
+	overflow: auto;
 }
 
 .modal .title{

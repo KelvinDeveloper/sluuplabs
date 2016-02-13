@@ -5,6 +5,8 @@ if( !$Function->isAjax() ){
 	echo '<div class="content">';
 }
 
+include __DIR__ . '/blocks/menu-album.php';
+
 $Album = $Database->Search( 'album_4', false, 'id_album=' . $Url[2] );
 
 ?>
@@ -30,8 +32,8 @@ foreach ( scandir( ROOT . '/' . $Album->galery ) as $Background ) {
 	if( $Background != '.' && $Background != '..' ){
 ?>
 
-<div class="card-image mdl-card mdl-shadow--2dp openFunction fL" style="background-image:url('<?=$Album->galery . '/' . $Background;?>')">
-</div>
+<a class="card-image mdl-card mdl-shadow--2dp item-lightbox fL" style="background-image:url('<?=$Album->galery . '/' . $Background;?>')" data-lightbox="roadtrip" href="<?=$Album->galery . '/' . $Background;?>">
+</a>
 
 <?php 	
 		}
