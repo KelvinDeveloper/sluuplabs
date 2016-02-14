@@ -743,10 +743,9 @@ p{
   height: 256px;
   background-size: cover;
   background-position: center;
-  margin: 10px auto;
+  margin: 5px;
   cursor: pointer;
   float: left;
-  margin: 10px;
 
   -webkit-transition: all .5s;
   transition: all .5s;

@@ -13,7 +13,7 @@ include __DIR__ . '/blocks/menu-album.php'; ?>
 	<h1><span>Galeria de Fotos</span></h1>
 
 <?php
-$Result = $Database->Fetch( 'album_4' );
+$Result = $Database->Fetch( 'album_4', false, false, 'id_album DESC' );
 while( $Album = $Result->fetch(PDO::FETCH_OBJ) ){ 
 
 $Backgrounds = scandir( ROOT . $Album->galery );

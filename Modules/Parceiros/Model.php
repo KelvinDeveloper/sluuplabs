@@ -3,7 +3,7 @@ $Services->Run('autoSystem');
 
 $Parceiros = $autoSystem->create(
 	array(
-		'bd'				=> 'parceiros_' . $_SESSION['user']['id_user'],
+		'bd'				=> 'parceiros_' . $_SESSION['user']['Path'],
 		'auto_increment'	=> 'id_parceiro',
 		'Fields'	=> 
 			array(
@@ -31,7 +31,6 @@ $Parceiros = $autoSystem->create(
 
 				'telefone'	=>	array(
 					'Label'		=>	'Telefone',
-					'Type'		=>	'phone',
 					'Lenght'	=>	25
 				),
 
@@ -39,6 +38,12 @@ $Parceiros = $autoSystem->create(
 					'Label'		=>	'URL',
 					'Type'		=>	'varchar',
 					'Placeholder'	=> 'URL',
+					'Lenght'	=>	100
+				),
+
+				'email'	=>	array(
+					'Type'		=>	'email',
+					'Placeholder'	=> 'Email',
 					'Lenght'	=>	100
 				),
 

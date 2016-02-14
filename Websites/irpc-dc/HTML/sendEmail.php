@@ -48,7 +48,7 @@ $mail->IsHTML ( $Conf['Email']['HTML'] );
 $mail->SetFrom( $Conf['Email']['Email'], $_POST['nome'] );
 $mail->Subject    = $_GET['action'] . ' | enviado por ipri.org.br';
 $mail->Body       = $HTML;
-$mail->AddAddress('kelvin.souza@tblmanager.com.br');
+$mail->AddAddress('delcydcosta@hotmail.com');
 
 $send = $mail->Send();
 
