@@ -6,24 +6,28 @@ if( !$Function->isAjax() ){
 }
 ?>
 
+	<br>
+
+	<div id="slider-block">
+		<div id="slider-holder">
+			<div id="slider">
+
 	<?php
 	/* Slide */
-	$Result = $Database->Fetch( 'blog_4', false, "publish='1'", 'id_blog DESC, visitas DESC', false, 4 );
-	$Loop	= 1;
+	$Result = $Database->Fetch( 'slides_4', false, false, 'id_slide DESC' );
 	
-	echo '<ul class="slide">';
 	while( $Slide = $Result->fetch(PDO::FETCH_OBJ) ){
-		echo '<li style="background-image: url(\'' . $Slide->image . '\');" class="slide-' . $Loop . ' openFunction" href="/post/' . $Slide->id_blog . '-' . strtolower( $Function->RemoveAccents(  str_replace( ' ', '-', $Slide->title) ) ) . '" title="' . addslashes( $Slide->title ) . ' | ' . Title . '">';
 
-			echo '<span class="title">' . $Slide->title . '</title>';
-
-		echo '</li>';
-		$Loop++;
+		echo '<a href="' . $Slide->link. '" target="' . ( $Slide->target == 2 ? '_blak' : '' ) . '">
+			  	<img src="' . $Slide->image . '" title="' . $Slide->title . '" >
+			  </a>';
 	}
-	echo '</ul>';
 	/* Ends Slide */
 	?>
-	
+
+			</div>
+		</div>
+	</div>
 
 
 <!-- Image card -->
