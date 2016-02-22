@@ -1,0 +1,72 @@
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+body, html {
+	background-color: #222;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+body, input, textarea, h1, h2, h3, h4, h5, h6, a {
+	font-family: 'Inconsolata';
+	font-weight: 400;
+	color: #fff;
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 36px;
+	margin: 0;
+	padding: 10px 0;
+	color: #ccc;
+}
+
+h1:before, h2:before, h3:before {
+	content: '// ';
+}
+
+/* sintax */
+.sintax {
+	padding: 5px;
+	font-size: 22px;
+}
+.return {
+	color: #BE2A1B;
+}
+
+.class-name {
+	color: #49A1EC;
+}
+
+.indent {
+	margin-left: 10px;
+}
+
+.indent-2 {
+	margin-left: 20px;
+}
+
+.indent-3 {
+	margin-left: 30px;
+}
+
+.class {
+	color: #E5C05D;
+}
+
+.lateral {
+	height: 100%;
+	background-color: #2E2E2E;
+	width: 30%;
+	display: inline-block;
+}
+
+.lateral div.perfil {
+	border-radius: 50%;
+	width: 250px;
+	height: 250px;
+	background-image: url('/Websites/kelvinsouza/HTML/img/canvas.png');
+	background-position: center;
+	margin: 10px auto;
+	box-shadow: 0 0 10px #333;
+}
