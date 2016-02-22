@@ -5,7 +5,7 @@
 	<div class="sintax">
 		<span class="return">return</span> Developer Full Stack; <br><br>
 
-		<em class="class"> class </em><span class="class-name">getInfo</span> () { <br>
+		<em class="class"> class </em><span class="class-name">getInfo</span> () { <br><br>
 
 			<div class="indent-2 sintax">
 
