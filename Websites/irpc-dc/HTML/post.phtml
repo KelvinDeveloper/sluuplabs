@@ -66,7 +66,7 @@ $Post = $Database->Search( 'blog_4', "*, DATE_FORMAT(register, '%d/%m/%Y') as Da
 // acresenta +1 nas visitas
 if( !isset( $_SESSION['view'][ $Post->id_blog ] ) ){
 	$Count = $Post->visitas + 1;
-	$Database->Update('blog', "visitas='" . $Count . "'", "id_blog='" . $Post->id_blog . "'");
+	$Database->Update('blog_4', "visitas='" . $Count . "'", "id_blog='" . $Post->id_blog . "'");
 	$_SESSION['view'][ $Post->id_blog ] = true;
 }
 
